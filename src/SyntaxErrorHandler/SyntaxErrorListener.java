@@ -21,7 +21,6 @@ public class SyntaxErrorListener extends BaseErrorListener {
 
 
     public void saveErrorFile() throws FileNotFoundException {
-
         try{
             PrintWriter out = new PrintWriter("ErrorFile.txt");
             out.println("You had: "+errors.size()+" errors:");
@@ -30,7 +29,6 @@ public class SyntaxErrorListener extends BaseErrorListener {
         } catch(FileNotFoundException e){
             e.printStackTrace();
         }
-
-    }
+    }/*POST= Return in a file Syntax error*/
 
 }
