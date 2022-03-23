@@ -1,25 +1,28 @@
 import ParserAndLexer.SimpLanPlusLexer;
 import ParserAndLexer.SimpLanPlusParser;
 import SyntaxErrorHandler.SyntaxErrorListener;
+import org.antlr.v4.misc.Graph;
 import org.antlr.v4.runtime.*;
 
 import java.io.FileNotFoundException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 public class Main {
     public static void main(String[] args) {
         try {
-            String source = "{ int a; int b; int c = 1 ;\n" +
-                    "     if (c > 1 { b = c ; } else { a = b  }\n" +
-                    "   }";
 
-            SimpLanPlusLexer lexer = new SimpLanPlusLexer(CharStreams.fromString(source));
-            SimpLanPlusParser parser = new SimpLanPlusParser(new CommonTokenStream(lexer));
+            String InputFile = Files.readString(Path.of("inputTest.txt"), StandardCharsets.US_ASCII);
+
+            SimpLanPlusLexer lexer = new SimpLanPlusLexer(CharStreams.fromString(InputFile));
+            CommonTokenStream tokens = new CommonTokenStream(lexer);
+            SimpLanPlusParser parser = new SimpLanPlusParser(tokens);
 
             SyntaxErrorListener MyErrorListener = new SyntaxErrorListener();
             //parser.removeErrorListeners();
             parser.addErrorListener(MyErrorListener);
             parser.block();
-            MyErrorListener.printError();
 
         try {
             MyErrorListener.saveErrorFile();

@@ -1,1 +1,4 @@
-Errore: [line 2:15 missing ')' at '{', line 2:41 missing ';' at '}']
+You had: 3 errors:
+In line 4:12 missing ')' at '{'
+In line 6:9 no viable alternative at input 'elsee{'
+In line 7:1 extraneous input '<EOF>' expecting {'{', '}', 'print', 'return', 'if', ID}
