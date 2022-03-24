@@ -29,6 +29,6 @@ public class SyntaxErrorListener extends BaseErrorListener {
         } catch(FileNotFoundException e){
             e.printStackTrace();
         }
-    }/*POST= Return in a file Syntax error*/
+    }/*POST= Return in a file Syntax errors*/
 
 }

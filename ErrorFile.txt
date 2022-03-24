@@ -1,4 +1,4 @@
 You had: 3 errors:
-In line 4:12 missing ')' at '{'
-In line 6:9 no viable alternative at input 'elsee{'
-In line 7:1 extraneous input '<EOF>' expecting {'{', '}', 'print', 'return', 'if', ID}
+In line 2:27 token recognition error at: '@'
+In line 4:11 token recognition error at: ']'
+In line 4:21 token recognition error at: '.'

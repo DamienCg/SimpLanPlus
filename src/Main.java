@@ -1,7 +1,6 @@
-import ParserAndLexer.SimpLanPlusLexer;
-import ParserAndLexer.SimpLanPlusParser;
+import Lexer.SimpLanPlusLexer;
+import Parser.SimpLanPlusParser;
 import SyntaxErrorHandler.SyntaxErrorListener;
-import org.antlr.v4.misc.Graph;
 import org.antlr.v4.runtime.*;
 
 import java.io.FileNotFoundException;
@@ -20,8 +19,9 @@ public class Main {
             SimpLanPlusParser parser = new SimpLanPlusParser(tokens);
 
             SyntaxErrorListener MyErrorListener = new SyntaxErrorListener();
-            //parser.removeErrorListeners();
-            parser.addErrorListener(MyErrorListener);
+            parser.removeErrorListeners();
+            //lexer.removeErrorListeners();
+            lexer.addErrorListener(MyErrorListener);
             parser.block();
 
         try {
