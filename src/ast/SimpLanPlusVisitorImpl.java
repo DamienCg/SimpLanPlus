@@ -2,12 +2,14 @@ package ast;
 
 import java.util.ArrayList;
 
+import ast.node.BoolTypeNode;
+import ast.node.IntTypeNode;
 import ast.node.Node;
 import ast.node.ProgLetInNode;
 import parser.SimpLanPlusParser.*;
 
 public class SimpLanPlusVisitorImpl extends SimpLanPlusBaseVisitor<Node> {
-
+/*
 	@Override
 	public Node visitLetInExp(LetInExpContext ctx) {
 		
@@ -231,5 +233,5 @@ public class SimpLanPlusVisitorImpl extends SimpLanPlusBaseVisitor<Node> {
 		
 		return res;
 	}
-	
+	*/
 }

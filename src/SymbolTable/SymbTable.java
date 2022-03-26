@@ -1,5 +1,6 @@
 package SymbolTable;
 import ast.STentry;
+import ast.node.Node;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,6 +34,20 @@ public class SymbTable {
         this(-1,0);
     }
 
+    SymbTable newScope(SymbTable st){
+
+    }
+    //Prende una st e restituisce una st con un nuovo
+    // ambiente
+
+    SymbTable addDecl(SymbTable st, String id, Node type){
+
+    }//controlla se non ci sono sconflitti in tal caso inserisce in St
+
+
+    SymbTable exitScope(SymbTable st){
+        
+    }
 }
 
 
