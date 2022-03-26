@@ -1,5 +1,5 @@
 // Generated from C:/Users/damie/IdeaProjects/SimpLanPlus/src\SimpLanPlus.g4 by ANTLR 4.9.2
-package Parser;
+package parser;
 import ast.SimpLanPlusListener;
 import ast.SimpLanPlusVisitor;
 import org.antlr.v4.runtime.atn.*;

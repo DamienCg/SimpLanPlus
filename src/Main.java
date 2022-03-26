@@ -1,9 +1,10 @@
 import Lexer.SimpLanPlusLexer;
-import Parser.SimpLanPlusParser;
+import ast.SimpLanPlusVisitorImpl;
+import ast.node.Node;
+import parser.SimpLanPlusParser;
 import SyntaxErrorHandler.SyntaxErrorListener;
 import org.antlr.v4.runtime.*;
 
-import java.io.FileNotFoundException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -22,16 +23,15 @@ public class Main {
             parser.removeErrorListeners();
             //lexer.removeErrorListeners();
             lexer.addErrorListener(MyErrorListener);
+
+            SimpLanPlusVisitorImpl visitor = new SimpLanPlusVisitorImpl();
+            Node ast = visitor.visit(parser.block()); //generazione AST
+
             parser.block();
 
-        try {
-            MyErrorListener.saveErrorFile();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         }
-        }catch (Exception e) {
-            e.printStackTrace();
-        }
+        catch (Exception e)
+        {e.printStackTrace();}
     }
 }
 
