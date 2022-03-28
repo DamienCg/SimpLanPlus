@@ -1,6 +1,5 @@
 package ast.node;
 import java.util.ArrayList;
-
 import ast.STentry;
 import util.Environment;
 import util.SemanticError;
@@ -36,9 +35,10 @@ public String toPrint(String s) {  //
            +parlstr;        
   }
 
+  //TODO
   public ArrayList<SemanticError> checkSemantics(Environment env) {
 		//create the result
-		ArrayList<SemanticError> res = new ArrayList<SemanticError>();
+		ArrayList<SemanticError> res = new ArrayList<>();
 		
 		 int j=env.nestingLevel;
 		 STentry tmp=null; 

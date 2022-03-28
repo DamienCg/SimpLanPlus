@@ -26,8 +26,9 @@ public class Main {
 
             SimpLanPlusVisitorImpl visitor = new SimpLanPlusVisitorImpl();
             Node ast = visitor.visit(parser.block()); //generazione AST
-
             parser.block();
+
+
 
         }
         catch (Exception e)

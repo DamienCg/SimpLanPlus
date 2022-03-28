@@ -19,7 +19,8 @@ public class VarNode implements Node {
     type=t;
     exp=v;
   }
-  
+
+  //TODO
   @Override
   public ArrayList<SemanticError> checkSemantics(Environment env) {
   		//create result list

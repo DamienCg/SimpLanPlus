@@ -23,7 +23,8 @@ public class ProgLetInNode implements Node {
       declstr += dec.toPrint(s+"  ");
 	return s+"ProgLetIn\n" + declstr + exp.toPrint(s+"  ") ; 
   }
-  
+
+  //TODO
   @Override
 	public ArrayList<SemanticError> checkSemantics(Environment env) {
 	  env.nestingLevel++;
