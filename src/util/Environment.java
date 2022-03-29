@@ -1,7 +1,5 @@
 package util;
-
 import ast.STentry;
-import ast.node.Node;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -30,31 +28,47 @@ public class Environment {
 		}
 	}
 
+	public int getNestinglevel(){
+		return this.nestingLevel;
+	}
+
+	public int getOffset(){
+		return this.offset;
+	}
+
+	public ArrayList<HashMap<String, STentry>> getSymTable(){
+		return this.symTable;
+	}
+
 	public Environment() {
 		this(-1,0);
 	}
 
 	//TODO
+	/*
 	Environment newScope(Environment st){
 
 	}
-	//Prende una st e restituisce una st con un nuovo
-	// ambiente
+	//Prende una st e restituisce una st con un nuovo ambiente
 
 	//TODO
 	Environment addDecl(Environment st, String id, Node type){
 
 	}//controlla se non ci sono sconflitti in tal caso inserisce in St
+	// inserimento di una variabile/funzione
 
 	//TODO
 	Environment exitScope(Environment st){
-
 	}
+	//distruzione ultimo ambiente creato!
 
 	//TODO
 	public Node lookUp(Environment st, final String id) {
 
 	}
+	//ricerca se una variabile è definita nella tabella dei simboli
+
+	 */
 
 }
 

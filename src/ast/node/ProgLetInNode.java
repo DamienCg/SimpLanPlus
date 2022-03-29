@@ -27,6 +27,7 @@ public class ProgLetInNode implements Node {
   //TODO
   @Override
 	public ArrayList<SemanticError> checkSemantics(Environment env) {
+      /*
 	  env.nestingLevel++;
       HashMap<String, STentry> hm = new HashMap<String,STentry> ();
       env.symTable.add(hm);
@@ -47,9 +48,12 @@ public class ProgLetInNode implements Node {
       
       //clean the scope, we are leaving a let scope
       env.symTable.remove(env.nestingLevel--);
-      
+
       //return the result
       return res;
+
+       */
+      return null;
 	}
   
   public Node typeCheck () {

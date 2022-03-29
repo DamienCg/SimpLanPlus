@@ -543,7 +543,7 @@ public class SimpLanPlusParser extends Parser {
 			if ( visitor instanceof SimpLanPlusVisitor ) return ((SimpLanPlusVisitor<? extends T>)visitor).visitType(this);
 			else return visitor.visitChildren(this);
 		}
-	}
+    }
 
 	public final TypeContext type() throws RecognitionException {
 		TypeContext _localctx = new TypeContext(_ctx, getState());

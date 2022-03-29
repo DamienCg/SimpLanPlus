@@ -2,16 +2,16 @@ package ast;
 import ast.node.*;
 public class STentry {
  
-  private int nl;
+  private int nestingLevel;
   private Node type;
   private int offset;
   
   public STentry (int n, int os)
-  {nl=n;
+  {nestingLevel=n;
   offset=os;} 
    
   public STentry (int n, Node t, int os)
-  {nl=n;
+  {nestingLevel=n;
    type=t;
    offset=os;}
 
@@ -27,10 +27,10 @@ public class STentry {
   {return offset;}
   
   public int getNestinglevel ()
-  {return nl;}
+  {return nestingLevel;}
   
   public String toPrint(String s) { //
-	   return s+"STentry: nestlev " + Integer.toString(nl) +"\n"+
+	   return s+"STentry: nestlev " + Integer.toString(nestingLevel) +"\n"+
 			  s+"STentry: type\n" + 
 			  type.toPrint(s+"  ") + 
 		      s+"STentry: offset " + Integer.toString(offset) + "\n";

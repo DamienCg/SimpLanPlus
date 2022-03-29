@@ -37,10 +37,11 @@ public String toPrint(String s) {  //
 
   //TODO
   public ArrayList<SemanticError> checkSemantics(Environment env) {
+      /*
 		//create the result
 		ArrayList<SemanticError> res = new ArrayList<>();
 		
-		 int j=env.nestingLevel;
+		 int j=env.getNestinglevel();
 		 STentry tmp=null; 
 		 while (j>=0 && tmp==null)
 		     tmp=(env.symTable.get(j--)).get(id);
@@ -49,12 +50,15 @@ public String toPrint(String s) {  //
 		 
 		 else{
 			 this.entry = tmp;
-			 this.nestinglevel = env.nestingLevel;
+			 this.nestinglevel = env.getNestinglevel();
 			 
 			 for(Node arg : parlist)
 				 res.addAll(arg.checkSemantics(env));
 		 }
 		 return res;
+
+       */
+      return new ArrayList<>();
   }
   
   public Node typeCheck () {  //                           

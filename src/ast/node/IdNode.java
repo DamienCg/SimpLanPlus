@@ -23,7 +23,7 @@ public class IdNode implements Node {
   //TODO
   @Override
 	public ArrayList<SemanticError> checkSemantics(Environment env) {
-	  
+      /*
 	  //create result list
 	  ArrayList<SemanticError> res = new ArrayList<SemanticError>();
 	  
@@ -40,6 +40,9 @@ public class IdNode implements Node {
       }
 	  
 	  return res;
+
+       */
+      return new ArrayList<>();
 	}
   
   public Node typeCheck () {

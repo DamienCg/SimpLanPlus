@@ -23,6 +23,7 @@ public class VarNode implements Node {
   //TODO
   @Override
   public ArrayList<SemanticError> checkSemantics(Environment env) {
+    /*
   		//create result list
   		ArrayList<SemanticError> res = new ArrayList<SemanticError>();
   	  
@@ -36,7 +37,10 @@ public class VarNode implements Node {
         res.addAll(exp.checkSemantics(env));
         
         return res;
+     */
+    return new ArrayList<>();
   }
+
   
   public String toPrint(String s) {
 	return s+"Var:" + id +"\n"

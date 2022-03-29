@@ -1,5 +1,6 @@
 import Lexer.SimpLanPlusLexer;
 import ast.SimpLanPlusVisitorImpl;
+import ast.node.BoolNode;
 import ast.node.Node;
 import parser.SimpLanPlusParser;
 import SyntaxErrorHandler.SyntaxErrorListener;
@@ -25,9 +26,7 @@ public class Main {
             lexer.addErrorListener(MyErrorListener);
 
             SimpLanPlusVisitorImpl visitor = new SimpLanPlusVisitorImpl();
-            Node ast = visitor.visit(parser.block()); //generazione AST
-            parser.block();
-
+            Node ast = visitor.visit(parser.block()); //generazione AST //TODO
 
 
         }
