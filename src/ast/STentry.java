@@ -15,7 +15,11 @@ public class STentry {
    type=t;
    offset=os;}
 
-  public STentry(STentry entry) {}
+  public STentry(STentry entry) {
+    this.nestingLevel = entry.nestingLevel;
+    this.offset = entry.offset;
+    this.type = entry.type;
+  }
 
   public void addType (Node t)
   {type=t;}

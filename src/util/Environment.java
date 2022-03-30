@@ -1,7 +1,8 @@
 package util;
-import ast.STentry;
 import java.util.ArrayList;
 import java.util.HashMap;
+import ast.*;
+import ast.node.Node;
 
 public class Environment {
 
@@ -13,19 +14,6 @@ public class Environment {
 		this.symTable = new ArrayList<>();
 		this.nestingLevel = nestingLevel;
 		this.offset = offset;
-	}
-
-	//Copy Constructor
-	public Environment(Environment e) {
-		this(e.nestingLevel, e.offset);
-		for (var scopeBlock : e.symTable) {
-			final HashMap<String, STentry> copiedScope = new HashMap<>();
-			for (var id : scopeBlock.keySet()) {
-				STentry entry = scopeBlock.get(id);
-				copiedScope.put(id, new STentry(entry));
-			}
-			this.symTable.add(copiedScope);
-		}
 	}
 
 	public int getNestinglevel(){
@@ -45,30 +33,46 @@ public class Environment {
 	}
 
 	//TODO
-	/*
-	Environment newScope(Environment st){
 
+	public void addNewTable(HashMap<String, STentry> hm){
+		this.nestingLevel++;
+		this.symTable.add(hm);
 	}
-	//Prende una st e restituisce una st con un nuovo ambiente
 
 	//TODO
-	Environment addDecl(Environment st, String id, Node type){
+	public SemanticError addDecl(int nestingLevel, final String id, STentry st){
 
-	}//controlla se non ci sono sconflitti in tal caso inserisce in St
+		HashMap<String, STentry> hm = symTable.get(nestingLevel);
+			if (hm.put(id, st) != null) {
+				return new SemanticError("Error: " + id + "already declared");
+			}
+			return null;
+		}
+
+		//controlla se non ci sono sconflitti in tal caso inserisce in St
 	// inserimento di una variabile/funzione
 
-	//TODO
-	Environment exitScope(Environment st){
+	// Search id in the symbol table and returns it if present
+	public STentry lookUp(int nestingLevel, final String id) {
+		for (int i = nestingLevel; i >= 0; i--) {
+			HashMap<String, STentry> scope = symTable.get(i);
+			STentry stEntry = scope.get(id);
+			if (stEntry != null) {
+				return stEntry;
+			}
+		}
+		return null;
+
+	}
+
+	public void exitScope(){
+		this.symTable.remove(this.nestingLevel);
+		this.nestingLevel --;
 	}
 	//distruzione ultimo ambiente creato!
 
-	//TODO
-	public Node lookUp(Environment st, final String id) {
-
-	}
 	//ricerca se una variabile è definita nella tabella dei simboli
 
-	 */
 
 }
 

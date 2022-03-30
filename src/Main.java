@@ -1,9 +1,7 @@
-import Lexer.SimpLanPlusLexer;
-import ast.SimpLanPlusVisitorImpl;
-import ast.node.BoolNode;
-import ast.node.Node;
+import Lexer.*;
+import ast.*;
 import parser.SimpLanPlusParser;
-import SyntaxErrorHandler.SyntaxErrorListener;
+import SyntaxErrorHandler.*;
 import org.antlr.v4.runtime.*;
 
 import java.nio.charset.StandardCharsets;
@@ -24,11 +22,7 @@ public class Main {
             parser.removeErrorListeners();
             //lexer.removeErrorListeners();
             lexer.addErrorListener(MyErrorListener);
-
-            SimpLanPlusVisitorImpl visitor = new SimpLanPlusVisitorImpl();
-            Node ast = visitor.visit(parser.block()); //generazione AST //TODO
-
-
+            parser.block();
         }
         catch (Exception e)
         {e.printStackTrace();}

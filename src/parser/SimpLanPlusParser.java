@@ -1,7 +1,6 @@
 // Generated from C:/Users/damie/IdeaProjects/SimpLanPlus/src\SimpLanPlus.g4 by ANTLR 4.9.2
 package parser;
-import ast.SimpLanPlusListener;
-import ast.SimpLanPlusVisitor;
+import ast.*;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
