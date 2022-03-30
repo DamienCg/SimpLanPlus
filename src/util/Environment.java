@@ -32,14 +32,11 @@ public class Environment {
 		this(-1,0);
 	}
 
-	//TODO
-
 	public void addNewTable(HashMap<String, STentry> hm){
 		this.nestingLevel++;
 		this.symTable.add(hm);
 	}
 
-	//TODO
 	public SemanticError addDecl(int nestingLevel, final String id, STentry st){
 
 		HashMap<String, STentry> hm = symTable.get(nestingLevel);
