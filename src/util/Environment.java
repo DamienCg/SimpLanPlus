@@ -62,6 +62,7 @@ public class Environment {
 
 	}
 
+
 	public void exitScope(){
 		this.symTable.remove(this.nestingLevel);
 		this.nestingLevel --;

@@ -15,8 +15,8 @@ public class IdNode implements Node{
 
 
     @Override
-    public String toPrint(String s) {
-        return "\n"+s+"Id:" + id;
+    public String toString(){
+        return "ID: "+id;
     }
 
     @Override

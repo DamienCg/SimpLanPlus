@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public interface Node {
 
-    String toPrint(String indent);
+    String toString();
 
     Node typeCheck();
 

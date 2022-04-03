@@ -1,7 +1,10 @@
 import Lexer.*;
+import ast.node.Node;
+import ast.node.SimpLanPlusVisitorImpl;
 import parser.SimpLanPlusParser;
 import SyntaxErrorHandler.*;
 import org.antlr.v4.runtime.*;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -25,7 +28,10 @@ public class Main {
             lexer.removeErrorListeners();
             lexer.addErrorListener(SyntaxtErrorListener);
             parser.addErrorListener(SemanticErrorListener);
-            parser.block();
+            SimpLanPlusVisitorImpl visitor = new SimpLanPlusVisitorImpl();
+            Node ast = visitor.visit(parser.block());
+            //TODO: print the AST
+            //System.out.println(ast.toString());
 
             if (SyntaxtErrorListener.getErrors().size() > 0 || SemanticErrorListener.getErrors().size() > 0) {
                 SyntaxtErrorListener.saveErrorFile(SemanticErrorListener);
@@ -37,6 +43,7 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 }
 

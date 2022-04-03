@@ -5,27 +5,30 @@ import util.SemanticError;
 
 import java.util.ArrayList;
 
-public class ArgNode implements Node{
-    // arg         : ('var')? type ID;
-    private Node type;
-    private Node id;
+public class ReturnNode implements Node {
+    // ret : 'return' (exp)?;
+    private Node exp;
 
-    ArgNode(Node type, Node id){
-        this.type = type;
-        this.id = id;
+    public ReturnNode(Node exp) {
+        this.exp = exp;
     }
+
+    public Node getExp() {
+        return exp;
+    }
+
+    public void setExp(Node exp) {
+        this.exp = exp;
+    }
+
 
     @Override
     public String toString() {
-        String ret = "ArgNode{";
-
-        if (type != null) {
-            ret += type.toString() + " ";
+     String ret = "returnNode{ ";
+        if(exp != null) {
+         ret += " " + exp.toString();
         }
-        if (id != null) {
-            ret += id.toString();
-        }
-        return ret + "}";
+     return ret + ";";
     }
 
     @Override

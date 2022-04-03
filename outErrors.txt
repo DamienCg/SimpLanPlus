@@ -1,8 +1,9 @@
-You had: 2 Syntax errors:
+You had: 3 Syntax errors:
 In line 2:27 token recognition error at: '@'
-In line 4:11 token recognition error at: ']'
+In line 5:12 token recognition error at: ']'
+In line 7:18 token recognition error at: '.'
 
 
 You had: 2 Semantic errors:
-In line 4:13 missing ')' at '{'
-In line 6:9 no viable alternative at input 'elsee{'
+In line 7:9 no viable alternative at input 'elsee{'
+In line 10:1 extraneous input '<EOF>' expecting {'{', '}', 'void', 'int', 'bool', 'print', 'return', 'if', ID}

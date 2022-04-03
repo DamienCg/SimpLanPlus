@@ -1,31 +1,33 @@
 package ast.node;
 
+import org.antlr.runtime.tree.TreeWizard;
 import util.Environment;
 import util.SemanticError;
 
 import java.util.ArrayList;
 
-public class ArgNode implements Node{
-    // arg         : ('var')? type ID;
-    private Node type;
-    private Node id;
+public class StatementNode implements Node {
+    private Node statement;
 
-    ArgNode(Node type, Node id){
-        this.type = type;
-        this.id = id;
+    public StatementNode(Node node) {
+        this.statement = node;
     }
+
+    public Node getNode() {
+        return statement;
+    }
+
+    public void setNode(Node node) {
+        this.statement = node;
+    }
+
 
     @Override
     public String toString() {
-        String ret = "ArgNode{";
-
-        if (type != null) {
-            ret += type.toString() + " ";
+        if (statement != null) {
+            return statement.toString();
         }
-        if (id != null) {
-            ret += id.toString();
-        }
-        return ret + "}";
+        return "";
     }
 
     @Override

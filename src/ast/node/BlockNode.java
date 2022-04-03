@@ -19,19 +19,20 @@ public class BlockNode implements Node{
     }
 
     @Override
-    public String toPrint(String indent) {
-        String ret = "";
-        if(this.declarations != null){
-            for(Node decl: declarations){
-                ret += decl.toPrint(indent);
+    public String toString() {
+        String ret = "BlockNode{\n";
+        if(this.declarations != null) {
+            for (Node decl : declarations) {
+                ret += decl.toString() + "\n";
             }
         }
-        if(statements != null){
-            for(Node stat: statements){
-                ret += stat.toPrint(indent);
+        if(this.statements != null){
+            for(Node stmt: statements){
+                ret += stmt.toString() + "\n";
             }
         }
-        return "\n"+indent+"block"+ret;
+        ret += "}";
+        return ret;
     }
     //Stampo i rispettivi sottoalberi dx e sx
 

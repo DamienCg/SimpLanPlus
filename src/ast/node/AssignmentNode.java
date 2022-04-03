@@ -17,11 +17,6 @@ public class AssignmentNode implements Node{
     }
 
     @Override
-    public String toPrint(String indent) {
-        return "\n"+indent + "Assignment: " + id.toPrint(indent) + " = " + exp.toPrint(indent);
-    }
-
-    @Override
     public Node typeCheck() {
         return null;
     }
@@ -34,5 +29,15 @@ public class AssignmentNode implements Node{
     @Override
     public ArrayList<SemanticError> checkSemantics(Environment env) {
         return null;
+    }
+
+    @Override
+    public String toString() {
+        String ret = "AssignmentNode{";
+        if(id != null)
+            ret += id.toString();
+        if(exp != null)
+            ret += " = " + exp.toString();
+        return ret + "}";
     }
 }
