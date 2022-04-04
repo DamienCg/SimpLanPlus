@@ -10,9 +10,9 @@ public class IdNode implements Node{
     private String id;
 
     public IdNode(String id){
+
         this.id = id;
     }
-
 
     @Override
     public String toString(){

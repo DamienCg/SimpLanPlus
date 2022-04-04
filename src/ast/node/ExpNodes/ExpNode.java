@@ -1,5 +1,6 @@
-package ast.node;
+package ast.node.ExpNodes;
 
+import ast.node.Node;
 import util.Environment;
 import util.SemanticError;
 
@@ -15,11 +16,10 @@ public class ExpNode implements Node {
 
     @Override
     public String toString() {
-        String ret = "ExpNode{\n";
-        if (exp != null) {
-            ret += exp.toString();
+        if(exp != null) {
+            return "\nExpNode{" + exp.toString() + "}";
         }
-         return ret + "}\n";
+        else return "";
     }
 
     @Override
@@ -36,4 +36,5 @@ public class ExpNode implements Node {
     public ArrayList<SemanticError> checkSemantics(Environment env) {
         return null;
     }
+
 }

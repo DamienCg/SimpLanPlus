@@ -21,12 +21,11 @@ public class IfNode implements Node {
     public String toString() {
         String ret = "if (" + exp.toString() + ") {\n";
         if (elsestatement != null) {
-            ret += ifstatement.toString() + "\n} else {\n" + elsestatement.toString() + "\n}";
+            return ret += ifstatement.toString() + "\n} else {\n" + elsestatement.toString() + "\n}";
         }
         else {
-            ret += ifstatement.toString() + "\n}";
+            return ret += ifstatement.toString() + "\n}";
         }
-        return ret;
     }
 
     @Override
