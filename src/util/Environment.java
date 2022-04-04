@@ -38,13 +38,13 @@ public class Environment {
 	}
 
 	public SemanticError addDecl(int nestingLevel, final String id, STentry st){
-
-		HashMap<String, STentry> hm = symTable.get(nestingLevel);
-			if (hm.put(id, st) != null) {
-				return new SemanticError("Error: " + id + "already declared");
-			}
-			return null;
+		HashMap<String, STentry> scope = symTable.get(nestingLevel);
+		if (scope.containsKey(id)) {
+			return new SemanticError("Variable " + id + " already declared");
 		}
+		scope.put(id, st);
+		return null;
+	}
 
 		//controlla se non ci sono sconflitti in tal caso inserisce in St
 	// inserimento di una variabile/funzione
