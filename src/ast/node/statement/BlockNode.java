@@ -1,11 +1,12 @@
-package ast.node;
+package ast.node.statement;
 
+import ast.node.Node;
 import util.Environment;
 import util.SemanticError;
 
 import java.util.ArrayList;
 
-public class BlockNode implements Node{
+public class BlockNode implements Node {
 
     // I nostri 2 non terminali iniziali
     private ArrayList<Node> declarations;

@@ -1,17 +1,18 @@
-package ast.node;
+package ast.node.statement;
 
+import ast.node.Node;
 import util.Environment;
 import util.SemanticError;
 
 import java.util.ArrayList;
 
-public class IfNode implements Node {
+public class IteNode implements Node {
     // ite         : 'if' '(' exp ')' statement ('else' statement)?;
     public Node exp;
     public Node ifstatement;
     public Node elsestatement;
 
-    public IfNode(Node exp, Node ifstatement, Node elsestatement) {
+    public IteNode(Node exp, Node ifstatement, Node elsestatement) {
         this.exp = exp;
         this.ifstatement = ifstatement;
         this.elsestatement = elsestatement;

@@ -1,7 +1,7 @@
 package ast.node;
 import ast.SimpLanPlusBaseVisitor;
-import ast.node.BlockNode;
-import ast.node.Node;
+import ast.node.statement.AssignmentNode;
+import ast.node.statement.BlockNode;
 import parser.SimpLanPlusParser;
 
 import java.util.ArrayList;

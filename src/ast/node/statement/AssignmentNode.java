@@ -1,11 +1,12 @@
-package ast.node;
+package ast.node.statement;
 
+import ast.node.Node;
 import util.Environment;
 import util.SemanticError;
 
 import java.util.ArrayList;
 
-public class AssignmentNode implements Node{
+public class AssignmentNode implements Node {
 
     // assignment  : ID '=' exp ;
     private Node id;

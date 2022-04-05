@@ -1,26 +1,38 @@
-package ast.node;
+package ast.node.statement;
 
+import ast.node.Node;
 import util.Environment;
 import util.SemanticError;
 
 import java.util.ArrayList;
 
-public class PrintNode implements Node{
-
+public class ReturnNode implements Node {
+    // ret : 'return' (exp)?;
     private Node exp;
-    // print	    : 'print' exp;
 
-    PrintNode(Node exp){
+    public ReturnNode(Node exp) {
+
         this.exp = exp;
     }
 
+    public Node getExp() {
+
+        return exp;
+    }
+
+    public void setExp(Node exp) {
+
+        this.exp = exp;
+    }
+
+
     @Override
     public String toString() {
-        String ret = "print(";
-        if (exp != null) {
-            ret += exp.toString();
+     String ret = "returnNode{ ";
+        if(exp != null) {
+         ret += " " + exp.toString();
         }
-        return ret + ")";
+     return ret + ";";
     }
 
     @Override
