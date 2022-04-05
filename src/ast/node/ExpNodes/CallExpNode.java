@@ -6,20 +6,19 @@ import util.SemanticError;
 
 import java.util.ArrayList;
 
-public class BinExpNode extends ExpNode {
+public class CallExpNode extends ExpNode{
 
-    private String op;
-    private ExpNode left; //[TOSE] ho messo expNode perché nella grammatica sono assegnate ad espressioni
-    private ExpNode right;
+    private Node callExpNode; //[TOSE] Non è di tipo ExpNode perché contiene il nodo "CALL"
 
-    public BinExpNode(Node exp) {
+    //[TOSE] Serve un altro costruttore?
+    public CallExpNode(Node exp) {
         super(exp);
     }
 
     @Override
     public String toString() {
         String ret = "";
-        ret +=left.toString() + " " + op + " " + right.toString();
+        ret += "Call:" + callExpNode.toString() ; //[TOSE] devo scrivere pari alla grammatica?
         return ret;
     }
 
@@ -27,6 +26,4 @@ public class BinExpNode extends ExpNode {
     public ArrayList<SemanticError> checkSemantics(Environment env) {
         return null;
     }
-
-
 }

@@ -6,20 +6,22 @@ import util.SemanticError;
 
 import java.util.ArrayList;
 
-public class BinExpNode extends ExpNode {
+public class BoolExpNode extends ExpNode{
 
-    private String op;
-    private ExpNode left; //[TOSE] ho messo expNode perché nella grammatica sono assegnate ad espressioni
-    private ExpNode right;
+    private boolean BoolExpNode;
 
-    public BinExpNode(Node exp) {
+    public BoolExpNode(Node exp) {
         super(exp);
     }
 
     @Override
     public String toString() {
         String ret = "";
-        ret +=left.toString() + " " + op + " " + right.toString();
+        if (BoolExpNode == true) {
+            ret += "Bool: true";
+        } else {
+            ret += "Bool: false";
+        }
         return ret;
     }
 
@@ -27,6 +29,4 @@ public class BinExpNode extends ExpNode {
     public ArrayList<SemanticError> checkSemantics(Environment env) {
         return null;
     }
-
-
 }
