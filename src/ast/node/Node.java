@@ -14,21 +14,19 @@ public interface Node {
     ArrayList<SemanticError> checkSemantics(Environment env);
 }
 
-//TODO:
+
+//TODO: VITTORIA
 // Dentro package ast.node fare:
 // TypeNode
+// VoidNode
+// ed implementare il metodo toString()
 
-//TODO:
+//TODO: VITTORIA
 // Dentro package ast.node.statement fare:
 // CallNode
+// ed implementare il metodo toString()
 
-
-//TODO:
-// Dentro package ast.node.declaration fare:
-// DecFunNode
-// DecVarNode
-
-//TODO:
+//TODO: Tommy
 // Dentro il package ast.node.ExpNodes
 // Fare i seguenti nodi classe:
 // NegExpNode
@@ -38,29 +36,24 @@ public interface Node {
 // CallExpNode
 // BoolExpNode
 // ValExpNode
+// ed implementare il metodo toString()
 
-//TODO:
-// Implementare metodo ToString() in tutti i nodi di ast.node
 
-//TODO:
-// Implementare metodo ToString() in tutti i nodi di ast.node.statement
-
-//TODO:
-// Implementare metodo ToString() in tutti i nodi di ast.node.declaration
-
-//TODO:
-// Implementare metodo ToString() in tutti i nodi di ast.node.ExpNodes
-
-//TODO:
+//TODO: Vittoria
 // Implementare il metodo CheckSemantics() in tutti i nodi di ast.node
 
-//TODO:
+//TODO: Tutti
 // Implementare il metodo CheckSemantics() in tutti i nodi di ast.node.statement
+// AssignimentNode -> Damien
+// blockNode -> Damien
+// iteNode -> Vittoria
+// printNode -> Vittoria
+// returnNode -> Tommy
 
-//TODO:
+//TODO: Damien
 // Implementare il metodo CheckSemantics() in tutti i nodi di ast.node.declaration
 
-//TODO:
+//TODO: Tommy
 // Implementare il metodo CheckSemantics() in tutti i nodi di ast.node.ExpNodes
 
 
