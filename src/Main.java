@@ -14,7 +14,7 @@ import java.nio.file.Path;
 public class Main {
     public static void main(String[] args) {
         System.out.println("##### SimpLanPlus Compiler  ###");
-        String fileName = "input.simplanplus";//tose
+        String fileName = "input.simplanplus";
         try {
             String InputFile = Files.readString(Path.of(fileName), StandardCharsets.US_ASCII);
             SimpLanPlusLexer lexer = new SimpLanPlusLexer(CharStreams.fromString(InputFile));
