@@ -1,5 +1,7 @@
 package ast.node;
 
+import ast.node.declaration.DecFunNode;
+import ast.node.declaration.DecVarNode;
 import util.Environment;
 import util.SemanticError;
 
@@ -8,10 +10,10 @@ import java.util.ArrayList;
 public class DeclarationNode implements Node {
     // declaration : decFun
     //            | decVar ;
-    private Node decFun;
-    private Node decVar;
+    private DecFunNode decFun;
+    private DecVarNode decVar;
 
-    public DeclarationNode(Node decFun, Node decVar) {
+    public DeclarationNode(DecFunNode decFun, DecVarNode decVar) {
         this.decFun = decFun;
         this.decVar = decVar;
     }

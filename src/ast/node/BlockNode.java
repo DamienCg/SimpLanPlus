@@ -1,4 +1,4 @@
-package ast.node.statement;
+package ast.node;
 
 import ast.node.Node;
 import util.Environment;
@@ -14,7 +14,7 @@ public class BlockNode implements Node {
 
     //Constructors
 
-    BlockNode(ArrayList<Node> declarations,ArrayList<Node> statements){
+    public BlockNode(ArrayList<Node> declarations,ArrayList<Node> statements){
         this.declarations = declarations;
         this.statements = statements;
     }

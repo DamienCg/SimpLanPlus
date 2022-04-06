@@ -1,5 +1,7 @@
 package ast.node.statement;
 
+import ast.node.ExpNodes.ExpNode;
+import ast.node.IdNode;
 import ast.node.Node;
 import util.Environment;
 import util.SemanticError;
@@ -9,10 +11,10 @@ import java.util.ArrayList;
 public class AssignmentNode implements Node {
 
     // assignment  : ID '=' exp ;
-    private Node id;
-    private Node exp;
+    private IdNode id;
+    private ExpNode exp;
 
-    AssignmentNode(Node id, Node exp){
+    public AssignmentNode(IdNode id, ExpNode exp){
         this.id = id;
         this.exp = exp;
     }

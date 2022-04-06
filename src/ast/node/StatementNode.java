@@ -7,6 +7,7 @@ import util.SemanticError;
 import java.util.ArrayList;
 
 public class StatementNode implements Node {
+
     private Node statement;
 
     public StatementNode(Node node) {

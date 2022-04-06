@@ -1,5 +1,6 @@
 package ast.node.statement;
 
+import ast.node.ExpNodes.ExpNode;
 import ast.node.Node;
 import util.Environment;
 import util.SemanticError;
@@ -8,9 +9,9 @@ import java.util.ArrayList;
 
 public class ReturnNode implements Node {
     // ret : 'return' (exp)?;
-    private Node exp;
+    private ExpNode exp;
 
-    public ReturnNode(Node exp) {
+    public ReturnNode(ExpNode exp) {
 
         this.exp = exp;
     }
@@ -20,7 +21,7 @@ public class ReturnNode implements Node {
         return exp;
     }
 
-    public void setExp(Node exp) {
+    public void setExp(ExpNode exp) {
 
         this.exp = exp;
     }

@@ -1,6 +1,8 @@
 package ast.node.declaration;
 
+import ast.node.IdNode;
 import ast.node.Node;
+import ast.node.BlockNode;
 import util.Environment;
 import util.SemanticError;
 
@@ -9,12 +11,12 @@ import java.util.ArrayList;
 public class DecFunNode implements Node {
 
     private Node type;
-    private Node id;
+    private IdNode id;
     private ArrayList<Node> ArgList;
-    private Node block;
+    private BlockNode block;
     // decFun	    : (type | 'void') ID '(' (arg (',' arg)*)? ')' block ;
 
-    public DecFunNode(Node type, Node id, Node block, ArrayList<Node> argList) {
+    public DecFunNode(Node type, IdNode id, BlockNode block, ArrayList<Node> argList) {
         this.type = type;
         this.id = id;
         this.ArgList = argList;

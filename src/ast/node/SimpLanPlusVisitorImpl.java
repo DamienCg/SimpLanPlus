@@ -1,7 +1,9 @@
 package ast.node;
 import ast.SimpLanPlusBaseVisitor;
+import ast.node.ExpNodes.ExpNode;
+import ast.node.declaration.DecFunNode;
+import ast.node.declaration.DecVarNode;
 import ast.node.statement.AssignmentNode;
-import ast.node.statement.BlockNode;
 import parser.SimpLanPlusParser;
 
 import java.util.ArrayList;
@@ -28,10 +30,10 @@ public class SimpLanPlusVisitorImpl extends SimpLanPlusBaseVisitor<Node> {
        DeclarationNode ret = null;
 
         if (ctx.decFun() != null) {
-            ret = new DeclarationNode(visit(ctx.decFun()), null);
+            ret = new DeclarationNode((DecFunNode) visit(ctx.decFun()), null);
         }
         else if (ctx.decVar() != null) {
-            ret = new DeclarationNode(null,visit(ctx.decVar()));
+            ret = new DeclarationNode( null, (DecVarNode) visit(ctx.decVar()));
         }
         return ret;
     }
@@ -42,7 +44,7 @@ public class SimpLanPlusVisitorImpl extends SimpLanPlusBaseVisitor<Node> {
         // assignment  : ID '=' exp ;
         if (ctx.ID() != null && ctx.exp() != null) {
             IdNode id = new IdNode(ctx.ID().getText());
-            ret = new AssignmentNode(id, visit(ctx.exp()));
+            ret = new AssignmentNode(id, (ExpNode) visit(ctx.exp()));
         }
         return ret;
     }

@@ -1,5 +1,6 @@
 package ast.node.statement;
 
+import ast.node.ExpNodes.ExpNode;
 import ast.node.Node;
 import util.Environment;
 import util.SemanticError;
@@ -8,10 +9,10 @@ import java.util.ArrayList;
 
 public class PrintNode implements Node {
 
-    private Node exp;
+    private ExpNode exp;
     // print	    : 'print' exp;
 
-    PrintNode(Node exp){
+    PrintNode(ExpNode exp){
         this.exp = exp;
     }
 
