@@ -20,11 +20,13 @@ public interface Node {
 // TypeNode
 // VoidNode
 // ed implementare il metodo toString()
+//OK
 
 //TODO: VITTORIA
 // Dentro package ast.node.statement fare:
 // CallNode
 // ed implementare il metodo toString()
+//OK
 
 //TODO: Tommy
 // Dentro il package ast.node.ExpNodes
@@ -43,13 +45,16 @@ public interface Node {
 
 //TODO: Vittoria
 // Implementare il metodo CheckSemantics() in tutti i nodi di ast.node
+//OK--
 
 //TODO: Tutti
 // Implementare il metodo CheckSemantics() in tutti i nodi di ast.node.statement
 // AssignimentNode -> Damien
 // blockNode -> Damien
 // iteNode -> Vittoria
+//OK--
 // printNode -> Vittoria
+//OK--
 // returnNode -> Tommy
 
 //TODO: Damien

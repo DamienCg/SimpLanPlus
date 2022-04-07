@@ -26,6 +26,11 @@ public class SimpLanPlusVisitorImpl extends SimpLanPlusBaseVisitor<Node> {
     }
 
     @Override
+    public ArrayList<SemanticError> checkSemantics(Environment env) {
+        return null;
+    }
+
+    @Override
     public Node visitDeclaration(SimpLanPlusParser.DeclarationContext ctx) {
        DeclarationNode ret = null;
 
