@@ -6,9 +6,8 @@ import util.SemanticError;
 
 import java.util.ArrayList;
 
-public class NotExpNode extends ExpNode{
+public class NotExpNode extends BaseExpNode{
 
-    private ExpNode notExpNode;
 
     public NotExpNode(Node exp) {
         super(exp);
@@ -16,9 +15,7 @@ public class NotExpNode extends ExpNode{
 
     @Override
     public String toString() {
-        String ret = "";
-        ret += "!" + notExpNode.toString() ;
-        return ret;
+        return "!" + this.toString();
     }
 
     @Override

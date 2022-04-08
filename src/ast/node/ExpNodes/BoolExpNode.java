@@ -6,23 +6,32 @@ import util.SemanticError;
 
 import java.util.ArrayList;
 
-public class BoolExpNode extends ExpNode{
+public class BoolExpNode implements Node{
 
     private boolean BoolExpNode;
 
-    public BoolExpNode(Node exp) {
-        super(exp);
+    public BoolExpNode(boolean boolExpNode) {
+        BoolExpNode = boolExpNode;
     }
 
     @Override
     public String toString() {
         String ret = "";
-        if (BoolExpNode == true) {
+        if (BoolExpNode == true)
             ret += "Bool: true";
-        } else {
+         else
             ret += "Bool: false";
-        }
         return ret;
+    }
+
+    @Override
+    public Node typeCheck() {
+        return null;
+    }
+
+    @Override
+    public String codeGeneration() {
+        return null;
     }
 
     @Override

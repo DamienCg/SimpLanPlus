@@ -8,8 +8,6 @@ import java.util.ArrayList;
 
 public class BaseExpNode extends ExpNode{
 
-    private ExpNode BaseExpNode;
-
     public BaseExpNode(Node exp) {
         super(exp);
     }
@@ -17,7 +15,7 @@ public class BaseExpNode extends ExpNode{
     @Override
     public String toString() {
         String ret = "";
-        ret += "Base: (" + BaseExpNode.toString() +")" ;
+        ret += "(" + this.toString() +")" ;
         return ret;
     }
 

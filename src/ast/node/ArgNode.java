@@ -7,17 +7,17 @@ import java.util.ArrayList;
 
 public class ArgNode implements Node{
     // arg         : ('var')? type ID;
-    private Node type;
+    private TypeNode type;
     private IdNode id;
 
-    ArgNode(Node type, IdNode id){
-        this.type = type;
-        this.id = id;
+    ArgNode(Node type, Node id){
+        this.type = (TypeNode) type;
+        this.id = (IdNode) id;
     }
 
     @Override
     public String toString() {
-        String ret = "ArgNode{";
+        String ret = "(";
 
         if (type != null) {
             ret += type.toString() + " ";
@@ -25,7 +25,7 @@ public class ArgNode implements Node{
         if (id != null) {
             ret += id.toString();
         }
-        return ret + "}";
+        return ret + ")";
     }
 
     @Override

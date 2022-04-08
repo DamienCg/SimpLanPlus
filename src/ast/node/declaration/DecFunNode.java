@@ -3,6 +3,7 @@ package ast.node.declaration;
 import ast.node.IdNode;
 import ast.node.Node;
 import ast.node.BlockNode;
+import ast.node.TypeNode;
 import util.Environment;
 import util.SemanticError;
 
@@ -10,17 +11,17 @@ import java.util.ArrayList;
 
 public class DecFunNode implements Node {
 
-    private Node type;
+    private TypeNode type;
     private IdNode id;
     private ArrayList<Node> ArgList;
     private BlockNode block;
     // decFun	    : (type | 'void') ID '(' (arg (',' arg)*)? ')' block ;
 
-    public DecFunNode(Node type, IdNode id, BlockNode block, ArrayList<Node> argList) {
-        this.type = type;
-        this.id = id;
+    public DecFunNode(Node type, Node id, Node block, ArrayList<Node> argList) {
+        this.type = (TypeNode) type;
+        this.id = (IdNode) id;
         this.ArgList = argList;
-        this.block = block;
+        this.block = (BlockNode) block;
     }
     @Override
     public Node typeCheck() {
@@ -51,6 +52,7 @@ public class DecFunNode implements Node {
         return null;
     }
 
+    //TODO: check if the function is already defined
     @Override
     public ArrayList<SemanticError> checkSemantics(Environment env) {
         return null;

@@ -6,14 +6,16 @@ import util.SemanticError;
 
 import java.util.ArrayList;
 
-public class BinExpNode extends ExpNode {
+public class BinExpNode implements Node {
 
     private String op;
     private ExpNode left; //[TOSE] ho messo expNode perché nella grammatica sono assegnate ad espressioni
     private ExpNode right;
 
-    public BinExpNode(Node exp) {
-        super(exp);
+    public BinExpNode(Node left, Node right, String op) {
+        this.left = (ExpNode) left;
+        this.right = (ExpNode) right;
+        this.op = op;
     }
 
     @Override
@@ -21,6 +23,16 @@ public class BinExpNode extends ExpNode {
         String ret = "";
         ret +=left.toString() + " " + op + " " + right.toString();
         return ret;
+    }
+
+    @Override
+    public Node typeCheck() {
+        return null;
+    }
+
+    @Override
+    public String codeGeneration() {
+        return null;
     }
 
     @Override

@@ -3,6 +3,7 @@ package ast.node.declaration;
 import ast.node.ExpNodes.ExpNode;
 import ast.node.IdNode;
 import ast.node.Node;
+import ast.node.TypeNode;
 import util.Environment;
 import util.SemanticError;
 
@@ -12,13 +13,13 @@ public class DecVarNode implements Node {
 
     //decVar      : type ID ('=' exp)? ';' ;
 
-    private Node type;
+    private TypeNode type;
     private IdNode id;
-    private ExpNode exp;
+    private Node exp;
 
-    public DecVarNode(Node type, IdNode id, ExpNode exp) {
-        this.type = type;
-        this.id = id;
+    public DecVarNode(Node type, Node id, Node exp) {
+        this.type = (TypeNode) type;
+        this.id = (IdNode) id;
         this.exp = exp;
     }
 
@@ -34,13 +35,11 @@ public class DecVarNode implements Node {
 
     @Override
     public String toString() {
-       String ret = "";
        if (exp != null)
-           ret += type.toString() + " " + id.toString() + " = " + exp.toString() + ";";
+           return type.toString() + " " + id.toString() + " = " + exp.toString() + ";";
        else
-           ret += type.toString() + " " + id.toString() + ";";
+           return type.toString() + " " + id.toString() + ";";
 
-       return ret;
     }
 
     @Override

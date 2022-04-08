@@ -6,13 +6,12 @@ import util.SemanticError;
 
 import java.util.ArrayList;
 
-public class CallExpNode extends ExpNode{
+public class CallExpNode implements Node{
 
     private Node callExpNode; //[TOSE] Non è di tipo ExpNode perché contiene il nodo "CALL"
 
-    //[TOSE] Serve un altro costruttore?
-    public CallExpNode(Node exp) {
-        super(exp);
+    public CallExpNode(Node call){
+        callExpNode = call;
     }
 
     @Override
@@ -23,7 +22,17 @@ public class CallExpNode extends ExpNode{
     }
 
     @Override
-    public ArrayList<SemanticError> checkSemantics(Environment env) {
+    public Node typeCheck() {
         return null;
+    }
+
+    @Override
+    public String codeGeneration() {
+        return null;
+    }
+
+    @Override
+    public ArrayList<SemanticError> checkSemantics(Environment env) {
+        return callExpNode.checkSemantics(env);
     }
 }

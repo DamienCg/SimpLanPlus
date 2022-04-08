@@ -21,7 +21,7 @@ public class BlockNode implements Node {
 
     @Override
     public String toString() {
-        String ret = "BlockNode{\n";
+        String ret = "{\n";
         if(this.declarations != null) {
             for (Node decl : declarations) {
                 ret += decl.toString() + "\n";
@@ -32,8 +32,7 @@ public class BlockNode implements Node {
                 ret += stmt.toString() + "\n";
             }
         }
-        ret += "}";
-        return ret;
+        return ret += "}";
     }
     //Stampo i rispettivi sottoalberi dx e sx
 

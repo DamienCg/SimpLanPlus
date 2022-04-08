@@ -43,6 +43,11 @@ public class StatementNode implements Node {
 
     @Override
     public ArrayList<SemanticError> checkSemantics(Environment env) {
-        return null;
+        ArrayList<SemanticError> errors = new ArrayList<>();
+        // Passo il check semantics allo statement
+        if (statement != null) {
+            errors.addAll(statement.checkSemantics(env));
+        }
+        return errors;
     }
 }

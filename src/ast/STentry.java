@@ -32,11 +32,5 @@ public class STentry {
   
   public int getNestinglevel ()
   {return nestingLevel;}
-  
-  public String toPrint(String s) { //
-	   return s+"STentry: nestlev " + Integer.toString(nestingLevel) +"\n"+
-			  s+"STentry: type\n" + 
-			  type.toString() +
-		      s+"STentry: offset " + Integer.toString(offset) + "\n";
-  }
+
 }  

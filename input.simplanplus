@@ -1,10 +1,10 @@
 { 
-	int a; int b; int c = 1 ; @
+	int a; int b; int c = 1 ;
 
     void F(bool x){
 		if (c > 1)] { b = c; }
 
 			elsee { a = b ;.
 
-			}
+
 }

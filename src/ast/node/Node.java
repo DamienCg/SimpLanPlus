@@ -15,32 +15,7 @@ public interface Node {
 }
 
 
-//TODO: VITTORIA
-// Dentro package ast.node fare:
-// TypeNode
-// VoidNode
-// ed implementare il metodo toString()
-//OK
 
-//TODO: VITTORIA
-// Dentro package ast.node.statement fare:
-// CallNode
-// ed implementare il metodo toString()
-//OK
-
-//TODO: Tommy
-// Dentro il package ast.node.ExpNodes
-// Fare i seguenti nodi classe:
-// BaseExpNode  --> ok print, ko checkSemantics
-// NegExpNode   --> ok print, ko checkSemantics
-// NotExpNode   --> ok print, ko checkSemantics
-// DerExpNode   --> ok print, ko checkSemantics
-// BinExpNode   --> ok print, ko checkSemantics
-// CallExpNode  --> ok print, ko checkSemantics
-// BoolExpNode  --> ok print, ko checkSemantics
-// ValExpNode   --> ok print, ko checkSemantics
-// implementare il metodo toString() --> ok
-// implementare il metodo CheckSemantics() --> ko
 
 
 //TODO: Vittoria
@@ -59,6 +34,5 @@ public interface Node {
 
 //TODO: Damien
 // Implementare il metodo CheckSemantics() in tutti i nodi di ast.node.declaration
-
 
 

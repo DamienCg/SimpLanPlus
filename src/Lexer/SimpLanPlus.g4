@@ -32,10 +32,10 @@ ite         : 'if' '(' exp ')' statement ('else' statement)?;
 
 call        : ID '(' (exp(',' exp)*)? ')';
 
-exp	    : '(' exp ')'				        #baseExp
-	    | '-' exp					        #negExp
+exp	    : '(' exp ')'				                        #baseExp
+	    | '-' exp					                        #negExp
 	    | '!' exp                                           #notExp
-	    | ID						#derExp
+	    | ID						                        #derExp
 	    | left=exp op=('*' | '/')               right=exp   #binExp
 	    | left=exp op=('+' | '-')               right=exp   #binExp
 	    | left=exp op=('<' | '<=' | '>' | '>=') right=exp   #binExp
@@ -44,7 +44,7 @@ exp	    : '(' exp ')'				        #baseExp
 	    | left=exp op='||'                      right=exp   #binExp
 	    | call                                              #callExp
 	    | BOOL                                              #boolExp
-	    | NUMBER					        #valExp;
+	    | NUMBER					                        #valExp;
 
 
 // THIS IS THE LEXER INPUT
