@@ -1,10 +1,11 @@
 package ast.node.statements;
 
-public class CallNode implements Node{
+public class VoidNode implements Node{
     @Override
     public String toString() {
         String ret = "";
-        ret += "Call: (" + CallNode.toString() +")" ;
+        ret += "Void: (" + VoidNode.toString() +")" ;
         return ret;
     }
+
 }
