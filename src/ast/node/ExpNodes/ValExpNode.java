@@ -6,12 +6,12 @@ import util.SemanticError;
 
 import java.util.ArrayList;
 
-public class ValExpNode extends ExpNode{
+public class ValExpNode implements Node {
 
     private Integer ValExpNode;
 
-    public ValExpNode(Node exp) {
-        super(exp);
+    public ValExpNode(int val) {
+        this.ValExpNode = val;
     }
 
     @Override
@@ -19,6 +19,16 @@ public class ValExpNode extends ExpNode{
         String ret = "";
         ret += "Int: " + ValExpNode;
         return ret;
+    }
+
+    @Override
+    public Node typeCheck() {
+        return null;
+    }
+
+    @Override
+    public String codeGeneration() {
+        return null;
     }
 
     @Override

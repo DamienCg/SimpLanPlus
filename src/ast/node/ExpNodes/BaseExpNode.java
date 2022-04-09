@@ -15,7 +15,7 @@ public class BaseExpNode extends ExpNode{
     @Override
     public String toString() {
         String ret = "";
-        ret += "(" + this.toString() +")" ;
+        ret += "(" + this.exp.toString() +")" ;
         return ret;
     }
 

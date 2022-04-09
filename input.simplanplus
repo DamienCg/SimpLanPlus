@@ -1,10 +1,9 @@
 { 
-	int a; int b; int c = 1 ;
+	int a = 3; int b = 3; int c = 1;
 
     void F(bool x){
-		if (c > 1)] { b = c; }
+		if (3 > 1) { print (2); }
 
-			elsee { a = b ;.
-
-
+			else { print (23);}
+			}
 }

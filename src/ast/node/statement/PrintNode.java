@@ -12,8 +12,8 @@ public class PrintNode implements Node {
     private ExpNode exp;
     // print	    : 'print' exp;
 
-    PrintNode(ExpNode exp){
-        this.exp = exp;
+    public PrintNode(Node exp){
+        this.exp = (ExpNode) exp;
     }
 
     @Override

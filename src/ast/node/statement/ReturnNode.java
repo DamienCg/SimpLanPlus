@@ -11,9 +11,9 @@ public class ReturnNode implements Node {
     // ret : 'return' (exp)?;
     private ExpNode exp;
 
-    public ReturnNode(ExpNode exp) {
+    public ReturnNode(Node exp) {
 
-        this.exp = exp;
+        this.exp = (ExpNode) exp;
     }
 
     public Node getExp() {

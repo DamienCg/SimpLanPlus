@@ -24,14 +24,13 @@ public class Main {
             SyntaxAndSemanticErrorListener SyntaxtErrorListener = new SyntaxAndSemanticErrorListener();
             SyntaxAndSemanticErrorListener SemanticErrorListener = new SyntaxAndSemanticErrorListener();
 
-            parser.removeErrorListeners();
-            lexer.removeErrorListeners();
+            //parser.removeErrorListeners();
+            //lexer.removeErrorListeners();
             lexer.addErrorListener(SyntaxtErrorListener);
             parser.addErrorListener(SemanticErrorListener);
             SimpLanPlusVisitorImpl visitor = new SimpLanPlusVisitorImpl();
             Node ast = visitor.visit(parser.block());
-            //TODO: print the AST
-            //System.out.println(ast.toString());
+            System.out.println(ast.toString());
 
             if (SyntaxtErrorListener.getErrors().size() > 0 || SemanticErrorListener.getErrors().size() > 0) {
                 SyntaxtErrorListener.saveErrorFile(SemanticErrorListener);

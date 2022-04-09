@@ -18,8 +18,7 @@ public class DeclarationNode implements Node {
 
     @Override
     public String toString() {
-        String ret = "DeclarationNode{\n";
-        return ret += dec.toString() + "}";
+        return dec.toString();
     }
 
     @Override

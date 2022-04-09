@@ -11,9 +11,9 @@ import java.util.ArrayList;
 public class CallNode implements Node {
 // call        : ID '(' (exp(',' exp)*)? ')';
     private IdNode id;
-    private ArrayList<ExpNode> expList;
+    private ArrayList<Node> expList;
 
-    public CallNode(IdNode id, ArrayList<ExpNode> expList) {
+    public CallNode(IdNode id, ArrayList<Node> expList) {
         this.id = id;
         this.expList = expList;
     }
@@ -22,15 +22,12 @@ public class CallNode implements Node {
         return id;
     }
 
-    public ArrayList<ExpNode> getExpList() {
-        return expList;
-    }
 
     @Override
     public String toString() {
         String ret = id.toString() + "( ";
         if (expList != null) {
-            for (ExpNode exp : expList) {
+            for (Node exp : expList) {
                 ret += exp.toString() + ", ";
             }
         }

@@ -1,8 +1,5 @@
-You had: 2 Syntax errors:
-In line 5:12 token recognition error at: ']'
-In line 7:18 token recognition error at: '.'
+You had: 1 Syntax errors:
+In line 8:4 token recognition error at: '.'
 
 
-You had: 2 Semantic errors:
-In line 7:9 no viable alternative at input 'elsee{'
-In line 10:1 extraneous input '<EOF>' expecting {'{', '}', 'print', 'return', 'if', ID}
+You had: 0 Semantic errors:

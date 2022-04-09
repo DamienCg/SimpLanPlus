@@ -8,7 +8,8 @@ import java.util.ArrayList;
 
 public class ExpNode implements Node {
 
-    private Node exp;
+    protected Node exp;
+    // Protected because it must be accessed by subclasses
 
     public ExpNode(Node exp){
         this.exp = exp;

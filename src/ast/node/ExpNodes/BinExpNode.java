@@ -9,12 +9,12 @@ import java.util.ArrayList;
 public class BinExpNode implements Node {
 
     private String op;
-    private ExpNode left; //[TOSE] ho messo expNode perché nella grammatica sono assegnate ad espressioni
-    private ExpNode right;
+    private Node left; //[TOSE] ho messo expNode perché nella grammatica sono assegnate ad espressioni
+    private Node right;
 
     public BinExpNode(Node left, Node right, String op) {
-        this.left = (ExpNode) left;
-        this.right = (ExpNode) right;
+        this.left =  left;
+        this.right =  right;
         this.op = op;
     }
 

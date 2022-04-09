@@ -30,13 +30,13 @@ public class DecFunNode implements Node {
 
     @Override
     public String toString() {
-        String ret = "DecFunNode{"+"\n";
+        String ret = "\n";
         if (type != null)
             ret += type.toString()+"\n";
         else
-            ret += "void\n";
+            ret += "void ";
 
-        ret += id.toString()+"\n";
+        ret += id.toString();
         ret += "(";
         if(ArgList.size() > 0) {
             for (Node arg : ArgList) {
@@ -44,7 +44,7 @@ public class DecFunNode implements Node {
             }
         }
         ret += ")\n";
-        return ret += block.toString()+"\n"+"}";
+        return ret += block.toString()+"\n";
     }
 
     @Override
