@@ -1,5 +1,6 @@
 package ast.node.declaration;
 
+import ast.STentry;
 import ast.node.ExpNodes.ExpNode;
 import ast.node.IdNode;
 import ast.node.Node;
@@ -8,6 +9,7 @@ import util.Environment;
 import util.SemanticError;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class DecVarNode implements Node {
 
@@ -44,6 +46,19 @@ public class DecVarNode implements Node {
 
     @Override
     public ArrayList<SemanticError> checkSemantics(Environment env) {
-        return null;
+        //decVar      : type ID ('=' exp)? ';' ;
+        ArrayList<SemanticError> errors = new ArrayList<SemanticError>();
+        //   public STentry (int n, Node t, int os)
+        //  {nestingLevel=n;
+        //   type=t;
+        //   offset=os;}
+
+        STentry entry = new STentry(env.getNestinglevel(),type,0);
+        HashMap<String, STentry> map = new HashMap<String, STentry>();
+        // lookUP se è gia definita la variabile
+        map.put(id.getId(), entry);
+        // se già definita la variabile
+        // errors.add();
+
     }
 }

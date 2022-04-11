@@ -38,9 +38,14 @@ public class DecFunNode implements Node {
 
         ret += id.toString();
         ret += "(";
+        int i = 0;
         if(ArgList.size() > 0) {
             for (Node arg : ArgList) {
-                ret += arg.toString() + ",";
+                i++;
+                ret += arg.toString() ;
+                if(ArgList.size()-i > 0){
+                    ret += ",";
+                }
             }
         }
         ret += ")\n";

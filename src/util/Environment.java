@@ -32,6 +32,7 @@ public class Environment {
 		this(-1,0);
 	}
 
+
 	public void addNewTable(HashMap<String, STentry> hm){
 		this.nestingLevel++;
 		this.symTable.add(hm);
@@ -67,6 +68,7 @@ public class Environment {
 		this.symTable.remove(this.nestingLevel);
 		this.nestingLevel --;
 	}
+
 	//distruzione ultimo ambiente creato!
 
 	//ricerca se una variabile è definita nella tabella dei simboli

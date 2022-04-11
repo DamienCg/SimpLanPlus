@@ -29,7 +29,7 @@ public class ReturnNode implements Node {
 
     @Override
     public String toString() {
-     String ret = "returnNode{ ";
+     String ret = "return";
         if(exp != null) {
          ret += " " + exp.toString();
         }

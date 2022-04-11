@@ -23,7 +23,7 @@ public class IteNode implements Node {
     public String toString() {
         String ret = "if (" + exp.toString() + ") \n";
         if (elsestatement != null) {
-            return ret += ifstatement.toString() + "\n else \n" + elsestatement.toString() + "\n}";
+            return ret += ifstatement.toString() + "\n else \n" + elsestatement.toString() + "\n";
         }
         else {
             return ret += ifstatement.toString() + "\n";

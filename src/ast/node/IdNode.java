@@ -19,6 +19,10 @@ public class IdNode implements Node{
         return "ID: "+id;
     }
 
+    public String getId(){
+        return id;
+    }
+
     @Override
     public Node typeCheck() {
         return null;

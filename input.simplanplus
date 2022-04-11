@@ -1,8 +1,9 @@
 { 
 	int a = 3; int b = 3; int c = 1;
+	a=b;
 
-    void F(bool x){
-		if (3 > 1) { print (2); }
+    void F(bool x,int y){
+		if (s > 1) { print (2*3); }
 
 			else { print (23);}
 			}

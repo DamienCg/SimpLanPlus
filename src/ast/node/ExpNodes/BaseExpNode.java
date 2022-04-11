@@ -21,6 +21,8 @@ public class BaseExpNode extends ExpNode{
 
     @Override
     public ArrayList<SemanticError> checkSemantics(Environment env) {
-        return null;
+        ArrayList<SemanticError> semanticErrors = new ArrayList<SemanticError>();
+        semanticErrors.addAll(this.exp.checkSemantics(env));
+        return semanticErrors;
     }
 }

@@ -1,10 +1,12 @@
 package ast.node;
 
+import ast.STentry;
 import ast.node.Node;
 import util.Environment;
 import util.SemanticError;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class BlockNode implements Node {
 
@@ -48,6 +50,22 @@ public class BlockNode implements Node {
 
     @Override
     public ArrayList<SemanticError> checkSemantics(Environment env) {
-        return null;
+        HashMap<String, STentry> st = new HashMap<String, STentry>();
+        ArrayList<SemanticError> errors = new ArrayList<SemanticError>();
+        env.addNewTable(st);
+
+        if(this.declarations != null) {
+            for (Node decl : declarations) {
+                errors.addAll(decl.checkSemantics(env));
+            }
+        }
+        if(this.statements != null){
+            for(Node stmt: statements){
+                errors.addAll(stmt.checkSemantics(env));
+            }
+        }
+        // Rimuovo la tabella corrente
+        env.exitScope();
+        return errors;
     }
 }

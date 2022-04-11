@@ -2,6 +2,8 @@ grammar SimpLanPlus;
 
 block	    : '{' declaration* statement* '}';
 
+// Dopo uno statement per fare un declaration bisogna mettere le {}
+
 statement   : assignment ';'
 	    | print ';'
 	    | ret ';'

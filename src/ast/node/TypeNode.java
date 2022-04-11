@@ -15,6 +15,10 @@ public class TypeNode implements Node {
         this.type = type;
     }
 
+    public String getType() {
+        return type;
+    }
+
     @Override
     public Node typeCheck() {
         return null;
