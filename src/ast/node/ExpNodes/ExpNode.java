@@ -35,7 +35,12 @@ public class ExpNode implements Node {
 
     @Override
     public ArrayList<SemanticError> checkSemantics(Environment env) {
-        return null;
+
+        ArrayList<SemanticError> errors = new ArrayList<>();
+
+        //[TOSE] to do
+
+        return errors;
     }
 
 }
