@@ -24,6 +24,7 @@ public class Environment {
 		return this.offset;
 	}
 
+
 	public ArrayList<HashMap<String, STentry>> getSymTable(){
 		return this.symTable;
 	}
@@ -38,13 +39,9 @@ public class Environment {
 		this.symTable.add(hm);
 	}
 
-	public SemanticError addDecl(int nestingLevel, final String id, STentry st){
+	public void addDecl(int nestingLevel, final String id, STentry st){
 		HashMap<String, STentry> scope = symTable.get(nestingLevel);
-		if (scope.containsKey(id)) {
-			return new SemanticError("Variable " + id + " already declared");
-		}
 		scope.put(id, st);
-		return null;
 	}
 
 		//controlla se non ci sono sconflitti in tal caso inserisce in St
@@ -63,16 +60,11 @@ public class Environment {
 
 	}
 
-
+	//distruzione ultimo ambiente creato!
 	public void exitScope(){
 		this.symTable.remove(this.nestingLevel);
 		this.nestingLevel --;
 	}
-
-	//distruzione ultimo ambiente creato!
-
-	//ricerca se una variabile è definita nella tabella dei simboli
-
 
 }
 

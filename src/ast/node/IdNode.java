@@ -4,6 +4,7 @@ import util.Environment;
 import util.SemanticError;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class IdNode implements Node{
 
@@ -11,7 +12,7 @@ public class IdNode implements Node{
 
     public IdNode(String id){
 
-        this.id = id;
+        this.id = id.toLowerCase(Locale.ROOT);
     }
 
     @Override

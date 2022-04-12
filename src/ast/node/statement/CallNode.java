@@ -47,7 +47,7 @@ public class CallNode implements Node {
     //TODO: check if the function is defined
     @Override
     public ArrayList<SemanticError> checkSemantics(Environment env) {
-        return null;
+        return new ArrayList<SemanticError>();
     }
 }
 

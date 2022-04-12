@@ -4,6 +4,8 @@ import ast.node.SimpLanPlusVisitorImpl;
 import parser.SimpLanPlusParser;
 import SyntaxErrorHandler.*;
 import org.antlr.v4.runtime.*;
+import util.Environment;
+import util.SemanticError;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -15,6 +17,7 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("##### SimpLanPlus Compiler  ###");
         String fileName = "input.simplanplus";
+
         try {
             String InputFile = Files.readString(Path.of(fileName), StandardCharsets.US_ASCII);
             SimpLanPlusLexer lexer = new SimpLanPlusLexer(CharStreams.fromString(InputFile));
@@ -32,6 +35,16 @@ public class Main {
             Node ast = visitor.visit(parser.block());
             System.out.println(ast.toString());
 
+            Environment env = new Environment();
+            if (ast.checkSemantics(env).size() >= 1) {
+                System.out.println("Semantic errors found");
+                for (SemanticError error : ast.checkSemantics(env)) {
+                    System.out.println(error);
+                }
+            }
+            else {
+                System.out.println("Semantic errors not found");
+            }
             if (SyntaxtErrorListener.getErrors().size() > 0 || SemanticErrorListener.getErrors().size() > 0) {
                 SyntaxtErrorListener.saveErrorFile(SemanticErrorListener);
                 System.exit(0);

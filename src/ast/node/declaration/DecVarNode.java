@@ -48,17 +48,20 @@ public class DecVarNode implements Node {
     public ArrayList<SemanticError> checkSemantics(Environment env) {
         //decVar      : type ID ('=' exp)? ';' ;
         ArrayList<SemanticError> errors = new ArrayList<SemanticError>();
-        //   public STentry (int n, Node t, int os)
-        //  {nestingLevel=n;
-        //   type=t;
-        //   offset=os;}
 
-        STentry entry = new STentry(env.getNestinglevel(),type,0);
-        HashMap<String, STentry> map = new HashMap<String, STentry>();
-        // lookUP se è gia definita la variabile
-        map.put(id.getId(), entry);
-        // se già definita la variabile
-        // errors.add();
-
+        // My current symbol table entry
+       HashMap<String, STentry> myCurrentSymTable = env.getSymTable().get(env.getNestinglevel());
+       // Check if the id is already declared
+        STentry ret = env.lookUp(env.getNestinglevel(), id.getId());
+        if (ret != null) { // If it is already declared
+            errors.add(new SemanticError("Variable " + id.getId() + " already declared"));
+        }
+        else { // If it is not declared
+            // Add the id to the symbol table
+            STentry newEntry = new STentry(env.getNestinglevel(),type,0);
+            env.addDecl(env.getNestinglevel(), id.getId(), newEntry);
+        }
+        return errors;
     }
+
 }

@@ -1,10 +1,16 @@
 { 
 	int a = 3; int b = 3; int c = 1;
-	a=b;
+    int a = 42;
 
     void F(bool x,int y){
 		if (s > 1) { print (2*3); }
+            else { print (23);}
+	}
 
-			else { print (23);}
-			}
+	void f(){
+        if (s > 1) { print (2*3); }
+            else { print (23);}
+    }
+
+	F(x);
 }

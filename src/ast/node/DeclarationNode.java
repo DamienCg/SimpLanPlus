@@ -12,7 +12,7 @@ public class DeclarationNode implements Node {
     //            | decVar ;
     private Node dec;
 
-    public DeclarationNode(Node dec){
+    public DeclarationNode(Node dec) {
         this.dec = dec;
     }
 
@@ -33,6 +33,17 @@ public class DeclarationNode implements Node {
 
     @Override
     public ArrayList<SemanticError> checkSemantics(Environment env) {
-        return null;
+
+        ArrayList<SemanticError> errors = new ArrayList<>();
+        // declaration : decFun
+        //            | decVar ;
+        if (this.dec != null) {
+            if (this.dec instanceof DecFunNode) { // declaration : decFun
+                errors.addAll(((DecFunNode) this.dec).checkSemantics(env)); // decfun.checkSemantics(env)
+            } else if (this.dec instanceof DecVarNode) { // declaration : decVar
+                errors.addAll(((DecVarNode) this.dec).checkSemantics(env));
+            }
+        }
+        return errors;
     }
 }
