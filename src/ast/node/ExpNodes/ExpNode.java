@@ -35,7 +35,6 @@ public class ExpNode implements Node {
 
     @Override
     public ArrayList<SemanticError> checkSemantics(Environment env) {
-
         return exp.checkSemantics(env);
     }
 
