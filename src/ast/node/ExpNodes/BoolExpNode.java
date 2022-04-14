@@ -36,6 +36,10 @@ public class BoolExpNode implements Node{
 
     @Override
     public ArrayList<SemanticError> checkSemantics(Environment env) {
-        return null;
+        // Anche questo va bene così perchè tanto non ci sono variabili da controllare
+        // e non ci sono errori da ritornare
+        // copilot mi scrive pure i commenti, vabhè, bon comunque il resto lo lascio a te, testa perfavore tutto appena finisci
+        // BUona pasqua :P
+        return new ArrayList<SemanticError>();
     }
 }

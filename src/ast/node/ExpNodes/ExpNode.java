@@ -23,6 +23,10 @@ public class ExpNode implements Node {
         else return "";
     }
 
+    public String getId(){
+        return exp.toString();
+    }
+
     @Override
     public Node typeCheck() {
         return null;

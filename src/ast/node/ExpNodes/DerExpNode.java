@@ -1,5 +1,6 @@
 package ast.node.ExpNodes;
 
+import ast.node.IdNode;
 import ast.node.Node;
 import util.Environment;
 import util.SemanticError;
@@ -8,15 +9,19 @@ import java.util.ArrayList;
 
 public class DerExpNode implements Node{
 
-    private Node DerExpNode; //[TOSE] Meglio idNode?
+    private IdNode id; //[TOSE] Meglio idNode?
 
-    public DerExpNode(Node DerExpNode) {
-        this.DerExpNode = DerExpNode;
+    public DerExpNode(IdNode id) {
+        this.id = id;
+    }
+
+    public IdNode getId() {
+        return id;
     }
 
     @Override
     public String toString() {
-        return "ID: " + DerExpNode.toString() ;
+        return "ID: " + id.toString() ;
     }
 
     @Override

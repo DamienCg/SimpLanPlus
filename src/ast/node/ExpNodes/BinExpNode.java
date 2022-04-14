@@ -37,8 +37,16 @@ public class BinExpNode implements Node {
 
     @Override
     public ArrayList<SemanticError> checkSemantics(Environment env) {
-        return null;
-    }
+        // Ho fatto questo, dovrebbe andare bene, perchè tanto richiami i figli
+        ArrayList<SemanticError> ret = new ArrayList<SemanticError>();
+        if(this.left!=null) {
+            ret.addAll(left.checkSemantics(env));
+        }
+        if(this.right!=null) {
+            ret.addAll(right.checkSemantics(env));
+        }
+        return ret;
 
+    }
 
 }

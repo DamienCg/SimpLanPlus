@@ -47,7 +47,18 @@ public class CallNode implements Node {
     //TODO: check if the function is defined
     @Override
     public ArrayList<SemanticError> checkSemantics(Environment env) {
-        return new ArrayList<SemanticError>();
+        // call        : ID '(' (exp(',' exp)*)? ')';
+        ArrayList<SemanticError> ret = new ArrayList<>();
+        // check if id is already declared
+        if(env.lookUp(env.getNestinglevel(),id.getId()) == null){
+            ret.add(new SemanticError("Undeclared Function " + id.getId()));
+        }
+        if(expList != null){
+            for(Node exp : expList){
+                ret.addAll(exp.checkSemantics(env));
+            }
+        }
+        return ret;
     }
 }
 

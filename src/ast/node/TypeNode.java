@@ -31,6 +31,7 @@ public class TypeNode implements Node {
 
     @Override
     public ArrayList<SemanticError> checkSemantics(Environment env) {
+        // ANche questo va bene così
         return new ArrayList<SemanticError>();
     }
 

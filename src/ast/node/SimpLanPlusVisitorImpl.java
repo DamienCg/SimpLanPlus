@@ -131,7 +131,7 @@ public class SimpLanPlusVisitorImpl extends SimpLanPlusBaseVisitor<Node> {
     }
 
     @Override public Node visitAssignment(SimpLanPlusParser.AssignmentContext ctx){
-        return new AssignmentNode(new IdNode(ctx.ID().getText()), (ExpNode) visit(ctx.exp()));
+        return new AssignmentNode(new IdNode(ctx.ID().getText()), visit(ctx.exp()));
     }
 
     @Override public Node visitRet(SimpLanPlusParser.RetContext ctx){

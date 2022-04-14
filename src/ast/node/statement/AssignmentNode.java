@@ -1,5 +1,6 @@
 package ast.node.statement;
 
+import ast.node.ExpNodes.DerExpNode;
 import ast.node.ExpNodes.ExpNode;
 import ast.node.IdNode;
 import ast.node.Node;
@@ -12,9 +13,9 @@ public class AssignmentNode implements Node {
 
     // assignment  : ID '=' exp ;
     private IdNode id;
-    private ExpNode exp;
+    private Node exp;
 
-    public AssignmentNode(IdNode id, ExpNode exp){
+    public AssignmentNode(IdNode id, Node exp){
         this.id = id;
         this.exp = exp;
     }
@@ -31,7 +32,18 @@ public class AssignmentNode implements Node {
 
     @Override
     public ArrayList<SemanticError> checkSemantics(Environment env) {
-        return null;
+        // assignment  : ID '=' exp ;
+        ArrayList<SemanticError> res = new ArrayList<>();
+        // check if id is already declared
+        if(env.lookUp(env.getNestinglevel(),id.getId()) == null){
+            res.add(new SemanticError("Undeclared variable " + id.getId()));
+        }
+        // check if exp is already declared
+        // exp può essere una variabile o una stringa o operazione d+b ecc
+        if(exp != null)
+            res.addAll(exp.checkSemantics(env));
+
+         return res;
     }
 
     @Override

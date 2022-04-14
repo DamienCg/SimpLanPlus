@@ -36,6 +36,7 @@ public class IdNode implements Node{
 
     @Override
     public ArrayList<SemanticError> checkSemantics(Environment env) {
-        return null;
+        // questo va bene così.
+        return new ArrayList<SemanticError>();
     }
 }
