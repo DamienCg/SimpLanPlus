@@ -1,9 +1,11 @@
 package ast.node;
 
+import ast.STentry;
 import util.Environment;
 import util.SemanticError;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ArgNode implements Node{
     // arg         : ('var')? type ID;
@@ -40,6 +42,18 @@ public class ArgNode implements Node{
 
     @Override
     public ArrayList<SemanticError> checkSemantics(Environment env) {
-        return null;
+
+        ArrayList<SemanticError> errors = new ArrayList<SemanticError>();
+        // Check if the id is already declared
+        STentry ret = env.lookUpSameNestingLevel(env.getNestinglevel(), id.getId());
+        if (ret != null) { // If it is already declared
+            errors.add(new SemanticError("Argument id " + id.getId() + " already declared")); // TODO: aggiungere info sulla funzione
+        }
+        else { // If it is not declared
+            // Add the id to the symbol table
+            STentry newEntry = new STentry(env.getNestinglevel(),type,0);
+            env.addDecl(env.getNestinglevel(), id.getId(), newEntry);
+        }
+        return errors;
     }
 }

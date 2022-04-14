@@ -44,7 +44,7 @@ public class Environment {
 		scope.put(id, st);
 	}
 
-		//controlla se non ci sono sconflitti in tal caso inserisce in St
+	//controlla se non ci sono sconflitti in tal caso inserisce in St
 	// inserimento di una variabile/funzione
 
 	// Search id in the symbol table and returns it if present
@@ -60,10 +60,21 @@ public class Environment {
 
 	}
 
+	// Search id in the symbol table and returns it if present
+	public STentry lookUpSameNestingLevel(int nestingLevel, final String id) {
+			HashMap<String, STentry> scope = symTable.get(nestingLevel);
+			STentry stEntry = scope.get(id);
+			if (stEntry != null) {
+				return stEntry;
+			}
+		return null;
+
+	}
+
 	//distruzione ultimo ambiente creato!
 	public void exitScope(){
 		this.symTable.remove(this.nestingLevel);
-		this.nestingLevel --;
+		this.nestingLevel--;
 	}
 
 }

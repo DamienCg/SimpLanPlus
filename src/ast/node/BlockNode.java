@@ -68,4 +68,25 @@ public class BlockNode implements Node {
         env.exitScope();
         return errors;
     }
+
+    public ArrayList<SemanticError> checkSemanticsFunction(Environment env) {
+        ArrayList<SemanticError> errors = new ArrayList<SemanticError>();
+        //non creo nuovo ambiente perché già creato nella parte di controllo degli argomenti
+        if(this.declarations != null  && this.declarations.size()>0) {
+            for (Node decl : declarations) {
+                errors.addAll(decl.checkSemantics(env));
+            }
+        }
+        //TODO: commentato perché da errore. Da sistemare
+        /*
+        if(this.statements != null  && this.statements.size()>0){
+            for(Node stmt: statements){
+                errors.addAll(stmt.checkSemantics(env));
+            }
+        }
+         */
+
+        return errors;
+    }
+
 }

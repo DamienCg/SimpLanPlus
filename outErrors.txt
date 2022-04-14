@@ -1,5 +1,5 @@
-You had: 1 Syntax errors:
-In line 8:4 token recognition error at: '.'
+You had: 0 Syntax errors:
 
 
-You had: 0 Semantic errors:
+You had: 1 Semantic errors:
+In line 11:8 extraneous input 'int' expecting {'{', '}', 'print', 'return', 'if', ID}

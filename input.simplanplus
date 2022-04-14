@@ -1,16 +1,23 @@
 { 
 	int a = 3; int b = 3; int c = 1;
     int a = 42;
+    int p = f; //non segnala variabile non dichiarata
+    //int f; Va in errore java
+    int g = 0;
 
-    void F(bool x,int y){
+    void F(bool x,int y, bool x){
+        int a = 0;
 		if (s > 1) { print (2*3); }
             else { print (23);}
+
 	}
 
-	void f(){
-        if (s > 1) { print (2*3); }
-            else { print (23);}
-    }
+	void G() {
+	    int g = 0;
+	    int g = 0;
+	}
 
-	F(x);
+	void M(int DD, bool DD, int g){}
+
+
 }

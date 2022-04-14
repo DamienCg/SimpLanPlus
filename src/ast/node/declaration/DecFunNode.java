@@ -67,8 +67,10 @@ public class DecFunNode implements Node {
         ArrayList<SemanticError> errors = new ArrayList<SemanticError>();
 
         // My current symbol table entry
-        HashMap<String, STentry> myCurrentSymTable = env.getSymTable().get(env.getNestinglevel());
+        HashMap<String, STentry> myCurrentSymTable = env.getSymTable().get(env.getNestinglevel()); //TODO: controllare utilizzo. Al momento non la usiamo
         // Check if the id is already declared
+        //TODO: Va aggiunto il check sul numero di arg? Funzioni con stesso nome ma diverso numero Arg sono differenti?
+        //TODO: Va aggiunto controllo dichiarazione funzione dentro funzione?
         STentry ret = env.lookUp(env.getNestinglevel(), id.getId());
         if (ret != null) { // If it is already declared
             errors.add(new SemanticError("Function " + id.getId() + " already declared"));
@@ -78,6 +80,27 @@ public class DecFunNode implements Node {
             STentry newEntry = new STentry(env.getNestinglevel(),type,0);
             env.addDecl(env.getNestinglevel(), id.getId(), newEntry);
         }
+
+        //Increment nesting level and create new table
+        HashMap<String, STentry> myCurrentSymTableArg = new HashMap<String, STentry>();
+        env.addNewTable(myCurrentSymTableArg);
+        //Check declarations arguments function
+        if(this.ArgList.size() > 0) {
+            for(Node arg:this.ArgList) {
+                errors.addAll(arg.checkSemantics(env));
+            }
+        }
+
+        //Check semantinc on block
+        /*
+        if(this.block!=null){
+            errors.addAll(this.block.checkSemanticsFunction(env));
+        }
+         */
+
+        //Delete last ambient
+        env.exitScope();
+
         return errors;
     }
 
