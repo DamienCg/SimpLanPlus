@@ -73,7 +73,7 @@ public class DecFunNode implements Node {
         //TODO: Va aggiunto controllo dichiarazione funzione dentro funzione?
         STentry ret = env.lookUp(env.getNestinglevel(), id.getId());
         if (ret != null) { // If it is already declared
-            errors.add(new SemanticError("Function " + id.getId() + " already declared"));
+            errors.add(new SemanticError("The name of Function " + id.getId() + " is already taken"));
         }
         else { // If it is not declared
             // Add the id to the symbol table

@@ -33,21 +33,26 @@ public class Main {
             parser.addErrorListener(SemanticErrorListener);
             SimpLanPlusVisitorImpl visitor = new SimpLanPlusVisitorImpl();
             Node ast = visitor.visit(parser.block());
-            System.out.println(ast.toString());
+            //System.out.println(ast.toString());
 
-            Environment env = new Environment();
-            if (ast.checkSemantics(env).size() >= 1) {
-                System.out.println("Semantic errors found");
-                for (SemanticError error : ast.checkSemantics(env)) {
-                    System.out.println(error);
-                }
-            }
-            else {
-                System.out.println("Semantic errors not found");
-            }
             if (SyntaxtErrorListener.getErrors().size() > 0 || SemanticErrorListener.getErrors().size() > 0) {
                 SyntaxtErrorListener.saveErrorFile(SemanticErrorListener);
                 System.exit(0);
+            }
+            // NO SEMANTIC OR SYNTAX ERRORS
+            else {
+
+                Environment env = new Environment();
+                if (ast.checkSemantics(env).size() >= 1) {
+                    System.out.println("Semantic errors found");
+                    for (SemanticError error : ast.checkSemantics(env)) {
+                        System.out.println(error);
+                        System.exit(1);
+                    }
+                } else {
+                    System.out.println("** ALL OK **");
+                    // GO TO TypeChecker
+                }
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();

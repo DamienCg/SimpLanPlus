@@ -54,7 +54,7 @@ public class DecVarNode implements Node {
        // Check if the id is already declared
         STentry ret = env.lookUp(env.getNestinglevel(), id.getId());
         if (ret != null) { // If it is already declared
-            errors.add(new SemanticError("Variable " + id.getId() + " already declared"));
+            errors.add(new SemanticError("The name of Variable " + id.getId() + " is already taken"));
         }
         else { // If it is not declared
             // Add the id to the symbol table

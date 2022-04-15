@@ -1,10 +1,9 @@
 { 
 	int a = 3; int b = 3; int c = 1;
-    int g;
     int p = f; //non segnala variabile non dichiarata
     int pippo = 0;
 
-    void F(bool x,int y, bool x){
+    void F(bool x,int y){
         int a = 0;
 		if (s > 1) { print (2*3); }
             else { print (23);}
@@ -16,11 +15,9 @@
 	    int g = 0;
 	}
 
-	void M(int DD, bool DD, int g){}
+	void M(int DD, int g){}
 
 	int Fifa(){}
-
-	Folla();
 
 
 }
