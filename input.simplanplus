@@ -27,7 +27,9 @@
 
 	void M(int DD, int g){}
 
-	int Fifa(){}
+	int Fifa(bool b){
+	    int a1 = b;
+	}
 
 	int M(){}
 
