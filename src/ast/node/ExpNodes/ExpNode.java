@@ -1,6 +1,8 @@
 package ast.node.ExpNodes;
 
+import ast.node.BlockNode;
 import ast.node.Node;
+import ast.node.statement.*;
 import util.Environment;
 import util.SemanticError;
 
@@ -40,6 +42,7 @@ public class ExpNode implements Node {
     @Override
     public ArrayList<SemanticError> checkSemantics(Environment env) {
         return exp.checkSemantics(env);
+
     }
 
 }

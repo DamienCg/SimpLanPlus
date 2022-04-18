@@ -47,7 +47,7 @@ public class ArgNode implements Node{
         // Check if the id is already declared
         STentry ret = env.lookUpSameNestingLevel(env.getNestinglevel(), id.getId());
         if (ret != null) { // If it is already declared
-            errors.add(new SemanticError("Argument id " + id.getId() + " already declared")); // TODO: aggiungere info sulla funzione
+            errors.add(new SemanticError("Argument id " + id.getId() + " already declared"));
         }
         else { // If it is not declared
             // Add the id to the symbol table

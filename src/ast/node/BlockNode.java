@@ -78,14 +78,12 @@ public class BlockNode implements Node {
             }
         }
         //TODO: commentato perché da errore. Da sistemare
-        /*
         if(this.statements != null  && this.statements.size()>0){
             for(Node stmt: statements){
                 errors.addAll(stmt.checkSemantics(env));
             }
         }
 
-         */
 
         // BISOGNA AGGIUNGERE Questo: env.getSymTable().remove(env.getNestinglevel());
 

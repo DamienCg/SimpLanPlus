@@ -9,6 +9,7 @@ public class Environment {
 	private final ArrayList<HashMap<String, STentry>> symTable;
 	private int nestingLevel;
 	private int offset;
+	private int isFun = 0;
 
 	public Environment(int nestingLevel, int offset) {
 		this.symTable = new ArrayList<>();
@@ -24,6 +25,13 @@ public class Environment {
 		return this.offset;
 	}
 
+	public int getIsFun(){
+		return this.isFun;
+	}
+
+	public void setIsFun(int val){
+		this.isFun = val;
+	}
 
 	public ArrayList<HashMap<String, STentry>> getSymTable(){
 		return this.symTable;
@@ -58,6 +66,26 @@ public class Environment {
 		}
 		return null;
 
+		/*
+		if(isFun == 0) {
+			for (int i = nestingLevel; i >= 0; i--) {
+				HashMap<String, STentry> scope = symTable.get(i);
+				STentry stEntry = scope.get(id);
+				if (stEntry != null) {
+					return stEntry;
+				}
+			}
+		} else {
+			for (int i = nestingLevel; i >= isFun; i--) {
+				HashMap<String, STentry> scope = symTable.get(i);
+				STentry stEntry = scope.get(id);
+				if (stEntry != null) {
+					return stEntry;
+				}
+			}
+		}
+		return null;
+		*/
 	}
 
 	// Search id in the symbol table and returns it if present

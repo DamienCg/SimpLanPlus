@@ -92,11 +92,10 @@ public class DecFunNode implements Node {
         }
 
         //Check semantinc on block
-        /*
         if(this.block!=null){
             errors.addAll(this.block.checkSemanticsFunction(env));
         }
-         */
+
 
         //Delete last ambient
         env.exitScope();

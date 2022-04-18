@@ -42,7 +42,6 @@ public class AssignmentNode implements Node {
         // exp può essere una variabile o una stringa o operazione d+b ecc
         if(exp != null)
             res.addAll(exp.checkSemantics(env));
-
          return res;
     }
 

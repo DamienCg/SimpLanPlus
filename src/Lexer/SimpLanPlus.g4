@@ -13,7 +13,7 @@ statement   : assignment ';'
 
 
 declaration : decFun
-            | decVar ;
+            | decVar;
 
 decFun	    : (type | 'void') ID '(' (arg (',' arg)*)? ')' block ;
 

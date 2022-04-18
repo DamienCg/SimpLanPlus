@@ -43,7 +43,7 @@ public class BinExpNode implements Node {
             ret.addAll(left.checkSemantics(env));
         }
         if(this.right!=null) {
-            ret.addAll(right.checkSemantics(env));
+           ret.addAll(right.checkSemantics(env));
         }
         return ret;
 
