@@ -57,6 +57,7 @@ public class Environment {
 
 	// Search id in the symbol table and returns it if present
 	public STentry lookUp(int nestingLevel, final String id) {
+		/*
 		for (int i = nestingLevel; i >= 0; i--) {
 			HashMap<String, STentry> scope = symTable.get(i);
 			STentry stEntry = scope.get(id);
@@ -65,8 +66,8 @@ public class Environment {
 			}
 		}
 		return null;
+		*/
 
-		/*
 		if(isFun == 0) {
 			for (int i = nestingLevel; i >= 0; i--) {
 				HashMap<String, STentry> scope = symTable.get(i);
@@ -85,7 +86,7 @@ public class Environment {
 			}
 		}
 		return null;
-		*/
+
 	}
 
 	// Search id in the symbol table and returns it if present

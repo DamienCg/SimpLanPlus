@@ -84,6 +84,8 @@ public class DecFunNode implements Node {
         //Increment nesting level and create new table
         HashMap<String, STentry> myCurrentSymTableArg = new HashMap<String, STentry>();
         env.addNewTable(myCurrentSymTableArg);
+        //Indico che è una funzione salvando il nestingLevelCorrent --> per evitare di fare check andando troppo indietro
+        env.setIsFun(env.getNestinglevel());
         //Check declarations arguments function
         if(this.ArgList.size() > 0) {
             for(Node arg:this.ArgList) {
@@ -96,6 +98,8 @@ public class DecFunNode implements Node {
             errors.addAll(this.block.checkSemanticsFunction(env));
         }
 
+        //Esco dalla funzione
+        env.setIsFun(0);
 
         //Delete last ambient
         env.exitScope();

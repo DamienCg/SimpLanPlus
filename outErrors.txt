@@ -1,8 +1,7 @@
 You had: 0 Syntax errors:
 
 
-You had: 4 Semantic errors:
-In line 4:5 no viable alternative at input 'voifF'
-In line 4:7 extraneous input 'bool' expecting {'(', ')', '-', '!', BOOL, ID, NUMBER}
-In line 4:15 extraneous input 'int' expecting {'(', '-', '!', BOOL, ID, NUMBER}
-In line 4:22 missing ';' at '{'
+You had: 3 Semantic errors:
+In line 8:9 no viable alternative at input 'voifR'
+In line 8:13 missing ';' at '{'
+In line 8:15 extraneous input ';' expecting {'{', '}', 'print', 'return', 'if', ID}

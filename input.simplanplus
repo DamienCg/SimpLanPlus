@@ -1,12 +1,5 @@
 {
-int a1 = 3;
 
-void F() {
-    int a1 = 4;
-    int x = a;
-}
-
-/*
 	int a = 3; int b = 3+a; int c = 1;
     int p = f;
     int pippo = 0;
@@ -37,6 +30,6 @@ void F() {
 	int Fifa(){}
 
 	int M(){}
-*/
+
 
 }
