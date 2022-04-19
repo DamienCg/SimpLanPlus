@@ -22,9 +22,9 @@ decVar      : type ID ('=' exp)? ';' ;
 type        : 'int'
             | 'bool';
 
-arg         : ('var')? type ID; // TODO: Tommy
+arg         : ('var')? type ID;
 
-assignment  : ID '=' exp ; //TODO Damien
+assignment  : ID '=' exp ;
 
 print	    : 'print' exp;
 
@@ -32,9 +32,9 @@ ret	    : 'return' (exp)?;
 
 ite         : 'if' '(' exp ')' statement ('else' statement)?;
 
-call        : ID '(' (exp(',' exp)*)? ')'; //TODO: DAMIEN
+call        : ID '(' (exp(',' exp)*)? ')';
 
-//TODO Tommy
+
 exp	    : '(' exp ')'			                            #baseExp
 	    | '-' exp					                        #negExp
 	    | '!' exp                                           #notExp

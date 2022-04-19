@@ -47,8 +47,8 @@ public class Main {
                     System.out.println("Semantic errors found");
                     for (SemanticError error : ast.checkSemantics(env)) {
                         System.out.println(error);
-                        //System.exit(1); [TOSE] Maledetto stavo uscendo pazzo. Mi stampava solo una riga e pensavo di aver rotto tutto
                     }
+                    System.exit(0);
                 } else {
                     System.out.println("** ALL OK **");
                     // GO TO TypeChecker

@@ -1,13 +1,13 @@
-You had: 0 Syntax errors:
+You had: 4 Syntax errors:
+In line 31:0 token recognition error at: '\'
+In line 31:1 token recognition error at: '\'
+In line 32:14 token recognition error at: '.'
+In line 33:13 token recognition error at: '.'
 
 
-You had: 9 Semantic errors:
-In line 27:1 extraneous input 'void' expecting {'{', '}', 'print', 'return', 'if', ID}
-In line 27:10 missing ';' at '{'
-In line 31:1 extraneous input 'void' expecting {'{', '}', 'print', 'return', 'if', ID}
-In line 31:8 extraneous input 'int' expecting {'(', ')', '-', '!', BOOL, ID, NUMBER}
-In line 31:16 extraneous input 'int' expecting {'(', '-', '!', BOOL, ID, NUMBER}
-In line 31:23 missing ';' at '{'
-In line 33:1 extraneous input 'int' expecting {'{', '}', 'print', 'return', 'if', ID}
-In line 33:10 extraneous input 'bool' expecting {'(', ')', '-', '!', BOOL, ID, NUMBER}
-In line 33:17 missing ';' at '{'
+You had: 5 Semantic errors:
+In line 32:4 no viable alternative at input 'commentoint'
+In line 32:15 extraneous input '14' expecting ';'
+In line 33:4 extraneous input 'int' expecting {'{', '}', 'print', 'return', 'if', ID}
+In line 33:14 extraneous input '71' expecting ';'
+In line 34:4 extraneous input 'int' expecting {'{', '}', 'print', 'return', 'if', ID}

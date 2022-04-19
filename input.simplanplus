@@ -1,41 +1,37 @@
+// Primo eg.
+/*
 {
+    int a = 42;
+    bool b = true;.
+    int c = a + b;
+    list = [];
 
-	int a = 3;
-	int b = 3+a;
-	int c = 1;
-    int p = c;
-    int pippo = a/b+c-p*b;
-    bool txt= true;
+    void F (int a, int c)
+    {
+        int d = a + b;
+    }
+}
+*/
+/*
+// secondo eg.
+{
+    void G(){}
+    bool x = false;@
+    int k =2;
+    // operatore ternario
+    bool pari(int k) {
+        return k % 2 == 0 ? true : false;
+    }
 
+}
+*/
 
-    void F(bool x,int y){
-        int a1 = 0;
-        int a8 = 9;
-		if (a1 > 1) { print (2*3); }
-        else {
-                int n2 = 1;
-                print (23);
-             }
-
-
-	}
-
-	int a1= 0;
-
-
-	void G() {
-	    int u= 0;
-	}
-
-	void M(int DD, int hy){}
-
-	int Fifa(int b){
-	    int a1 = b;
-	    return a1;
-	}
-
-int res = Fifa(a);
-print(res);
+// terzo eg.
 
 
+{
+\\ commento
+    int pi = 3.14;
+    int e = 2.71;
+    int a = pi + e;
 }
