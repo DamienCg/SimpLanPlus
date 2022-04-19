@@ -9,11 +9,11 @@ import java.util.ArrayList;
 
 public class ReturnNode implements Node {
     // ret : 'return' (exp)?;
-    private ExpNode exp;
+    private Node exp;
 
     public ReturnNode(Node exp) {
 
-        this.exp = (ExpNode) exp;
+        this.exp =  exp;
     }
 
     public Node getExp() {

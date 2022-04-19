@@ -1,7 +1,13 @@
 You had: 0 Syntax errors:
 
 
-You had: 3 Semantic errors:
-In line 8:9 no viable alternative at input 'voifR'
-In line 8:13 missing ';' at '{'
-In line 8:15 extraneous input ';' expecting {'{', '}', 'print', 'return', 'if', ID}
+You had: 9 Semantic errors:
+In line 27:1 extraneous input 'void' expecting {'{', '}', 'print', 'return', 'if', ID}
+In line 27:10 missing ';' at '{'
+In line 31:1 extraneous input 'void' expecting {'{', '}', 'print', 'return', 'if', ID}
+In line 31:8 extraneous input 'int' expecting {'(', ')', '-', '!', BOOL, ID, NUMBER}
+In line 31:16 extraneous input 'int' expecting {'(', '-', '!', BOOL, ID, NUMBER}
+In line 31:23 missing ';' at '{'
+In line 33:1 extraneous input 'int' expecting {'{', '}', 'print', 'return', 'if', ID}
+In line 33:10 extraneous input 'bool' expecting {'(', ')', '-', '!', BOOL, ID, NUMBER}
+In line 33:17 missing ';' at '{'
