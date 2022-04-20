@@ -70,8 +70,8 @@ public class BlockNode implements Node {
     }
 
     public ArrayList<SemanticError> checkSemanticsFunction(Environment env) {
-        HashMap<String, STentry> st = new HashMap<String, STentry>();
-        env.addNewTable(st);
+        //HashMap<String, STentry> st = new HashMap<String, STentry>();
+        //env.addNewTable(st);
 
         ArrayList<SemanticError> errors = new ArrayList<SemanticError>();
 
@@ -80,13 +80,12 @@ public class BlockNode implements Node {
                 errors.addAll(decl.checkSemantics(env));
             }
         }
-        //TODO: commentato perché da errore. Da sistemare
         if(this.statements != null  && this.statements.size()>0){
             for(Node stmt: statements){
                 errors.addAll(stmt.checkSemantics(env));
             }
         }
-        env.exitScope();
+        //env.exitScope();
 
         return errors;
     }
