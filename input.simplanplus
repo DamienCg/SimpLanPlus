@@ -1,6 +1,12 @@
 {
-    \\ commento
-    double pi = 3.14;
-    double e = 2.71;
-    double a = pi + e;
+    int a = 3;
+    int b = 4;
+    int c = 5;
+
+    int F(int a,int b){
+    int c = 10;
+        return a+b+c;
+    }
+
+    int z = F(a,b);
 }

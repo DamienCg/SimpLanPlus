@@ -70,8 +70,11 @@ public class BlockNode implements Node {
     }
 
     public ArrayList<SemanticError> checkSemanticsFunction(Environment env) {
+        HashMap<String, STentry> st = new HashMap<String, STentry>();
+        env.addNewTable(st);
+
         ArrayList<SemanticError> errors = new ArrayList<SemanticError>();
-        //non creo nuovo ambiente perché già creato nella parte di controllo degli argomenti
+
         if(this.declarations != null  && this.declarations.size()>0) {
             for (Node decl : declarations) {
                 errors.addAll(decl.checkSemantics(env));
@@ -83,13 +86,7 @@ public class BlockNode implements Node {
                 errors.addAll(stmt.checkSemantics(env));
             }
         }
-
-
-        // BISOGNA AGGIUNGERE Questo: env.getSymTable().remove(env.getNestinglevel());
-
-        // perchè una volta che esci dal blocco devi rimuvere ambiente
-        // ti dà errore non perchè sia sbagliato ma perchè il resto degli altri nodi non è implementato
-        // expNode viene usato da molte parti, finchè non si implementano non puoi sapere se funziona il tutto.
+        env.exitScope();
 
         return errors;
     }
