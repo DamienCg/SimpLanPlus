@@ -1,13 +1,13 @@
-You had: 4 Syntax errors:
-In line 31:0 token recognition error at: '\'
-In line 31:1 token recognition error at: '\'
-In line 32:14 token recognition error at: '.'
-In line 33:13 token recognition error at: '.'
+You had: 4 Lexical errors:
+In line 2:4 token recognition error at: '\'
+In line 2:5 token recognition error at: '\'
+In line 3:17 token recognition error at: '.'
+In line 4:16 token recognition error at: '.'
 
 
-You had: 5 Semantic errors:
-In line 32:4 no viable alternative at input 'commentoint'
-In line 32:15 extraneous input '14' expecting ';'
-In line 33:4 extraneous input 'int' expecting {'{', '}', 'print', 'return', 'if', ID}
-In line 33:14 extraneous input '71' expecting ';'
-In line 34:4 extraneous input 'int' expecting {'{', '}', 'print', 'return', 'if', ID}
+You had: 5 Syntax  errors:
+In line 3:4 no viable alternative at input 'commentodouble'
+In line 3:18 extraneous input '14' expecting ';'
+In line 4:11 no viable alternative at input 'doublee'
+In line 4:17 extraneous input '71' expecting ';'
+In line 5:11 no viable alternative at input 'doublea'

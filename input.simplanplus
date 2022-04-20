@@ -1,37 +1,6 @@
-// Primo eg.
-/*
 {
-    int a = 42;
-    bool b = true;.
-    int c = a + b;
-    list = [];
-
-    void F (int a, int c)
-    {
-        int d = a + b;
-    }
-}
-*/
-/*
-// secondo eg.
-{
-    void G(){}
-    bool x = false;@
-    int k =2;
-    // operatore ternario
-    bool pari(int k) {
-        return k % 2 == 0 ? true : false;
-    }
-
-}
-*/
-
-// terzo eg.
-
-
-{
-\\ commento
-    int pi = 3.14;
-    int e = 2.71;
-    int a = pi + e;
+    \\ commento
+    double pi = 3.14;
+    double e = 2.71;
+    double a = pi + e;
 }

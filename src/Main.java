@@ -24,8 +24,8 @@ public class Main {
             CommonTokenStream tokens = new CommonTokenStream(lexer);
             SimpLanPlusParser parser = new SimpLanPlusParser(tokens);
 
-            SyntaxAndSemanticErrorListener SyntaxtErrorListener = new SyntaxAndSemanticErrorListener();
-            SyntaxAndSemanticErrorListener SemanticErrorListener = new SyntaxAndSemanticErrorListener();
+            OutFileErrorListener SyntaxtErrorListener = new OutFileErrorListener();
+            OutFileErrorListener SemanticErrorListener = new OutFileErrorListener();
 
             //parser.removeErrorListeners();
             //lexer.removeErrorListeners();

@@ -7,7 +7,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SyntaxAndSemanticErrorListener extends BaseErrorListener {
+public class OutFileErrorListener extends BaseErrorListener {
 
     private final List<String> errors = new ArrayList<>();
 
@@ -19,14 +19,14 @@ public class SyntaxAndSemanticErrorListener extends BaseErrorListener {
     }
 
 
-    public void saveErrorFile(SyntaxAndSemanticErrorListener SemanticErrorListener) throws FileNotFoundException {
+    public void saveErrorFile(OutFileErrorListener SemanticErrorListener) throws FileNotFoundException {
         try{
             PrintWriter out = new PrintWriter("outErrors.txt");
-            out.println("You had: "+errors.size()+" Syntax errors:");
+            out.println("You had: "+errors.size()+" Lexical errors:");
             errors.stream().forEach((err) -> out.println(err));
             out.println();
             out.println();
-            out.println("You had: "+SemanticErrorListener.getErrors().size()+" Semantic errors:");
+            out.println("You had: "+SemanticErrorListener.getErrors().size()+" Syntax  errors:");
             SemanticErrorListener.getErrors().stream().forEach((err) -> out.println(err));
             out.close();
         } catch(FileNotFoundException e){
