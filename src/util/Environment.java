@@ -9,7 +9,7 @@ public class Environment {
 	private final ArrayList<HashMap<String, STentry>> symTable;
 	private int nestingLevel;
 	private int offset;
-	private int isFun = 0;
+	private int  isFun = 0;
 
 	public Environment(int nestingLevel, int offset) {
 		this.symTable = new ArrayList<>();

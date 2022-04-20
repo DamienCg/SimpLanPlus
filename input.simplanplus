@@ -3,9 +3,10 @@
     int b = 4;
     int c = 5;
 
-    int F(int a,int b){
-    int c = 10;
-        return a+b+c;
+    int F(int b){
+    int ff = c;
+    int a = 1;
+        return b+c;
     }
 
     int z = F(a,b);
