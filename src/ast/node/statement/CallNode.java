@@ -44,7 +44,6 @@ public class CallNode implements Node {
         return null;
     }
 
-    //TODO: check if the function is defined
     @Override
     public ArrayList<SemanticError> checkSemantics(Environment env) {
         // call        : ID '(' (exp(',' exp)*)? ')';

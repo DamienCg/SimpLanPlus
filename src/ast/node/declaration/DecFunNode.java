@@ -59,7 +59,6 @@ public class DecFunNode implements Node {
         return null;
     }
 
-    //TODO: check if the function is already defined
     @Override
     public ArrayList<SemanticError> checkSemantics(Environment env) {
         // decFun	    : (type | 'void') ID '(' (arg (',' arg)*)? ')' block ;
