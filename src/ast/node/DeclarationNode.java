@@ -22,8 +22,15 @@ public class DeclarationNode implements Node {
     }
 
     @Override
-    public Node typeCheck() {
-        return null;
+    public void typeCheck() {
+
+        if (this.dec != null) {
+            if (this.dec instanceof DecFunNode) { // declaration : decFun
+                this.dec.typeCheck(); // decfun.typeCheck()
+            } else if (this.dec instanceof DecVarNode) { // declaration : decVar
+                this.dec.typeCheck(); // decVar.typeCheck()
+            }
+        }
     }
 
     @Override

@@ -31,8 +31,8 @@ public class IteNode implements Node {
     }
 
     @Override
-    public Node typeCheck() {
-        return null;
+    public void typeCheck() {
+
     }
 
     @Override

@@ -22,8 +22,8 @@ public class CallExpNode implements Node{
     }
 
     @Override
-    public Node typeCheck() {
-        return null;
+    public void typeCheck() {
+
     }
 
     @Override

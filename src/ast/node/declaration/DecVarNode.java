@@ -26,8 +26,8 @@ public class DecVarNode implements Node {
     }
 
     @Override
-    public Node typeCheck() {
-        return null;
+    public void typeCheck() {
+
     }
 
     @Override
@@ -51,13 +51,20 @@ public class DecVarNode implements Node {
 
         // My current symbol table entry
        HashMap<String, STentry> myCurrentSymTable = env.getSymTable().get(env.getNestinglevel());
-       // Check if the id is already declared
-        STentry ret = env.lookUp(env.getNestinglevel(), id.getId());
-        if (ret != null) { // If it is already declared
+        STentry ret = null;
+        // Check if the id is already declared
+        if (env.getIsFun() > 0) {
+             ret = env.lookUpSameNestingLevel(env.getNestinglevel(),id.getId());
+        }
+        else{
+             ret = env.lookUp(env.getNestinglevel(), id.getId());
+        }
+        // Se sono dentro una funzione e l'id è già dichiarato allora non restituisco errore
+        if (ret != null) { // la variabile e' dichiarata e non è dentro una funzione
             errors.add(new SemanticError("The name of Variable " + id.getId() + " is already taken"));
-        } else { // If it is not declared
-            // Add the id to the symbol table
-            STentry newEntry = new STentry(env.getNestinglevel(),type,0);
+        }
+       else { // variabile non dichiarata e dentro una funzione
+            STentry newEntry = new STentry(env.getNestinglevel(), type, 0);
             env.addDecl(env.getNestinglevel(), id.getId(), newEntry);
         }
 

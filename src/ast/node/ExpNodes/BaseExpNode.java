@@ -27,4 +27,10 @@ public class BaseExpNode extends ExpNode{
         }
         return semanticErrors;
     }
+
+    @Override
+    public void typeCheck() {
+
+    }
+
 }

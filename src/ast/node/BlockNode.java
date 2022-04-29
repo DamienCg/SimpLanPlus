@@ -39,8 +39,22 @@ public class BlockNode implements Node {
     //Stampo i rispettivi sottoalberi dx e sx
 
     @Override
-    public Node typeCheck() {
-        return null;
+    public void typeCheck() {
+
+        try {
+            if (this.declarations != null) {
+                for (Node decl : declarations) {
+                    decl.typeCheck();
+                }
+            }
+            if (this.statements != null) {
+                for (Node stmt : statements) {
+                    stmt.typeCheck();
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override

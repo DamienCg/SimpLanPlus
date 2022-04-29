@@ -7,7 +7,7 @@ public interface Node {
 
     String toString();
 
-    Node typeCheck();
+    void typeCheck();
 
     String codeGeneration();
 

@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
@@ -39,19 +40,22 @@ public class Main {
                 SyntaxtErrorListener.saveErrorFile(SemanticErrorListener);
                 System.exit(0);
             }
-            // NO SEMANTIC OR SYNTAX ERRORS
+            // NO Lexical OR Syntax ERRORS
             else {
-
+                System.out.println("NO Lexical OR Syntax ERRORS");
+                System.out.println("Start semantic analysis");
                 Environment env = new Environment();
-                if (ast.checkSemantics(env).size() >= 1) {
+                ArrayList<SemanticError> myErrors = ast.checkSemantics(env);
+                //TODO salvarsi l'Environment NON eliminare lo scope su exitscope?
+                if (myErrors.size() >= 1) {
                     System.out.println("Semantic errors found");
-                    for (SemanticError error : ast.checkSemantics(env)) {
+                    for (SemanticError error : myErrors) {
                         System.out.println(error);
                     }
                     System.exit(0);
                 } else {
-                    System.out.println("** ALL OK **");
-                    // GO TO TypeChecker
+                    System.out.println("** Now Type Check **");
+                    ast.typeCheck();
                 }
             }
         } catch (FileNotFoundException e) {

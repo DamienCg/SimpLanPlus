@@ -26,8 +26,8 @@ public class DecFunNode implements Node {
         this.block = (BlockNode) block;
     }
     @Override
-    public Node typeCheck() {
-        return null;
+    public void typeCheck() {
+        // TODO
     }
 
     @Override

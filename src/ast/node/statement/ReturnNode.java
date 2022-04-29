@@ -37,8 +37,8 @@ public class ReturnNode implements Node {
     }
 
     @Override
-    public Node typeCheck() {
-        return null;
+    public void typeCheck() {
+
     }
 
     @Override

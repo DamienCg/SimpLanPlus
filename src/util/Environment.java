@@ -58,7 +58,7 @@ public class Environment {
 	// Search id in the symbol table and returns it if present
 	public STentry lookUp(int nestingLevel, final String id) {
 
-		if(isFun == 0) {
+		//if(isFun == 0) {
 			for (int i = nestingLevel; i >= 0; i--) {
 				HashMap<String, STentry> scope = symTable.get(i);
 				STentry stEntry = scope.get(id);
@@ -66,7 +66,9 @@ public class Environment {
 					return stEntry;
 				}
 			}
-		} else {
+		//}
+
+		/*else {
 			for (int i = nestingLevel; i >= isFun; i--) {
 				HashMap<String, STentry> scope = symTable.get(i);
 				STentry stEntry = scope.get(id);
@@ -74,7 +76,7 @@ public class Environment {
 					return stEntry;
 				}
 			}
-		}
+		}*/
 		return null;
 
 	}
@@ -94,7 +96,7 @@ public class Environment {
 
 	//distruzione ultimo ambiente creato!
 	public void exitScope(){
-		this.symTable.remove(this.nestingLevel);
+		//this.symTable.remove(this.nestingLevel);
 		this.nestingLevel--;
 	}
 
