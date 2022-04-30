@@ -12,6 +12,8 @@ import java.util.ArrayList;
 public class DerExpNode implements Node{
 
     private IdNode id;
+    private STentry entry;
+    private int nestingLevel;
 
     public DerExpNode(IdNode id) {
         this.id = id;
@@ -28,7 +30,7 @@ public class DerExpNode implements Node{
 
     @Override
     public TypeNode typeCheck() {
-        return new TypeNode("int");
+        return this.entry.getType().typeCheck();
     }
 
     @Override
@@ -41,6 +43,8 @@ public class DerExpNode implements Node{
 
         ArrayList<SemanticError> errors = new ArrayList<SemanticError>();
         STentry ret = env.lookUp(env.getNestinglevel(), id.getId());
+        this.entry = ret;
+        this.nestingLevel = env.getNestinglevel();
         if(ret == null) { //variable not presence
             errors.add(new SemanticError("Variable " + this.id.getId() + " not declared"));
         }

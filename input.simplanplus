@@ -16,7 +16,7 @@
 
     int z = F(a);
 
-    F(dado);
+    F(c);
 
 
     if(a>b){
