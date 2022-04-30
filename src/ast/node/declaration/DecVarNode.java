@@ -26,8 +26,16 @@ public class DecVarNode implements Node {
     }
 
     @Override
-    public void typeCheck() {
-
+    public TypeNode typeCheck() {
+        if (exp != null) {
+            if (type.typeCheck().getType().equals(exp.typeCheck().getType())) {
+                return type;
+            }
+            else {
+                throw new RuntimeException("Type error in declaration of variable " + id.getId());
+            }
+        }
+            return type;
     }
 
     @Override

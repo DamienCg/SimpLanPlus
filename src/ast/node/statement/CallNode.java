@@ -4,6 +4,8 @@ import ast.STentry;
 import ast.node.ExpNodes.ExpNode;
 import ast.node.IdNode;
 import ast.node.Node;
+import ast.node.TypeNode;
+import ast.node.declaration.DecFunNode;
 import util.Environment;
 import util.SemanticError;
 
@@ -11,7 +13,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class CallNode implements Node {
-// call        : ID '(' (exp(',' exp)*)? ')';
+    // call        : ID '(' (exp(',' exp)*)? ')';
     private IdNode id;
     private ArrayList<Node> expList;
     private STentry entry;
@@ -21,6 +23,7 @@ public class CallNode implements Node {
     public CallNode(IdNode id, ArrayList<Node> expList) {
         this.id = id;
         this.expList = expList;
+        this.entry = null;
     }
 
     public IdNode getId() {
@@ -40,7 +43,9 @@ public class CallNode implements Node {
     }
 
     @Override
-    public void typeCheck() {
+    public TypeNode typeCheck() {
+        DecFunNode decFunNode = (DecFunNode) entry.getType();
+        System.out.println("ddddddd");
         // call        : ID '(' (exp(',' exp)*)? ')';
         //int z = F(a);
         // tipo ritorno funzione uguale al tipo di z
@@ -49,11 +54,15 @@ public class CallNode implements Node {
         // guardo se parametri attuale.size == parametri formali.size
         // se si controllo che i tipi di a e b siano uguali
         // se no errore
+        if(entry != null){
+            if(decFunNode.getArgList().size() != expList.size()){
+                throw new RuntimeException("Error: wrong number of arguments in function: "+id.getId());
+            }
+        }
 
-       System.out.println("call node");
-
-
+        return null;
     }
+
 
     @Override
     public String codeGeneration() {

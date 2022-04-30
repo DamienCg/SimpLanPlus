@@ -25,8 +25,8 @@ public class IdNode implements Node{
     }
 
     @Override
-    public void typeCheck() {
-
+    public TypeNode typeCheck() {
+        return null;
     }
 
     @Override

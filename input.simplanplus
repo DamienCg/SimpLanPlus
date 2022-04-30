@@ -1,5 +1,7 @@
 {
     int a = 3;
+    //int fibabbo = true;
+    //bool fibabbo2 = 1;
     int b = 4;
     int c = 5;
 
@@ -13,7 +15,7 @@
 
     int z = F(a);
 
-    F(c);
+    F(c,b);
 
 
     if(a>b){

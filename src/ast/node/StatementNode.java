@@ -33,29 +33,31 @@ public class StatementNode implements Node {
     }
 
     @Override
-    public void typeCheck() {
+    public TypeNode typeCheck() {
+        TypeNode type = null;
 
         if (statement != null) {
             if (statement instanceof AssignmentNode) {
-                statement.typeCheck();
+                type = statement.typeCheck();
             }
             else if (statement instanceof PrintNode) {
-                statement.typeCheck();
+                type = statement.typeCheck();
             }
             else if (statement instanceof BlockNode) {
-                statement.typeCheck();
+                type = statement.typeCheck();
             }
             else if (statement instanceof IteNode) {
-                statement.typeCheck();
+                type =statement.typeCheck();
             }
             else if (statement instanceof CallNode) {
-                statement.typeCheck();
+                type = statement.typeCheck();
             }
             else if (statement instanceof ReturnNode) {
-                statement.typeCheck();
+                type = statement.typeCheck();
             }
 
         }
+        return type;
 
     }
 

@@ -25,9 +25,13 @@ public class DecFunNode implements Node {
         this.ArgList = argList;
         this.block = (BlockNode) block;
     }
+    public ArrayList<Node> getArgList() {
+        return ArgList;
+    }
+
     @Override
-    public void typeCheck() {
-        // TODO
+    public TypeNode typeCheck() {
+        return null;
     }
 
     @Override
@@ -74,7 +78,7 @@ public class DecFunNode implements Node {
         }
         else { // If it is not declared
             // Add the id to the symbol table
-            STentry newEntry = new STentry(env.getNestinglevel(),type,0);
+            STentry newEntry = new STentry(env.getNestinglevel(),this,0);
             env.addDecl(env.getNestinglevel(), id.getId(), newEntry);
         }
 

@@ -4,6 +4,7 @@ import ast.node.ExpNodes.DerExpNode;
 import ast.node.ExpNodes.ExpNode;
 import ast.node.IdNode;
 import ast.node.Node;
+import ast.node.TypeNode;
 import util.Environment;
 import util.SemanticError;
 
@@ -21,8 +22,8 @@ public class AssignmentNode implements Node {
     }
 
     @Override
-    public void typeCheck() {
-
+    public TypeNode typeCheck() {
+        return new TypeNode("int");
     }
 
     @Override

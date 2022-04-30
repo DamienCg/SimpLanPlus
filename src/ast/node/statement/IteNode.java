@@ -2,6 +2,7 @@ package ast.node.statement;
 
 import ast.node.ExpNodes.ExpNode;
 import ast.node.Node;
+import ast.node.TypeNode;
 import util.Environment;
 import util.SemanticError;
 
@@ -31,8 +32,8 @@ public class IteNode implements Node {
     }
 
     @Override
-    public void typeCheck() {
-
+    public TypeNode typeCheck() {
+        return null;
     }
 
     @Override

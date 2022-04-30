@@ -20,8 +20,8 @@ public class TypeNode implements Node {
     }
 
     @Override
-    public void typeCheck() {
-
+    public TypeNode typeCheck() {
+        return this;
     }
 
     @Override

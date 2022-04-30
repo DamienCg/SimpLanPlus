@@ -2,6 +2,7 @@ package ast.node.ExpNodes;
 
 import ast.node.BlockNode;
 import ast.node.Node;
+import ast.node.TypeNode;
 import ast.node.statement.*;
 import util.Environment;
 import util.SemanticError;
@@ -30,10 +31,9 @@ public class ExpNode implements Node {
     }
 
     @Override
-    public void typeCheck() {
-
+    public TypeNode typeCheck() {
+        return new TypeNode("int");
     }
-
     @Override
     public String codeGeneration() {
         return null;

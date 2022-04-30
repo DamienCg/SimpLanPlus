@@ -1,6 +1,7 @@
 package ast.node.ExpNodes;
 
 import ast.node.Node;
+import ast.node.TypeNode;
 import util.Environment;
 import util.SemanticError;
 
@@ -29,8 +30,8 @@ public class BaseExpNode extends ExpNode{
     }
 
     @Override
-    public void typeCheck() {
-
+    public TypeNode typeCheck() {
+     return new TypeNode("int");
     }
 
 }
