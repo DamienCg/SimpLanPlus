@@ -35,9 +35,14 @@ public class TypeNode implements Node {
         return new ArrayList<SemanticError>();
     }
 
+    public boolean isEqual(TypeNode typeNode) {
+        return this.type.compareTo(typeNode.getType()) == 0;
+
+    }
+
     @Override
     public String toString() {
-        return "Type: " + this.type;
+        return this.type;
     }
 }
 

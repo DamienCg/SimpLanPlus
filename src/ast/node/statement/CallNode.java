@@ -45,7 +45,6 @@ public class CallNode implements Node {
     @Override
     public TypeNode typeCheck() {
         DecFunNode decFunNode = (DecFunNode) entry.getType();
-        System.out.println("ddddddd");
         // call        : ID '(' (exp(',' exp)*)? ')';
         //int z = F(a);
         // tipo ritorno funzione uguale al tipo di z
@@ -54,13 +53,19 @@ public class CallNode implements Node {
         // guardo se parametri attuale.size == parametri formali.size
         // se si controllo che i tipi di a e b siano uguali
         // se no errore
-        if(entry != null){
-            if(decFunNode.getArgList().size() != expList.size()){
-                throw new RuntimeException("Error: wrong number of arguments in function: "+id.getId());
+        if (entry != null) {
+            if (decFunNode.getArgList().size() != expList.size()) {
+                throw new RuntimeException("Error: wrong number of arguments in function: " + id.getId());
+            } else {
+                for (int i = 0; i < expList.size(); i++) {
+                    if (!decFunNode.getArgList().get(i).typeCheck().isEqual(expList.get(i).typeCheck())) {
+                        throw new RuntimeException("Error: wrong type of arguments in function: " + id.getId());
+                    }
+                }
             }
         }
 
-        return null;
+            return decFunNode.getType();
     }
 
 

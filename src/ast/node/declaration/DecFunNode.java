@@ -25,6 +25,11 @@ public class DecFunNode implements Node {
         this.ArgList = argList;
         this.block = (BlockNode) block;
     }
+
+    public TypeNode getType() {
+        return type;
+    }
+
     public ArrayList<Node> getArgList() {
         return ArgList;
     }

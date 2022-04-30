@@ -4,6 +4,7 @@
     //bool fibabbo2 = 1;
     int b = 4;
     int c = 5;
+    bool dado = true;
 
 
     int F(int b){
@@ -15,7 +16,7 @@
 
     int z = F(a);
 
-    F(c,b);
+    F(dado);
 
 
     if(a>b){
