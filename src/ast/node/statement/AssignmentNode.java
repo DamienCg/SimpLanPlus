@@ -1,5 +1,6 @@
 package ast.node.statement;
 
+import ast.STentry;
 import ast.node.ExpNodes.DerExpNode;
 import ast.node.ExpNodes.ExpNode;
 import ast.node.IdNode;
@@ -8,6 +9,7 @@ import ast.node.TypeNode;
 import util.Environment;
 import util.SemanticError;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class AssignmentNode implements Node {
@@ -23,7 +25,14 @@ public class AssignmentNode implements Node {
 
     @Override
     public TypeNode typeCheck() {
-        return new TypeNode("int");
+        TypeNode typeID = id.typeCheck();
+        TypeNode typeExp = exp.typeCheck();
+        if(typeID.isEqual(typeExp)){
+            return typeID;
+        }
+        else{
+            throw new RuntimeException("Type mismatch: " + typeID + " and " + typeExp);
+        }
     }
 
     @Override
@@ -36,7 +45,8 @@ public class AssignmentNode implements Node {
         // assignment  : ID '=' exp ;
         ArrayList<SemanticError> res = new ArrayList<>();
         // check if id is already declared
-        if(env.lookUp(env.getNestinglevel(),id.getId()) == null){
+        STentry IdEntry = env.lookUp(env.getNestinglevel(),id.getId());
+        if(IdEntry == null){
             res.add(new SemanticError("Undeclared variable " + id.getId()));
         }
         // check if exp is already declared

@@ -1,26 +1,13 @@
 {
-    int a = 3;
-    //int fibabbo = true;
-    //bool fibabbo2 = 1;
-    int b = 4;
-    int c = 5;
-    bool dado = true;
+    int a = 0;
+    int b = 0;
+    int c = 0;
+    bool d = false;
 
-
-    int F(int b){
-    int c = 6;
-    int ff = c;
-    int a = 1;
-        return b+c;
+    int F(int a,int b,bool d){
+        return a+b;
     }
 
-    int z = F(a);
-
-    F(c);
-
-
-    if(a>b){
-      int da=4;
-      }
+    F(a,b,d);
 
 }

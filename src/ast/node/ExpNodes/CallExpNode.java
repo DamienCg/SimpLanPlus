@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class CallExpNode implements Node{
 
-    private Node callExpNode; //[TOSE] Non è di tipo ExpNode perché contiene il nodo "CALL"
+    private Node callExpNode;
 
     public CallExpNode(Node call){
         callExpNode = call;
@@ -18,13 +18,13 @@ public class CallExpNode implements Node{
     @Override
     public String toString() {
         String ret = "";
-        ret += "Call:" + callExpNode.toString() ; //[TOSE] devo scrivere pari alla grammatica?
+        ret += "Call:" + callExpNode.toString() ;
         return ret;
     }
 
     @Override
     public TypeNode typeCheck() {
-        return new TypeNode("int");
+        return callExpNode.typeCheck();
     }
 
     @Override

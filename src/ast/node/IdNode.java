@@ -37,7 +37,7 @@ public class IdNode implements Node{
             throw new RuntimeException("TypeCheck: Entry of identifier "+ id +" is null");
         }
         if (entry.getType() instanceof DecFunNode) { //
-            throw new RuntimeException("TWrong usage of function identifier: "+ id);
+            throw new RuntimeException("Wrong usage of function identifier: "+ id);
         }
         return entry.getType().typeCheck();
     }
@@ -49,9 +49,9 @@ public class IdNode implements Node{
 
     @Override
     public ArrayList<SemanticError> checkSemantics(Environment env) {
-        //create result list
+        //TODO NON ENTRA QUA DENTRO!!!!
         ArrayList<SemanticError> res = new ArrayList<>();
-        entry = env.lookUp(env.getNestinglevel(), id);
+        this.entry = env.lookUp(env.getNestinglevel(), id);
         if (entry == null)
             res.add(new SemanticError("Id "+id+" not declared."+id));
         else

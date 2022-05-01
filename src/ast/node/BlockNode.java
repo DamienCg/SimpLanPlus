@@ -21,6 +21,10 @@ public class BlockNode implements Node {
         this.statements = statements;
     }
 
+    public ArrayList<Node> getStatement(){
+        return statements;
+    }
+
     @Override
     public String toString() {
         String ret = "{\n";
@@ -45,7 +49,7 @@ public class BlockNode implements Node {
         try {
             if (this.declarations != null) {
                 for (Node decl : declarations) {
-                    TypeNode de = decl.typeCheck();
+                    decl.typeCheck();
                 }
             }
             if (this.statements != null) {
@@ -80,7 +84,6 @@ public class BlockNode implements Node {
                 errors.addAll(stmt.checkSemantics(env));
             }
         }
-        // Rimuovo la tabella corrente
         env.exitScope();
         return errors;
     }

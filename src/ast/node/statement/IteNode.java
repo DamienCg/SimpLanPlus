@@ -1,8 +1,10 @@
 package ast.node.statement;
 
+import ast.node.ExpNodes.BoolExpNode;
 import ast.node.ExpNodes.ExpNode;
 import ast.node.Node;
 import ast.node.TypeNode;
+import ast.node.utils.SimpLanPlusUtils;
 import util.Environment;
 import util.SemanticError;
 
@@ -33,7 +35,11 @@ public class IteNode implements Node {
 
     @Override
     public TypeNode typeCheck() {
-        return null;
+
+        if (!(SimpLanPlusUtils.isSubtype(exp.typeCheck(), new TypeNode("true")))) {
+            System.err.println("Non boolean condition inside if: " + exp.toString());
+        }
+        return exp.typeCheck();
     }
 
     @Override

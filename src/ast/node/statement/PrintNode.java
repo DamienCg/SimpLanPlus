@@ -28,7 +28,7 @@ public class PrintNode implements Node {
 
     @Override
     public TypeNode typeCheck() {
-        return null;
+        return exp.typeCheck();
     }
 
     @Override

@@ -26,6 +26,9 @@ public class NegExpNode extends BaseExpNode{
 
     @Override
     public TypeNode typeCheck() {
+        if (exp.typeCheck().isEqual(new TypeNode("int"))) {
+            throw new RuntimeException("Trying to do negative on a non int");
+        }
         return new TypeNode("int");
     }
 

@@ -1,7 +1,5 @@
-You had: 2 Lexical errors:
-In line 7:16 token recognition error at: '#'
-In line 7:22 token recognition error at: ':'
+You had: 0 Lexical errors:
 
 
 You had: 1 Syntax  errors:
-In line 7:24 no viable alternative at input 'TODOfix'
+In line 13:4 extraneous input 'int' expecting {'{', '}', 'print', 'return', 'if', ID}

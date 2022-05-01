@@ -31,7 +31,7 @@ public class BaseExpNode extends ExpNode{
 
     @Override
     public TypeNode typeCheck() {
-     return new TypeNode("int");
+     return this.exp.typeCheck();
     }
 
 }

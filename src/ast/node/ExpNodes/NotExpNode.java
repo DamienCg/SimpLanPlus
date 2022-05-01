@@ -21,7 +21,14 @@ public class NotExpNode extends BaseExpNode{
 
     @Override
     public TypeNode typeCheck() {
-        return new TypeNode("int");
+        TypeNode expType = exp.typeCheck();
+
+        if (! (expType.isEqual(new TypeNode("bool")))) {
+            throw new RuntimeException("Trying to do negate (!) of a non bool");
+        }
+        //throw new SimplanPlusException("Exp not bool, throw exception");
+
+        return new TypeNode("bool");
     }
 
     @Override

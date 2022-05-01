@@ -32,7 +32,16 @@ public class ArgNode implements Node{
 
     @Override
     public TypeNode typeCheck() {
-        return this.type;
+        if(type != null)
+            if(type.typeCheck().isEqual(id.typeCheck())){
+                return type.typeCheck();
+            }
+            else{
+                throw new RuntimeException("Type mismatch"+type.typeCheck().toString()+" "+id.typeCheck().toString());
+            }
+        else{
+            return id.typeCheck();
+        }
     }
 
     @Override

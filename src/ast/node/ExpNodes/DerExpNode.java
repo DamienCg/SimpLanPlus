@@ -10,7 +10,6 @@ import util.SemanticError;
 import java.util.ArrayList;
 
 public class DerExpNode implements Node{
-
     private IdNode id;
     private STentry entry;
     private int nestingLevel;
@@ -30,7 +29,11 @@ public class DerExpNode implements Node{
 
     @Override
     public TypeNode typeCheck() {
+        System.out.println("DerExpNode");
+        if(entry != null) {
         return this.entry.getType().typeCheck();
+        }
+        return id.typeCheck();
     }
 
     @Override
@@ -41,14 +44,15 @@ public class DerExpNode implements Node{
     @Override
     public ArrayList<SemanticError> checkSemantics(Environment env) {
 
-        ArrayList<SemanticError> errors = new ArrayList<SemanticError>();
-        STentry ret = env.lookUp(env.getNestinglevel(), id.getId());
-        this.entry = ret;
-        this.nestingLevel = env.getNestinglevel();
-        if(ret == null) { //variable not presence
-            errors.add(new SemanticError("Variable " + this.id.getId() + " not declared"));
-        }
-        return errors;
+        ArrayList<SemanticError> res = new ArrayList<>();
+
+        entry = env.lookUp(env.getNestinglevel(),id.getId());
+        if (entry == null)
+            res.add(new SemanticError("Id "+id.getId()+" not declared."));
+        else
+            nestingLevel = env.getNestinglevel();
+
+        return res;
     }
     
 }

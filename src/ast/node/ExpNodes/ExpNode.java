@@ -32,7 +32,7 @@ public class ExpNode implements Node {
 
     @Override
     public TypeNode typeCheck() {
-        return new TypeNode("int");
+        return exp.typeCheck();
     }
     @Override
     public String codeGeneration() {

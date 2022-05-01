@@ -5,6 +5,7 @@ import ast.node.IdNode;
 import ast.node.Node;
 import ast.node.BlockNode;
 import ast.node.TypeNode;
+import ast.node.statement.ReturnNode;
 import util.Environment;
 import util.SemanticError;
 
@@ -17,7 +18,7 @@ public class DecFunNode implements Node {
     private IdNode id;
     private ArrayList<Node> ArgList;
     private BlockNode block;
-    // decFun	    : (type | 'void') ID '(' (arg (',' arg)*)? ')' block ;
+    private ArrayList<ReturnNode> listofreturn;
 
     public DecFunNode(Node type, Node id, Node block, ArrayList<Node> argList) {
         this.type = (TypeNode) type;
@@ -36,7 +37,19 @@ public class DecFunNode implements Node {
 
     @Override
     public TypeNode typeCheck() {
-        return null;
+
+        if (block != null) {
+            if (block.getStatement() != null) {
+                for (Node n : block.getStatement()) {
+                    if (n instanceof ReturnNode) {
+                        if (!((ReturnNode) n).typeCheck().isEqual(type)) {
+                            throw new RuntimeException("Return type not equal to function type");
+                        }
+                    }
+                }
+            }
+        }
+        return new TypeNode(type.getType());
     }
 
     @Override

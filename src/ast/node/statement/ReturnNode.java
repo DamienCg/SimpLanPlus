@@ -39,7 +39,7 @@ public class ReturnNode implements Node {
 
     @Override
     public TypeNode typeCheck() {
-        return null;
+        return null; //TODO
     }
 
     @Override
