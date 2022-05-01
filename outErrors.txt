@@ -1,5 +1,6 @@
 You had: 0 Lexical errors:
 
 
-You had: 1 Syntax  errors:
-In line 13:4 extraneous input 'int' expecting {'{', '}', 'print', 'return', 'if', ID}
+You had: 2 Syntax  errors:
+In line 2:0 extraneous input 'var' expecting {'{', '}', 'void', 'int', 'bool', 'print', 'return', 'if', ID}
+In line 3:0 extraneous input 'var' expecting {'{', '}', 'void', 'int', 'bool', 'print', 'return', 'if', ID}

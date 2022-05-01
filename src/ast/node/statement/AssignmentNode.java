@@ -1,38 +1,29 @@
 package ast.node.statement;
 
 import ast.STentry;
-import ast.node.ExpNodes.DerExpNode;
-import ast.node.ExpNodes.ExpNode;
-import ast.node.IdNode;
 import ast.node.Node;
 import ast.node.TypeNode;
 import util.Environment;
 import util.SemanticError;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class AssignmentNode implements Node {
 
     // assignment  : ID '=' exp ;
-    private IdNode id;
+    private String id;
     private Node exp;
 
-    public AssignmentNode(IdNode id, Node exp){
+    public AssignmentNode(String id, Node exp){
         this.id = id;
         this.exp = exp;
     }
 
     @Override
     public TypeNode typeCheck() {
-        TypeNode typeID = id.typeCheck();
-        TypeNode typeExp = exp.typeCheck();
-        if(typeID.isEqual(typeExp)){
-            return typeID;
-        }
-        else{
-            throw new RuntimeException("Type mismatch: " + typeID + " and " + typeExp);
-        }
+          // assignment  : ID '=' exp ;
+        // TODO
+        return new TypeNode("void");
     }
 
     @Override
@@ -45,9 +36,9 @@ public class AssignmentNode implements Node {
         // assignment  : ID '=' exp ;
         ArrayList<SemanticError> res = new ArrayList<>();
         // check if id is already declared
-        STentry IdEntry = env.lookUp(env.getNestinglevel(),id.getId());
+        STentry IdEntry = env.lookUp(env.getNestinglevel(),id);
         if(IdEntry == null){
-            res.add(new SemanticError("Undeclared variable " + id.getId()));
+            res.add(new SemanticError("Undeclared variable " + id));
         }
         // check if exp is already declared
         // exp può essere una variabile o una stringa o operazione d+b ecc

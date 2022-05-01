@@ -1,7 +1,6 @@
 package ast.node.ExpNodes;
 
 import ast.STentry;
-import ast.node.IdNode;
 import ast.node.Node;
 import ast.node.TypeNode;
 import util.Environment;
@@ -10,30 +9,25 @@ import util.SemanticError;
 import java.util.ArrayList;
 
 public class DerExpNode implements Node{
-    private IdNode id;
+    private String id;
     private STentry entry;
-    private int nestingLevel;
 
-    public DerExpNode(IdNode id) {
-        this.id = id;
+    public DerExpNode(String id) {
+        this.id = id; this.entry = null;
     }
 
-    public IdNode getId() {
+    public String getId() {
         return id;
     }
 
     @Override
     public String toString() {
-        return "ID: " + id.toString() ;
+        return id;
     }
 
     @Override
     public TypeNode typeCheck() {
-        System.out.println("DerExpNode");
-        if(entry != null) {
         return this.entry.getType().typeCheck();
-        }
-        return id.typeCheck();
     }
 
     @Override
@@ -46,11 +40,9 @@ public class DerExpNode implements Node{
 
         ArrayList<SemanticError> res = new ArrayList<>();
 
-        entry = env.lookUp(env.getNestinglevel(),id.getId());
+        this.entry = env.lookUp(env.getNestinglevel(),id);
         if (entry == null)
-            res.add(new SemanticError("Id "+id.getId()+" not declared."));
-        else
-            nestingLevel = env.getNestinglevel();
+            res.add(new SemanticError("Id "+id+" not declared."));
 
         return res;
     }

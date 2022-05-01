@@ -92,9 +92,9 @@ public class SimpLanPlusVisitorImpl extends SimpLanPlusBaseVisitor<Node> {
         }
         if (ctx.type() != null) { // is TypeNode
             //  DecFunNode(Node type, Node id, Node block, ArrayList<Node> argList)
-            decFunNode = new DecFunNode(visit(ctx.type()), new IdNode(ctx.ID().getText()), visit(ctx.block()), arguments);
+            decFunNode = new DecFunNode(visit(ctx.type()), ctx.ID().getText(), visit(ctx.block()), arguments);
         } else { // is VOID
-            decFunNode = new DecFunNode(null, new IdNode(ctx.ID().getText()), visit(ctx.block()), arguments);
+            decFunNode = new DecFunNode(null, ctx.ID().getText(), visit(ctx.block()), arguments);
         }
 
         return decFunNode;
@@ -105,10 +105,10 @@ public class SimpLanPlusVisitorImpl extends SimpLanPlusBaseVisitor<Node> {
         // decVar      : type ID ('=' exp)? ';' ;
             DecVarNode ret;
             if(ctx.exp()!=null){
-                ret = new DecVarNode((TypeNode) visit(ctx.type()), new IdNode(ctx.ID().getText()), visit(ctx.exp()));
+                ret = new DecVarNode((TypeNode) visit(ctx.type()), ctx.ID().getText(), visit(ctx.exp()));
             }
             else{
-                ret = new DecVarNode((TypeNode) visit(ctx.type()), new IdNode(ctx.ID().getText()), null);
+                ret = new DecVarNode((TypeNode) visit(ctx.type()), ctx.ID().getText(), null);
             }
 
             return ret;
@@ -127,11 +127,11 @@ public class SimpLanPlusVisitorImpl extends SimpLanPlusBaseVisitor<Node> {
     }
 
     @Override public Node visitArg(SimpLanPlusParser.ArgContext ctx){
-        return new ArgNode((TypeNode)visit(ctx.type()), new IdNode(ctx.ID().getText()));
+        return new ArgNode((TypeNode)visit(ctx.type()), ctx.ID().getText());
     }
 
     @Override public Node visitAssignment(SimpLanPlusParser.AssignmentContext ctx){
-        return new AssignmentNode(new IdNode(ctx.ID().getText()), visit(ctx.exp()));
+        return new AssignmentNode(ctx.ID().getText(), visit(ctx.exp()));
     }
 
     @Override public Node visitRet(SimpLanPlusParser.RetContext ctx){
@@ -165,13 +165,13 @@ public class SimpLanPlusVisitorImpl extends SimpLanPlusBaseVisitor<Node> {
     @Override public Node visitCall(SimpLanPlusParser.CallContext ctx){
         //     public CallNode(IdNode id, ArrayList<ExpNode> expList) {
         if(ctx.exp().isEmpty()){
-            return new CallNode(new IdNode(ctx.ID().getText()), null);
+            return new CallNode(ctx.ID().getText(), null);
         }
         ArrayList<Node> params = new ArrayList<Node>();
         for(SimpLanPlusParser.ExpContext ex: ctx.exp()){
             params.add(visit(ex));
         }
-        return new CallNode(new IdNode(ctx.ID().getText()), params);
+        return new CallNode(ctx.ID().getText(), params);
     }
 
     @Override public Node visitNegExp(SimpLanPlusParser.NegExpContext ctx){
@@ -183,7 +183,7 @@ public class SimpLanPlusVisitorImpl extends SimpLanPlusBaseVisitor<Node> {
     }
 
     @Override public Node visitDerExp(SimpLanPlusParser.DerExpContext ctx){
-        return new DerExpNode(new IdNode(ctx.ID().getText()));
+        return new DerExpNode(ctx.ID().getText());
     }
 
     @Override public Node visitBinExp(SimpLanPlusParser.BinExpContext ctx){

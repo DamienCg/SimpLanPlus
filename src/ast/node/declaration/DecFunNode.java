@@ -1,7 +1,6 @@
 package ast.node.declaration;
 
 import ast.STentry;
-import ast.node.IdNode;
 import ast.node.Node;
 import ast.node.BlockNode;
 import ast.node.TypeNode;
@@ -15,14 +14,13 @@ import java.util.HashMap;
 public class DecFunNode implements Node {
 
     private TypeNode type;
-    private IdNode id;
+    private String id;
     private ArrayList<Node> ArgList;
     private BlockNode block;
-    private ArrayList<ReturnNode> listofreturn;
 
-    public DecFunNode(Node type, Node id, Node block, ArrayList<Node> argList) {
+    public DecFunNode(Node type, String id, Node block, ArrayList<Node> argList) {
         this.type = (TypeNode) type;
-        this.id = (IdNode) id;
+        this.id = id;
         this.ArgList = argList;
         this.block = (BlockNode) block;
     }
@@ -38,18 +36,8 @@ public class DecFunNode implements Node {
     @Override
     public TypeNode typeCheck() {
 
-        if (block != null) {
-            if (block.getStatement() != null) {
-                for (Node n : block.getStatement()) {
-                    if (n instanceof ReturnNode) {
-                        if (!((ReturnNode) n).typeCheck().isEqual(type)) {
-                            throw new RuntimeException("Return type not equal to function type");
-                        }
-                    }
-                }
-            }
-        }
-        return new TypeNode(type.getType());
+        //TODO: type check
+        return null;
     }
 
     @Override
@@ -90,14 +78,14 @@ public class DecFunNode implements Node {
         // My current symbol table entry
         HashMap<String, STentry> myCurrentSymTable = env.getSymTable().get(env.getNestinglevel());
         // Check if the id is already declared
-        STentry ret = env.lookUp(env.getNestinglevel(), id.getId());
+        STentry ret = env.lookUp(env.getNestinglevel(), id);
         if (ret != null) { // If it is already declared
-            errors.add(new SemanticError("The name of Function " + id.getId() + " is already taken"));
+            errors.add(new SemanticError("The name of Function " + id + " is already taken"));
         }
         else { // If it is not declared
             // Add the id to the symbol table
             STentry newEntry = new STentry(env.getNestinglevel(),this,0);
-            env.addDecl(env.getNestinglevel(), id.getId(), newEntry);
+            env.addDecl(env.getNestinglevel(), id, newEntry);
         }
 
         //Increment nesting level and create new table

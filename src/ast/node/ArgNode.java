@@ -10,11 +10,12 @@ import java.util.HashMap;
 public class ArgNode implements Node{
     // arg         : ('var')? type ID;
     private TypeNode type;
-    private IdNode id;
+    private String id;
 
-    ArgNode(Node type, Node id){
+
+    ArgNode(Node type, String id){
         this.type = (TypeNode) type;
-        this.id = (IdNode) id;
+        this.id =  id;
     }
 
     @Override
@@ -22,26 +23,17 @@ public class ArgNode implements Node{
         String ret = "(";
 
         if (type != null) {
-            ret += type.toString() + " ";
+            ret += type + " ";
         }
         if (id != null) {
-            ret += id.toString();
+            ret += id;
         }
         return ret + ")";
     }
 
     @Override
     public TypeNode typeCheck() {
-        if(type != null)
-            if(type.typeCheck().isEqual(id.typeCheck())){
-                return type.typeCheck();
-            }
-            else{
-                throw new RuntimeException("Type mismatch"+type.typeCheck().toString()+" "+id.typeCheck().toString());
-            }
-        else{
-            return id.typeCheck();
-        }
+       return type;
     }
 
     @Override
@@ -54,14 +46,14 @@ public class ArgNode implements Node{
 
         ArrayList<SemanticError> errors = new ArrayList<SemanticError>();
         // Check if the id is already declared
-        STentry ret = env.lookUpSameNestingLevel(env.getNestinglevel(), id.getId());
+        STentry ret = env.lookUpSameNestingLevel(env.getNestinglevel(), id);
         if (ret != null) { // If it is already declared
-            errors.add(new SemanticError("Argument id " + id.getId() + " already declared"));
+            errors.add(new SemanticError("Argument id " + id + " already declared"));
         }
         else { // If it is not declared
             // Add the id to the symbol table
             STentry newEntry = new STentry(env.getNestinglevel(),type,0);
-            env.addDecl(env.getNestinglevel(), id.getId(), newEntry);
+            env.addDecl(env.getNestinglevel(), id, newEntry);
         }
         return errors;
     }
