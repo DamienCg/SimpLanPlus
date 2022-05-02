@@ -46,7 +46,6 @@ public class Main {
                 System.out.println("Start semantic analysis");
                 Environment env = new Environment();
                 ArrayList<SemanticError> myErrors = ast.checkSemantics(env);
-                //TODO salvarsi l'Environment NON eliminare lo scope su exitscope?
                 if (myErrors.size() >= 1) {
                     System.out.println("Semantic errors found");
                     for (SemanticError error : myErrors) {

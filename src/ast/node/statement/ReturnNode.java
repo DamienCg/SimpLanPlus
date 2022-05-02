@@ -39,7 +39,10 @@ public class ReturnNode implements Node {
 
     @Override
     public TypeNode typeCheck() {
-        return null; //TODO
+       if(exp != null) {
+           return exp.typeCheck();
+       }
+       return new TypeNode("void");
     }
 
     @Override

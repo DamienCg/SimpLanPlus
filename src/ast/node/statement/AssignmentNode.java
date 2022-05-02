@@ -13,6 +13,7 @@ public class AssignmentNode implements Node {
     // assignment  : ID '=' exp ;
     private String id;
     private Node exp;
+    private STentry entry;
 
     public AssignmentNode(String id, Node exp){
         this.id = id;
@@ -21,9 +22,10 @@ public class AssignmentNode implements Node {
 
     @Override
     public TypeNode typeCheck() {
-          // assignment  : ID '=' exp ;
-        // TODO
-        return new TypeNode("void");
+        if(!entry.getType().typeCheck().isEqual(exp.typeCheck())){
+            throw new RuntimeException("Type error: " + id + " is not of type " + exp.typeCheck().toString());
+        }
+        return entry.getType().typeCheck();
     }
 
     @Override
@@ -39,6 +41,9 @@ public class AssignmentNode implements Node {
         STentry IdEntry = env.lookUp(env.getNestinglevel(),id);
         if(IdEntry == null){
             res.add(new SemanticError("Undeclared variable " + id));
+        }
+        else{
+            this.entry = IdEntry;
         }
         // check if exp is already declared
         // exp può essere una variabile o una stringa o operazione d+b ecc

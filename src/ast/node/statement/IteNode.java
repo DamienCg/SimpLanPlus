@@ -35,7 +35,7 @@ public class IteNode implements Node {
 
     @Override
     public TypeNode typeCheck() {
-
+        //TODO da testare
         if (!(SimpLanPlusUtils.isSubtype(exp.typeCheck(), new TypeNode("true")))) {
             System.err.println("Non boolean condition inside if: " + exp.toString());
         }

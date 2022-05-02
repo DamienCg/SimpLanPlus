@@ -33,7 +33,7 @@ public class ArgNode implements Node{
 
     @Override
     public TypeNode typeCheck() {
-       return type;
+       return type.typeCheck();
     }
 
     @Override
