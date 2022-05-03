@@ -43,6 +43,9 @@ public class DerExpNode implements Node{
         this.entry = env.lookUp(env.getNestinglevel(),id);
         if (entry == null)
             res.add(new SemanticError("Id "+id+" not declared."));
+        if (entry != null) {
+            entry.setIsUse(true);
+        }
 
         return res;
     }

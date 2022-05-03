@@ -100,6 +100,15 @@ public class Environment {
 		this.nestingLevel--;
 	}
 
+	public void printUnuseVariable(int nestingLevel){
+		for (int i = nestingLevel; i >= nestingLevel; i--) {
+			HashMap<String, STentry> scope = symTable.get(i);
+			scope.entrySet().forEach(entry -> {
+				if(entry.getValue().getIsUse() == false)
+				System.out.println("Variable " + entry.getKey() + " not use");
+			});
+		}
+	}
 }
 
 

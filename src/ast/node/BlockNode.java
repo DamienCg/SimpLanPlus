@@ -84,7 +84,10 @@ public class BlockNode implements Node {
                 errors.addAll(stmt.checkSemantics(env));
             }
         }
+
+        env.printUnuseVariable(env.getNestinglevel());
         env.exitScope();
+
         return errors;
     }
 

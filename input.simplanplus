@@ -1,5 +1,21 @@
 {
 
+    int a = 9;
+    int k = 9;
+    int f;
+    int c = f; //deve dare errore
+
+    int F(int argFuncion){
+            int l = pippo;
+        }
+    if (k >0) {}
+
+
+
+
+}
+//TODO: il print lo gestiamo bene?
+/*
     int a = 7;
     int b = 0;
     int c = 0;
@@ -14,4 +30,4 @@
 F(a,b,d);
 
 d = a;
-}
+*/

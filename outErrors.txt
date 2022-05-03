@@ -1,9 +1,5 @@
 You had: 0 Lexical errors:
 
 
-You had: 5 Syntax  errors:
-In line 11:4 extraneous input 'int' expecting {'{', '}', 'print', 'return', 'if', ID}
-In line 11:10 extraneous input 'int' expecting {'(', ')', '-', '!', BOOL, ID, NUMBER}
-In line 11:16 extraneous input 'int' expecting {'(', '-', '!', BOOL, ID, NUMBER}
-In line 11:22 extraneous input 'bool' expecting {'(', '-', '!', BOOL, ID, NUMBER}
-In line 11:29 missing ';' at '{'
+You had: 1 Syntax  errors:
+In line 9:0 mismatched input '}' expecting {'(', '-', '!', BOOL, ID, NUMBER}
