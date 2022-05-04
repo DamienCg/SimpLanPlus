@@ -46,6 +46,13 @@ public class DecFunNode implements Node {
         }
 
         TypeNode blockType = this.block.typeCheck();
+
+        //TODO: da cambiare deve dare errore solo se c'è return non se c'è altro codice
+        if (blockType != null && this.type.typeCheck().getType().equals(blockType.getType())) {
+            //throw new RuntimeException("Unexpected return statement ");
+        }
+
+        //TODO: da aggiungere check presenza return
         if (blockType != null && !this.type.typeCheck().getType().equals(blockType.getType())) {
             throw new RuntimeException("Function " + this.id + " must return type " + type.getType());
         }
