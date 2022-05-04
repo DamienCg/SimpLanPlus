@@ -1,20 +1,33 @@
 {
+    bool H(int jj, bool j) {
+        bool k = j;
+        return j;
+    }
 
-    int a = 9;
-    int k = 9;
-    int f;
-    int c = f; //deve dare errore
+    bool Ldoppia(int l) {
+            return true;
+    }
 
-    int F(int argFuncion){
-            int l = pippo;
-        }
-    if (k >0) {}
+    void Vuota(int ii) {
+            int q = ii;
+    }
 
+    int F(int a){
+        int la = a; //todo: segnala questa l come gia presa (se si mette l e non la)
+        bool bb = true;
+        return l;
+        Vuota(bb);
+    }
+
+    bool p = true;
+    int x = F(2);
+    bool b = H(1,p);
+    Vuota(8);
+    //int b = H(); //todo le funzioni senza argomenti danno errore
 
 
 
 }
-//TODO: il print lo gestiamo bene?
 /*
     int a = 7;
     int b = 0;

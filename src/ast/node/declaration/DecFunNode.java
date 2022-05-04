@@ -4,7 +4,6 @@ import ast.STentry;
 import ast.node.Node;
 import ast.node.BlockNode;
 import ast.node.TypeNode;
-import ast.node.statement.ReturnNode;
 import util.Environment;
 import util.SemanticError;
 
@@ -35,9 +34,23 @@ public class DecFunNode implements Node {
 
     @Override
     public TypeNode typeCheck() {
+        /*TODO: 1-Se void no return --> ok
+                2-Se int/bool si return --> check type --> ok ma solo se return ultimo statement
+                3-Assegnazione di funzione --> ok
+                4-Argomenti richiamo funzione --> ok
+         */
 
-        //TODO: type check
-        return null;
+        for (Node arg:this.ArgList) {
+            if (arg.typeCheck() == null)
+                return null;
+        }
+
+        TypeNode blockType = this.block.typeCheck();
+        if (blockType != null && !this.type.typeCheck().getType().equals(blockType.getType())) {
+            throw new RuntimeException("Function " + this.id + " must return type " + type.getType());
+        }
+
+        return type;
     }
 
     @Override
@@ -109,6 +122,7 @@ public class DecFunNode implements Node {
 
         //Delete last ambient
         env.exitScope();
+
 
         return errors;
     }
