@@ -3,7 +3,19 @@
     int b = 34;
     bool f= false;
 
-    if (a<f){
+    int F(int a,int b,int d){
+            int l = a;
+            bool ola = true;
+            if(l<b){
+                return a;
+                }
+                else{
+                return ola;
+                }
+                return d;
+        }
+
+    if (a<b){
     int c = 0;
     }
 

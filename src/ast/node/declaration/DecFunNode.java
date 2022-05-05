@@ -3,7 +3,10 @@ package ast.node.declaration;
 import ast.STentry;
 import ast.node.Node;
 import ast.node.BlockNode;
+import ast.node.StatementNode;
 import ast.node.TypeNode;
+import ast.node.statement.IteNode;
+import ast.node.statement.ReturnNode;
 import util.Environment;
 import util.SemanticError;
 
@@ -16,12 +19,14 @@ public class DecFunNode implements Node {
     private String id;
     private ArrayList<Node> ArgList;
     private BlockNode block;
+    private ArrayList<Node> returnNodes;
 
     public DecFunNode(Node type, String id, Node block, ArrayList<Node> argList) {
         this.type = (TypeNode) type;
         this.id = id;
         this.ArgList = argList;
         this.block = (BlockNode) block;
+        this.returnNodes = new ArrayList<>();
     }
 
     public TypeNode getType() {
@@ -32,30 +37,41 @@ public class DecFunNode implements Node {
         return ArgList;
     }
 
+    private void getReturnNodes(Node n){
+
+            if (n instanceof ReturnNode) {
+                returnNodes.add(n);
+            }
+
+            if (n instanceof IteNode) {
+                getReturnNodes(((IteNode) n).ifstatement);
+                getReturnNodes(((IteNode) n).elsestatement);
+            }
+            if(n instanceof StatementNode){
+                getReturnNodes(((StatementNode) n).getChild());
+            }
+
+            if(n instanceof BlockNode){
+                for (Node node:((BlockNode) n).getStatement()) {
+                    getReturnNodes(node);
+                }
+            }
+
+        }
+
+
     @Override
     public TypeNode typeCheck() {
-        /*TODO: 1-Se void no return --> ok
-                2-Se int/bool si return --> check type --> ok ma solo se return ultimo statement
-                3-Assegnazione di funzione --> ok
-                4-Argomenti richiamo funzione --> ok
-         */
-        // getreturn funzione ricorsiva da implementare! ciclo su if and else.
+        getReturnNodes(block);
 
-        for (Node arg:this.ArgList) { //NON HA SENSO
-            if (arg.typeCheck() == null)
-                return null;
+        if (type.getType() != "void" && returnNodes.size() == 0){
+            throw new RuntimeException("Function " + this.id + " must contain return statement");
         }
 
-        TypeNode blockType = this.block.typeCheck();
-
-        //TODO: da cambiare deve dare errore solo se c'è return non se c'è altro codice
-        if (blockType != null && this.type.typeCheck().getType().equals(blockType.getType())) {
-            //throw new RuntimeException("Unexpected return statement ");
-        }
-
-        //TODO: da aggiungere check presenza return
-        if (blockType != null && !this.type.typeCheck().getType().equals(blockType.getType())) {
-            throw new RuntimeException("Function " + this.id + " must return type " + type.getType());
+        for (Node returns: returnNodes){
+            if (!returns.typeCheck().isEqual(type)){
+                throw new RuntimeException("Function " + this.id + " must return type "+type.toString());
+            }
         }
 
         return type;

@@ -61,6 +61,33 @@ public class StatementNode implements Node {
 
     }
 
+    public Node getChild() {
+
+        if (statement != null) {
+            if (statement instanceof AssignmentNode) {
+                return (AssignmentNode) statement;
+            }
+            else if (statement instanceof PrintNode) {
+                return (PrintNode) statement;
+            }
+            else if (statement instanceof BlockNode) {
+                return (BlockNode) statement;
+            }
+            else if (statement instanceof IteNode) {
+                return (IteNode) statement;
+            }
+            else if (statement instanceof CallNode) {
+                return (CallNode) statement;
+            }
+            else if (statement instanceof ReturnNode) {
+                return (ReturnNode) statement;
+            }
+
+        }
+         return null;
+
+    }
+
     @Override
     public String codeGeneration() {
         return null;
