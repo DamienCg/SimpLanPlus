@@ -1,31 +1,11 @@
 {
-    bool H(int jj, bool j) {
-        bool k = j;
-        return j;
+    int a = 3;
+    int b = 34;
+    bool f= false;
+
+    if (a<f){
+    int c = 0;
     }
-
-    bool Ldoppia(int l) {
-            return true;
-    }
-
-    void Vuota(int ii) {
-            int q = ii;
-    }
-
-    int F(int a){
-        int la = a; //todo: segnala questa l come gia presa (se si mette l e non la)
-        bool bb = true;
-        return l;
-        Vuota(bb);
-    }
-
-    bool p = true;
-    int x = F(2);
-    bool b = H(1,p);
-    Vuota(8);
-    //int b = H(); //todo le funzioni senza argomenti danno errore
-
-
 
 }
 /*
@@ -41,6 +21,13 @@
 
 
 F(a,b,d);
+
+if(a > c){
+    int c = a;
+}
+else{
+    int c = b;
+}
 
 d = a;
 */

@@ -39,8 +39,9 @@ public class DecFunNode implements Node {
                 3-Assegnazione di funzione --> ok
                 4-Argomenti richiamo funzione --> ok
          */
+        // getreturn funzione ricorsiva da implementare! ciclo su if and else.
 
-        for (Node arg:this.ArgList) {
+        for (Node arg:this.ArgList) { //NON HA SENSO
             if (arg.typeCheck() == null)
                 return null;
         }

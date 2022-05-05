@@ -1,7 +1,5 @@
 You had: 0 Lexical errors:
 
 
-You had: 3 Syntax  errors:
-In line 16:9 no viable alternative at input 'bollp'
-In line 17:4 extraneous input 'int' expecting {'{', '}', 'print', 'return', 'if', ID}
-In line 18:4 extraneous input 'bool' expecting {'{', '}', 'print', 'return', 'if', ID}
+You had: 1 Syntax  errors:
+In line 7:4 missing ';' at '}'

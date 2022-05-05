@@ -4,7 +4,6 @@ import ast.node.ExpNodes.BoolExpNode;
 import ast.node.ExpNodes.ExpNode;
 import ast.node.Node;
 import ast.node.TypeNode;
-import ast.node.utils.SimpLanPlusUtils;
 import util.Environment;
 import util.SemanticError;
 
@@ -36,7 +35,7 @@ public class IteNode implements Node {
     @Override
     public TypeNode typeCheck() {
         //TODO da testare
-        if (!(SimpLanPlusUtils.isSubtype(exp.typeCheck(), new TypeNode("true")))) {
+        if (!(exp.typeCheck().isEqual(new TypeNode("bool")))) {
             System.err.println("Non boolean condition inside if: " + exp.toString());
         }
         return exp.typeCheck();
