@@ -5,8 +5,8 @@ public class STentry {
   private int nestingLevel;
   private Node type;
   private int offset;
-  private String valore = "";
   private Boolean isUse = false;
+  private Boolean isInitialized = false;
   
   public STentry (int n, int os)
   {nestingLevel=n;
@@ -34,12 +34,6 @@ public class STentry {
   
   public int getNestinglevel ()
   {return nestingLevel;}
-
-  public void setValore (String valore)
-  {this.valore = valore;}
-
-  public String getValore ()
-  {return this.valore;}
 
   public void setIsUse (Boolean bool)
   {this.isUse = bool;}

@@ -93,7 +93,6 @@ public class Environment {
 
 	}
 
-
 	//distruzione ultimo ambiente creato!
 	public void exitScope(){
 		//this.symTable.remove(this.nestingLevel);
@@ -105,6 +104,7 @@ public class Environment {
 			scope.entrySet().forEach(entry -> {
 				if(entry.getValue().getIsUse() == false)
 				System.out.println("Variable " + entry.getKey() + " not use");
+				//TODO: cambiare stringa se variabile o meno
 			});
 	}
 }

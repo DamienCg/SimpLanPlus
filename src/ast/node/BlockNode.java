@@ -2,11 +2,15 @@ package ast.node;
 
 import ast.STentry;
 import ast.node.Node;
+import ast.node.statement.IteNode;
+import ast.node.statement.ReturnNode;
 import util.Environment;
 import util.SemanticError;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class BlockNode implements Node {
 
@@ -46,7 +50,7 @@ public class BlockNode implements Node {
     public TypeNode typeCheck() {
         TypeNode st = null;
 
-        try {
+         try {
             if (this.declarations != null) {
                 for (Node decl : declarations) {
                     decl.typeCheck();
@@ -56,6 +60,7 @@ public class BlockNode implements Node {
                 for (Node stmt : statements) {
                      st = stmt.typeCheck();
                 }
+
             }
         } catch (Exception e) {
             System.err.println(e.getMessage());

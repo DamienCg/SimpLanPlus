@@ -64,15 +64,25 @@ public class DecFunNode implements Node {
     public TypeNode typeCheck() {
         getReturnNodes(block);
 
-        if (type.getType() != "void" && returnNodes.size() == 0){
-            throw new RuntimeException("Function " + this.id + " must contain return statement");
-        }
-
-        for (Node returns: returnNodes){
-            if (!returns.typeCheck().isEqual(type)){
-                throw new RuntimeException("Function " + this.id + " must return type "+type.toString());
+        //funzione void
+        if(type == null){
+            for (Node returns: returnNodes){
+                if (!returns.typeCheck().isEqual(new TypeNode("void"))){
+                    throw new RuntimeException("Function " + this.id + " must contain void returns" );
+                }
             }
         }
+
+            if (type.getType() != "void" && returnNodes.size() == 0) {
+                throw new RuntimeException("Function " + this.id + " must contain return statement");
+            }
+
+            for (Node returns : returnNodes) {
+                if (!returns.typeCheck().isEqual(type)) {
+                    throw new RuntimeException("Function " + this.id + " must return type " + type.toString());
+                }
+            }
+
 
         return type;
     }

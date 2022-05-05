@@ -76,6 +76,9 @@ public class CallNode implements Node {
         if(entry == null){
             ret.add(new SemanticError("Undeclared Function " + id));
         }
+        if(entry != null){
+            entry.setIsUse(true); //TODO: controllare
+        }
         if(expList != null){
             for(Node exp : expList){
                 ret.addAll(exp.checkSemantics(env));
