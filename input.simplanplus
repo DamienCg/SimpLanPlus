@@ -3,26 +3,17 @@
     void S(){
     return;
     }
-    int a = 3;
-    int b = 34;
-    bool f= false;
 
-    void F(int a,int b,int d){
-            int l = a;
-            bool ola = true;
-            if(l<b){
-                return;
-                }
-                else{
-                return 1;
-                }
-                return;
-     }
+    int F(int a,int b,bool d){
+            int l = pippo;
+        }
 
+     int b = F(1,2,true);
 
-    if (a<b){
-    int c = 0;
-    }
+    int a = 1;
+
+    //S(); //TODO: Funzione vuote vanno in errore
+
 
 }
 /*

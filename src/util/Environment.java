@@ -2,6 +2,7 @@ package util;
 import java.util.ArrayList;
 import java.util.HashMap;
 import ast.*;
+import ast.node.ExpNodes.DerExpNode;
 import ast.node.Node;
 
 public class Environment {
@@ -102,9 +103,14 @@ public class Environment {
 	public void printUnuseVariable(int nestingLevel){
 			HashMap<String, STentry> scope = symTable.get(nestingLevel);
 			scope.entrySet().forEach(entry -> {
-				if(entry.getValue().getIsUse() == false)
-				System.out.println("Variable " + entry.getKey() + " not use");
-				//TODO: cambiare stringa se variabile o meno
+				if(entry.getValue().getIsUse() == false) {
+					if (entry.getValue().getIsFun() == true) {
+						System.out.println("Function " + entry.getKey() + " not use");
+					}
+					if (entry.getValue().getIsFun() == false) {
+						System.out.println("Variable " + entry.getKey() + " not use");
+					}
+				}
 			});
 	}
 }

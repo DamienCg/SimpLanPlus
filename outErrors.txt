@@ -2,4 +2,4 @@ You had: 0 Lexical errors:
 
 
 You had: 1 Syntax  errors:
-In line 7:9 no viable alternative at input 'bollll'
+In line 11:0 missing ';' at '}'

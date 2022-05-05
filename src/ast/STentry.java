@@ -7,6 +7,7 @@ public class STentry {
   private int offset;
   private Boolean isUse = false;
   private Boolean isInitialized = false;
+  private Boolean isFun = false;
   
   public STentry (int n, int os)
   {nestingLevel=n;
@@ -40,5 +41,11 @@ public class STentry {
 
   public Boolean getIsUse ()
   {return this.isUse;}
+
+  public void setIsFun (Boolean bool)
+  {this.isFun = bool;}
+
+  public Boolean getIsFun ()
+  {return this.isFun;}
 
 }  

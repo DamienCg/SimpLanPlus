@@ -132,7 +132,9 @@ public class DecFunNode implements Node {
         else { // If it is not declared
             // Add the id to the symbol table
             STentry newEntry = new STentry(env.getNestinglevel(),this,0);
+            newEntry.setIsFun(true);
             env.addDecl(env.getNestinglevel(), id, newEntry);
+
         }
 
         //Increment nesting level and create new table
