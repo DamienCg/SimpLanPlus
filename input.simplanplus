@@ -34,3 +34,5 @@ int a; int b; int c ;
    }
 
    //TODO x = y, x ha il valore di a ma a è null quindi dovrebbe dare errore
+
+   //TODO BISOGNA ANCHE controllare se faccio int d; e poi vado a valutare d esempio if(d>0) deve lanciare eccezzione
