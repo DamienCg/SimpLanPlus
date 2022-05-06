@@ -34,12 +34,30 @@ public class IteNode implements Node {
 
     @Override
     public TypeNode typeCheck() {
-        //TODO da testare
+        TypeNode thenType = ifstatement.typeCheck();
+
         if (!(exp.typeCheck().isEqual(new TypeNode("bool")))) {
-            System.err.println("Non boolean condition inside if: " + exp.toString());
+            throw new RuntimeException("Non boolean condition inside if: " + exp.toString());
         }
-        return exp.typeCheck();
+        if(ifstatement != null){
+            if(elsestatement != null){
+                TypeNode elseType = elsestatement.typeCheck();
+                if(!thenType.isEqual(elseType)){
+                    throw new RuntimeException("Different types inside if: " + thenType.getType() + " and " + elseType.getType());
+                }
+            }
+        }
+        return thenType;
     }
+
+    /*
+    * gamma -| exp: T    gamma -| ifstatement: T1    gamma -| elsestatement: T2
+    * -------------     ------------------  ------------------
+    *  T = bool        T1 = T'    T2 = T'
+    *---------------------------------------------------------
+    * gamma -| if (exp) { ifstatement} else {elsestatement} : T'
+    *
+    * */
 
     @Override
     public String codeGeneration() {
