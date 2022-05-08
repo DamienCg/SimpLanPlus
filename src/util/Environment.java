@@ -101,7 +101,7 @@ public class Environment {
 	}
 
 	public void printUnuseVariable(int nestingLevel){
-			HashMap<String, STentry> scope = symTable.get(nestingLevel);
+		HashMap<String, STentry> scope = symTable.get(nestingLevel);
 			scope.entrySet().forEach(entry -> {
 				if(entry.getValue().getIsUse() == false) {
 					if (entry.getValue().getIsFun() == true) {
@@ -111,7 +111,14 @@ public class Environment {
 						System.out.println("Variable " + entry.getKey() + " not use");
 					}
 				}
+				if(entry.getValue().getIsInitialized() == false) {
+					if (entry.getValue().getIsFun() == false) {
+						System.out.println("Variable " + entry.getKey() + " not initialized");
+					}
+				}
 			});
+
+
 	}
 }
 

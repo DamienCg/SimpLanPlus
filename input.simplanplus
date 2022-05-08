@@ -4,35 +4,5 @@ int b;
 int c = 1 ;
 
 if (c > 1) { b = c ; }
-else { a = b ; } //TODO b è una variabile non inizializzata, deve restituire errore
+else { a = b ; }
 }
-
-
-{
-
-int a; int b; int c ;
-
-     void f(int n, var int x){
-          x = n ;}
-     }
-
-     f(1,a) ; f(2,b) ; f(3,c) ;
-
-}
-/*
-//TODO il compilatore restituisce che le variabili a,b,c ed f non sono usate
-//TODO F non è una variabile ma una funzione e viene usata
-//TODO le variabili vengono tutte usate bisogna sistemare
-*/
-
-{ int a; int b; int c = 1 ;
-
-     void h(int n, var int x, var int y, var int z){ 
-          if (n==0) return ; else { x = y ; h(n-1,y,z,x) ;} 
-     }
-     h(5,a,b,c) ;
-   }
-
-   //TODO x = y, x ha il valore di a ma a è null quindi dovrebbe dare errore
-
-   //TODO BISOGNA ANCHE controllare se faccio int d; e poi vado a valutare d esempio if(d>0) deve lanciare eccezzione

@@ -22,7 +22,7 @@ public class AssignmentNode implements Node {
 
     @Override
     public TypeNode typeCheck() {
-        if(!entry.getType().typeCheck().isEqual(exp.typeCheck())){
+                if(!entry.getType().typeCheck().isEqual(exp.typeCheck())){
             throw new RuntimeException("Type error: " + id + " is not of type " + exp.typeCheck().toString());
         }
         return entry.getType().typeCheck();
@@ -47,8 +47,10 @@ public class AssignmentNode implements Node {
         }
         // check if exp is already declared
         // exp può essere una variabile o una stringa o operazione d+b ecc
-        if(exp != null)
+        if(exp != null) {
             res.addAll(exp.checkSemantics(env));
+            this.entry.setIsInitialized(true);
+        }
          return res;
     }
 

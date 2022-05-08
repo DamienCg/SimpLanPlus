@@ -48,4 +48,10 @@ public class STentry {
   public Boolean getIsFun ()
   {return this.isFun;}
 
+  public void setIsInitialized (Boolean bool)
+  {this.isInitialized = bool;}
+
+  public Boolean getIsInitialized ()
+  {return this.isInitialized;}
+
 }  

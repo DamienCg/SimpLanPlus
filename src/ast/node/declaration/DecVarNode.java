@@ -26,6 +26,7 @@ public class DecVarNode implements Node {
         if (exp != null) {
             if (type.typeCheck().getType().equals(exp.typeCheck().getType())) {
                 return type;
+
             }
             else {
                 throw new RuntimeException("Type error in declaration of variable " + id);
@@ -61,16 +62,17 @@ public class DecVarNode implements Node {
              ret = env.lookUp(env.getNestinglevel(), id);
         }
         // Se sono dentro una funzione e l'id è già dichiarato allora non restituisco errore
+        STentry newEntry = new STentry(env.getNestinglevel(), type, 0);
         if (ret != null) { // la variabile e' dichiarata e non è dentro una funzione
             errors.add(new SemanticError("The name of Variable " + id + " is already taken"));
         }
        else { // variabile non dichiarata e dentro una funzione
-            STentry newEntry = new STentry(env.getNestinglevel(), type, 0);
             env.addDecl(env.getNestinglevel(), id, newEntry);
         }
 
         if(this.exp!=null){
             errors.addAll(this.exp.checkSemantics(env));
+            newEntry.setIsInitialized(true);
         }
 
         return errors;
