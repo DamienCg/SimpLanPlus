@@ -24,6 +24,10 @@ public class TypeNode implements Node {
         return this;
     }
 
+    public TypeNode(TypeNode typeNode) {
+        this.type = typeNode.getType();
+    }
+
     @Override
     public String codeGeneration() {
         return null;
