@@ -90,11 +90,11 @@ public class DecFunNode implements Node {
     public String toString() {
         String ret = "\n";
         if (type != null)
-            ret += type.toString()+"\n";
+            ret += type.getType()+"\n";
         else
             ret += "void ";
 
-        ret += id.toString();
+        ret += id;
         ret += "(";
         int i = 0;
         if(ArgList.size() > 0) {
@@ -117,11 +117,9 @@ public class DecFunNode implements Node {
 
     @Override
     public ArrayList<SemanticError> checkSemantics(Environment env) {
-        // decFun	    : (type | 'void') ID '(' (arg (',' arg)*)? ')' block ;
-
         ArrayList<SemanticError> errors = new ArrayList<SemanticError>();
 
-        // Check if the id is already declared
+        // Check if the id of function is already declared
         STentry ret = env.lookUp(env.getNestinglevel(), id);
         if (ret != null) { // If it is already declared
             errors.add(new SemanticError("The name of Function " + id + " is already taken"));
@@ -133,7 +131,6 @@ public class DecFunNode implements Node {
             env.addDecl(env.getNestinglevel(), id, newEntry);
 
         }
-
         //Increment nesting level and create new table
         HashMap<String, STentry> myCurrentSymTableArg = new HashMap<String, STentry>();
         env.addNewTable(myCurrentSymTableArg);
@@ -155,7 +152,6 @@ public class DecFunNode implements Node {
 
         //Delete last ambient
         env.exitScope();
-
 
         return errors;
     }

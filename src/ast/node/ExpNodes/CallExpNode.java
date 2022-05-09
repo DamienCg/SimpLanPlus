@@ -4,7 +4,6 @@ import ast.node.Node;
 import ast.node.TypeNode;
 import util.Environment;
 import util.SemanticError;
-
 import java.util.ArrayList;
 
 public class CallExpNode implements Node{

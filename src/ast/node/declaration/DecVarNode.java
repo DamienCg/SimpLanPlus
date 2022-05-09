@@ -9,8 +9,6 @@ import java.util.ArrayList;
 
 public class DecVarNode implements Node {
 
-    //decVar      : type ID ('=' exp)? ';' ;
-
     private TypeNode type;
     private String id;
     private Node exp;
@@ -43,15 +41,14 @@ public class DecVarNode implements Node {
     @Override
     public String toString() {
        if (exp != null)
-           return type.toString() + " " + id.toString() + " = " + exp.toString() + ";";
+           return type.toString() + " " + id + " = " + exp.toString() + ";";
        else
-           return type.toString() + " " + id.toString() + ";";
+           return type.toString() + " " + id + ";";
 
     }
 
     @Override
     public ArrayList<SemanticError> checkSemantics(Environment env) {
-        //decVar      : type ID ('=' exp)? ';' ;
         ArrayList<SemanticError> errors = new ArrayList<SemanticError>();
         STentry ret = null;
         // Check if the id is already declared
@@ -61,12 +58,12 @@ public class DecVarNode implements Node {
         else{
              ret = env.lookUp(env.getNestinglevel(), id);
         }
-        // Se sono dentro una funzione e l'id è già dichiarato allora non restituisco errore
+
         STentry newEntry = new STentry(env.getNestinglevel(), type, 0);
-        if (ret != null) { // la variabile e' dichiarata e non è dentro una funzione
+        if (ret != null) { // If the id is already declared
             errors.add(new SemanticError("The name of Variable " + id + " is already taken"));
         }
-       else { // variabile non dichiarata e dentro una funzione
+       else {  // If the id is not already declared
             env.addDecl(env.getNestinglevel(), id, newEntry);
         }
 

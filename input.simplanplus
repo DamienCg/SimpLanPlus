@@ -3,6 +3,64 @@ int a;
 int b;
 int c = 1 ;
 
+    void S(){
+    return;
+    }
+
+    int F(int a,int b,bool d){
+            int l = pippo;
+        }
+
+     int b = F(1,2,true);
 if (c > 1) { b = c ; }
-else { a = b ; }
+else { a = b ; } //TODO b è una variabile non inizializzata, deve restituire errore
 }
+
+    int a = 1;
+
+    S();
+{
+
+int a; int b; int c ;
+
+     void f(int n, var int x){
+          x = n ;}
+     }
+
+     f(1,a) ; f(2,b) ; f(3,c) ;
+
+}
+/*
+    int a = 7;
+    int b = 0;
+    int c = 0;
+    int pippo = 56;
+    bool d = true;
+//TODO il compilatore restituisce che le variabili a,b,c ed f non sono usate
+//TODO F non è una variabile ma una funzione e viene usata
+//TODO le variabili vengono tutte usate bisogna sistemare
+*/
+
+    int F(int a,int b,bool d){
+        int l = pippo;
+    }
+{ int a; int b; int c = 1 ;
+
+     void h(int n, var int x, var int y, var int z){
+          if (n==0) return ; else { x = y ; h(n-1,y,z,x) ;}
+     }
+     h(5,a,b,c) ;
+   }
+
+F(a,b,d);
+
+if(a > c){
+    int c = a;
+}
+else{
+    int c = b;
+}
+
+d = a;
+*/
+   //TODO x = y, x ha il valore di a ma a è null quindi dovrebbe dare errore
