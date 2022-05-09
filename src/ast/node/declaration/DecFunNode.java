@@ -9,7 +9,6 @@ import ast.node.statement.IteNode;
 import ast.node.statement.ReturnNode;
 import util.Environment;
 import util.SemanticError;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -122,8 +121,6 @@ public class DecFunNode implements Node {
 
         ArrayList<SemanticError> errors = new ArrayList<SemanticError>();
 
-        // My current symbol table entry
-        HashMap<String, STentry> myCurrentSymTable = env.getSymTable().get(env.getNestinglevel());
         // Check if the id is already declared
         STentry ret = env.lookUp(env.getNestinglevel(), id);
         if (ret != null) { // If it is already declared
@@ -131,7 +128,7 @@ public class DecFunNode implements Node {
         }
         else { // If it is not declared
             // Add the id to the symbol table
-            STentry newEntry = new STentry(env.getNestinglevel(),this,0);
+            STentry newEntry = new STentry(env.getNestinglevel(),type,0);
             newEntry.setIsFun(true);
             env.addDecl(env.getNestinglevel(), id, newEntry);
 

@@ -96,7 +96,7 @@ public class Environment {
 
 	//distruzione ultimo ambiente creato!
 	public void exitScope(){
-		//this.symTable.remove(this.nestingLevel);
+		this.symTable.remove(this.nestingLevel);
 		this.nestingLevel--;
 	}
 
