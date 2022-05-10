@@ -1,5 +1,6 @@
 package ast.node.ExpNodes;
 
+import ast.STentry;
 import ast.node.Node;
 import ast.node.TypeNode;
 import util.Environment;

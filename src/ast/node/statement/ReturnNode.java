@@ -9,7 +9,6 @@ import util.SemanticError;
 import java.util.ArrayList;
 
 public class ReturnNode implements Node {
-    // ret : 'return' (exp)?;
     private Node exp;
 
     public ReturnNode(Node exp) {

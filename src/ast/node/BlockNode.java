@@ -1,16 +1,11 @@
 package ast.node;
 
 import ast.STentry;
-import ast.node.Node;
-import ast.node.statement.IteNode;
-import ast.node.statement.ReturnNode;
 import util.Environment;
 import util.SemanticError;
-
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.stream.Collectors;
+
 
 public class BlockNode implements Node {
 
@@ -75,9 +70,8 @@ public class BlockNode implements Node {
 
     @Override
     public ArrayList<SemanticError> checkSemantics(Environment env) {
-        HashMap<String, STentry> st = new HashMap<String, STentry>();
         ArrayList<SemanticError> errors = new ArrayList<SemanticError>();
-        env.addNewTable(st);
+        env.addNewTable();
 
         if(this.declarations != null) {
             for (Node decl : declarations) {
@@ -90,14 +84,12 @@ public class BlockNode implements Node {
             }
         }
 
-        env.printUnuseVariable(env.getNestinglevel());
         env.exitScope();
-
         return errors;
     }
-
+/*
     public ArrayList<SemanticError> checkSemanticsFunction(Environment env) {
-        //HashMap<String, STentry> st = new HashMap<String, STentry>();
+       // HashMap<String, STentry> st = new HashMap<String, STentry>();
         //env.addNewTable(st);
 
         ArrayList<SemanticError> errors = new ArrayList<SemanticError>();
@@ -118,7 +110,7 @@ public class BlockNode implements Node {
 
         return errors;
     }
-
+    */
 
 
 }

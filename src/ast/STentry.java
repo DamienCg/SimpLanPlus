@@ -5,36 +5,22 @@ public class STentry {
   private int nestingLevel;
   private Node type;
   private int offset;
-  private Boolean isUse = false;
-  private Boolean isInitialized = false;
-  private Boolean isFun = false;
-  
-  public STentry (int n, int os)
-  {nestingLevel=n;
-  offset=os;} 
+  private Boolean isUse;
+  private Boolean isInitialized;
+  private Boolean isFun;
    
-  public STentry (int n, Node t, int os)
-  {nestingLevel=n;
-   type=t;
-   offset=os;}
+  public STentry (int n, Node t, int os) {
+    this.nestingLevel=n;
+    this.type=t;
+    this.offset=os;
+    this.isUse = false;
+    this.isInitialized = false;
+    this.isFun = false;}
 
-  public STentry(STentry entry) {
-    this.nestingLevel = entry.nestingLevel;
-    this.offset = entry.offset;
-    this.type = entry.type;
-  }
-
-  public void addType (Node t)
-  {type=t;}
   
   public Node getType ()
   {return type;}
 
-  public int getOffset ()
-  {return offset;}
-  
-  public int getNestinglevel ()
-  {return nestingLevel;}
 
   public void setIsUse (Boolean bool)
   {this.isUse = bool;}
@@ -49,7 +35,7 @@ public class STentry {
   {return this.isFun;}
 
   public void setIsInitialized (Boolean bool)
-  {this.isInitialized = bool;}
+  {this.isInitialized = bool; }
 
   public Boolean getIsInitialized ()
   {return this.isInitialized;}

@@ -3,9 +3,7 @@ package ast.node;
 import ast.STentry;
 import util.Environment;
 import util.SemanticError;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class ArgNode implements Node{
     // arg         : ('var')? type ID;
@@ -45,16 +43,13 @@ public class ArgNode implements Node{
     public ArrayList<SemanticError> checkSemantics(Environment env) {
 
         ArrayList<SemanticError> errors = new ArrayList<SemanticError>();
-        // Check if the id is already declared
-        STentry ret = env.lookUpSameNestingLevel(env.getNestinglevel(), id);
-        if (ret != null) { // If it is already declared
-            errors.add(new SemanticError("Argument id " + id + " already declared"));
+        STentry entry = new STentry(env.getNestinglevel(),type,0);
+
+        SemanticError error = env.addDecl(id, entry);
+        if (error != null) {
+            errors.add(error);
         }
-        else { // If it is not declared
-            // Add the id to the symbol table
-            STentry newEntry = new STentry(env.getNestinglevel(),type,0);
-            env.addDecl(env.getNestinglevel(), id, newEntry);
-        }
+
         return errors;
     }
 }

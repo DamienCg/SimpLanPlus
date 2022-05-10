@@ -81,9 +81,8 @@ public class SimpLanPlusVisitorImpl extends SimpLanPlusBaseVisitor<Node> {
 
     @Override
     public Node visitDecFun(SimpLanPlusParser.DecFunContext ctx) {
-        // decFun	    : (type | 'void') ID '(' (arg (',' arg)*)? ')' block ;
         DecFunNode decFunNode; // is TypeNode OR VOID:
-        // FIRST OF ALL SAVE ALL ARGUMENTS
+
         ArrayList<Node> arguments = new ArrayList<Node>();
         if (ctx.arg() != null) {
             for (SimpLanPlusParser.ArgContext ac : ctx.arg()) {

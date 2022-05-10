@@ -95,12 +95,6 @@ public class StatementNode implements Node {
 
     @Override
     public ArrayList<SemanticError> checkSemantics(Environment env) {
-        // statement   : assignment ';'
-        //	    | print ';'
-        //	    | ret ';'
-        //	    | ite
-        //	    | call ';'
-        //	    | block;
 
         ArrayList<SemanticError> errors = new ArrayList<>();
         // Passo il check semantics allo statement

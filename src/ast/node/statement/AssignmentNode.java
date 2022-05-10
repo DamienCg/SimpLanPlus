@@ -10,7 +10,6 @@ import java.util.ArrayList;
 
 public class AssignmentNode implements Node {
 
-    // assignment  : ID '=' exp ;
     private String id;
     private Node exp;
     private STentry entry;
@@ -35,21 +34,20 @@ public class AssignmentNode implements Node {
 
     @Override
     public ArrayList<SemanticError> checkSemantics(Environment env) {
-        // assignment  : ID '=' exp ;
         ArrayList<SemanticError> res = new ArrayList<>();
+
         // check if id is already declared
-        STentry IdEntry = env.lookUp(env.getNestinglevel(),id);
+        STentry IdEntry = env.lookUp(id);
+        this.entry = IdEntry;
         if(IdEntry == null){
             res.add(new SemanticError("Undeclared variable " + id));
         }
-        else{
-            this.entry = IdEntry;
-        }
-        // check if exp is already declared
-        // exp può essere una variabile o una stringa o operazione d+b ecc
+
         if(exp != null) {
             res.addAll(exp.checkSemantics(env));
-            this.entry.setIsInitialized(true);
+            if(entry != null) {
+                this.entry.setIsInitialized(true);
+            }
         }
          return res;
     }
@@ -58,9 +56,10 @@ public class AssignmentNode implements Node {
     public String toString() {
         String ret = "AssignmentNode{";
         if(id != null)
-            ret += id.toString();
+            ret += id;
         if(exp != null)
-            ret += " = " + exp.toString();
+            ret += " = " + exp;
         return ret + "}";
     }
 }
+

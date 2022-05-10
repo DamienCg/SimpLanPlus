@@ -120,21 +120,19 @@ public class DecFunNode implements Node {
         ArrayList<SemanticError> errors = new ArrayList<SemanticError>();
 
         // Check if the id of function is already declared
-        STentry ret = env.lookUp(env.getNestinglevel(), id);
+        STentry ret = env.lookUp(id);
         if (ret != null) { // If it is already declared
             errors.add(new SemanticError("The name of Function " + id + " is already taken"));
         }
-        else { // If it is not declared
-            // Add the id to the symbol table
+        else {
             STentry newEntry = new STentry(env.getNestinglevel(),type,0);
-            newEntry.setIsFun(true);
-            env.addDecl(env.getNestinglevel(), id, newEntry);
-
+            SemanticError error = env.addDecl(id, newEntry);
+            if (error != null) {
+                errors.add(error);
+            }
         }
-        //Increment nesting level and create new table
-        HashMap<String, STentry> myCurrentSymTableArg = new HashMap<String, STentry>();
-        env.addNewTable(myCurrentSymTableArg);
-        env.setIsFun(env.getNestinglevel());
+
+        env.addNewTable();
         //Check declarations arguments function
         if(this.ArgList.size() > 0) {
             for(Node arg:this.ArgList) {
@@ -144,14 +142,9 @@ public class DecFunNode implements Node {
 
         //Check semantinc on block
         if(this.block!=null){
-            errors.addAll(this.block.checkSemanticsFunction(env));
+            errors.addAll(this.block.checkSemantics(env));
         }
 
-        //Esco dalla funzione
-        env.setIsFun(0);
-
-        //Delete last ambient
-        env.exitScope();
 
         return errors;
     }

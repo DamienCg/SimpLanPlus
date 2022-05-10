@@ -40,11 +40,11 @@ public class DerExpNode implements Node{
 
         ArrayList<SemanticError> res = new ArrayList<>();
 
-        this.entry = env.lookUp(env.getNestinglevel(),id);
+        this.entry = env.lookUp(id);
 
 
         if (entry == null)
-            res.add(new SemanticError("Id "+id+" not declared."));
+            res.add(new SemanticError("Uninitialized variable "+id));
         if (entry != null) {
             entry.setIsUse(true);
         }

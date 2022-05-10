@@ -1,7 +1,4 @@
 package ast.node.statement;
-
-import ast.node.ExpNodes.BoolExpNode;
-import ast.node.ExpNodes.ExpNode;
 import ast.node.Node;
 import ast.node.TypeNode;
 import util.Environment;
@@ -10,7 +7,6 @@ import util.SemanticError;
 import java.util.ArrayList;
 
 public class IteNode implements Node {
-    // ite         : 'if' '(' exp ')' statement ('else' statement)?;
     public Node exp;
     public Node ifstatement;
     public Node elsestatement;

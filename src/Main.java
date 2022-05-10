@@ -28,13 +28,10 @@ public class Main {
             OutFileErrorListener SyntaxtErrorListener = new OutFileErrorListener();
             OutFileErrorListener SemanticErrorListener = new OutFileErrorListener();
 
-            //parser.removeErrorListeners();
-            //lexer.removeErrorListeners();
             lexer.addErrorListener(SyntaxtErrorListener);
             parser.addErrorListener(SemanticErrorListener);
             SimpLanPlusVisitorImpl visitor = new SimpLanPlusVisitorImpl();
             Node ast = visitor.visit(parser.block());
-            //System.out.println(ast.toString());
 
             if (SyntaxtErrorListener.getErrors().size() > 0 || SemanticErrorListener.getErrors().size() > 0) {
                 SyntaxtErrorListener.saveErrorFile(SemanticErrorListener);

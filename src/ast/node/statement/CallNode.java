@@ -10,7 +10,6 @@ import util.SemanticError;
 import java.util.ArrayList;
 
 public class CallNode implements Node {
-    // call        : ID '(' (exp(',' exp)*)? ')';
     private String id;
     private ArrayList<Node> expList;
     private STentry entry;
@@ -29,7 +28,7 @@ public class CallNode implements Node {
 
     @Override
     public String toString() {
-        String ret = id.toString() + "( ";
+        String ret = id + "( ";
         if (expList != null) {
             for (Node exp : expList) {
                 ret += exp.toString() + ", ";
@@ -68,9 +67,8 @@ public class CallNode implements Node {
 
     @Override
     public ArrayList<SemanticError> checkSemantics(Environment env) {
-        // call        : ID '(' (exp(',' exp)*)? ')';
         ArrayList<SemanticError> ret = new ArrayList<>();
-        STentry entry = env.lookUp(env.getNestinglevel(),id);
+        STentry entry = env.lookUp(id);
         this.entry = entry;
         // check if id is already declared
         if(entry == null){

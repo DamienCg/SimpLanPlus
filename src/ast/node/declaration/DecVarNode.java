@@ -51,20 +51,12 @@ public class DecVarNode implements Node {
     public ArrayList<SemanticError> checkSemantics(Environment env) {
         ArrayList<SemanticError> errors = new ArrayList<SemanticError>();
         STentry ret = null;
-        // Check if the id is already declared
-        if (env.getIsFun() > 0) {
-             ret = env.lookUpSameNestingLevel(env.getNestinglevel(),id);
-        }
-        else{
-             ret = env.lookUp(env.getNestinglevel(), id);
-        }
 
         STentry newEntry = new STentry(env.getNestinglevel(), type, 0);
-        if (ret != null) { // If the id is already declared
-            errors.add(new SemanticError("The name of Variable " + id + " is already taken"));
-        }
-       else {  // If the id is not already declared
-            env.addDecl(env.getNestinglevel(), id, newEntry);
+        SemanticError error = env.addDecl(id, newEntry);
+
+        if (error != null) {
+            errors.add(error);
         }
 
         if(this.exp!=null){

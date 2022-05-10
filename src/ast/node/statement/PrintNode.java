@@ -11,7 +11,6 @@ import java.util.ArrayList;
 public class PrintNode implements Node {
 
     private ExpNode exp;
-    // print	    : 'print' exp;
 
     public PrintNode(Node exp){
         this.exp = (ExpNode) exp;
