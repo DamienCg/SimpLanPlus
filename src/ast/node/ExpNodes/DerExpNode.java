@@ -42,11 +42,13 @@ public class DerExpNode implements Node{
 
         this.entry = env.lookUp(id);
 
-
         if (entry == null)
-            res.add(new SemanticError("Uninitialized variable "+id));
-        if (entry != null) {
+            res.add(new SemanticError("variable "+id+" is not defined"));
+        else if (entry != null) {
             entry.setIsUse(true);
+            if(entry.getIsInitialized() == false){
+                res.add(new SemanticError("variable "+id+" is not initialized"));
+            }
         }
 
         return res;

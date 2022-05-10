@@ -10,7 +10,6 @@ import ast.node.statement.ReturnNode;
 import util.Environment;
 import util.SemanticError;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class DecFunNode implements Node {
 
@@ -142,7 +141,7 @@ public class DecFunNode implements Node {
 
         //Check semantinc on block
         if(this.block!=null){
-            errors.addAll(this.block.checkSemantics(env));
+            errors.addAll(this.block.checkSemanticsFunction(env));
         }
 
 

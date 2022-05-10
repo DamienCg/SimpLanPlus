@@ -50,7 +50,6 @@ public class DecVarNode implements Node {
     @Override
     public ArrayList<SemanticError> checkSemantics(Environment env) {
         ArrayList<SemanticError> errors = new ArrayList<SemanticError>();
-        STentry ret = null;
 
         STentry newEntry = new STentry(env.getNestinglevel(), type, 0);
         SemanticError error = env.addDecl(id, newEntry);

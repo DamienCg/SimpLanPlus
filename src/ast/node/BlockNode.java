@@ -1,10 +1,8 @@
 package ast.node;
-
-import ast.STentry;
 import util.Environment;
 import util.SemanticError;
 import java.util.ArrayList;
-import java.util.HashMap;
+
 
 
 public class BlockNode implements Node {
@@ -45,7 +43,6 @@ public class BlockNode implements Node {
     public TypeNode typeCheck() {
         TypeNode st = null;
 
-         try {
             if (this.declarations != null) {
                 for (Node decl : declarations) {
                     decl.typeCheck();
@@ -57,9 +54,7 @@ public class BlockNode implements Node {
                 }
 
             }
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
-        }
+
         return st;
     }
 
@@ -71,6 +66,7 @@ public class BlockNode implements Node {
     @Override
     public ArrayList<SemanticError> checkSemantics(Environment env) {
         ArrayList<SemanticError> errors = new ArrayList<SemanticError>();
+
         env.addNewTable();
 
         if(this.declarations != null) {
@@ -87,30 +83,27 @@ public class BlockNode implements Node {
         env.exitScope();
         return errors;
     }
-/*
+
     public ArrayList<SemanticError> checkSemanticsFunction(Environment env) {
-       // HashMap<String, STentry> st = new HashMap<String, STentry>();
-        //env.addNewTable(st);
 
         ArrayList<SemanticError> errors = new ArrayList<SemanticError>();
 
-        if(this.declarations != null  && this.declarations.size()>0) {
+        if(this.declarations != null) {
             for (Node decl : declarations) {
                 errors.addAll(decl.checkSemantics(env));
             }
         }
-        if(this.statements != null  && this.statements.size()>0){
+        if(this.statements != null){
             for(Node stmt: statements){
                 errors.addAll(stmt.checkSemantics(env));
             }
         }
-        env.printUnuseVariable(env.getNestinglevel());
 
-        //env.exitScope();
+        env.exitScope();
 
         return errors;
     }
-    */
+
 
 
 }

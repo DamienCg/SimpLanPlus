@@ -51,14 +51,14 @@ public class Main {
                     System.exit(0);
                 } else {
                     System.out.println("** Now Type Check **");
-                    ast.typeCheck();
+                    //ast.typeCheck();
                 }
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             System.err.println("Error: No file to compile");
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
         }
 
     }

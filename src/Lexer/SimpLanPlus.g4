@@ -1,6 +1,6 @@
 grammar SimpLanPlus;
 
-
+program     : '{' declaration* statement* '}' EOF;
 block	    : '{' declaration* statement* '}';
 
 // Dopo uno statement per fare un declaration bisogna mettere le {}

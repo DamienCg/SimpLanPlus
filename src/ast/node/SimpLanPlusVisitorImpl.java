@@ -9,6 +9,9 @@ import parser.SimpLanPlusParser;
 import java.util.ArrayList;
 
 public class SimpLanPlusVisitorImpl extends SimpLanPlusBaseVisitor<Node> {
+
+
+
     @Override
     public Node visitBlock(SimpLanPlusParser.BlockContext ctx) {
         BlockNode ret;

@@ -63,6 +63,7 @@ public class Environment {
 
 	//distruzione ultimo ambiente creato!
 	public void exitScope(){
+		this.printUnuseVariable(this.nestingLevel);
 		this.symTable.remove(this.nestingLevel);
 		this.nestingLevel--;
 	}
@@ -70,24 +71,12 @@ public class Environment {
 	public void printUnuseVariable(int nestingLevel){
 		HashMap<String, STentry> scope = symTable.get(nestingLevel);
 			scope.entrySet().forEach(entry -> {
-				if(entry != null) {
-					if (entry.getValue().getIsUse() == false) {
-						if (entry.getValue().getIsFun() == true) {
-							System.out.println("Warning: Function " + entry.getKey() + " not use");
-						}
-						if (entry.getValue().getIsFun() == false) {
-							System.out.println("Warning: Variable " + entry.getKey() + " not use");
-						}
-					}
-					if (entry.getValue().getIsInitialized() == false) {
-						if (entry.getValue().getIsFun() == false) {
-							System.out.println("Warning: Variable " + entry.getKey() + " not initialized");
-						}
-					}
-				}});
-
-
+				if(entry != null)
+					if (entry.getValue().getIsUse() == false)
+							System.out.println("Warning: Variable/Function " + entry.getKey() + " not use");
+					});
 	}
+
 }
 
 

@@ -2,4 +2,4 @@ You had: 0 Lexical errors:
 
 
 You had: 1 Syntax  errors:
-In line 7:11 extraneous input ';' expecting {',', ')'}
+In line 1:0 mismatched input '<EOF>' expecting '{'
