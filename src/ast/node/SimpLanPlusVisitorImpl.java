@@ -1,5 +1,6 @@
 package ast.node;
 import ast.SimpLanPlusBaseVisitor;
+import ast.SimpLanPlusVisitor;
 import ast.node.ExpNodes.*;
 import ast.node.declaration.DecFunNode;
 import ast.node.declaration.DecVarNode;
@@ -11,6 +12,10 @@ import java.util.ArrayList;
 public class SimpLanPlusVisitorImpl extends SimpLanPlusBaseVisitor<Node> {
 
 
+    @Override
+    public Node visitInit(SimpLanPlusParser.InitContext ctx) {
+        return visit(ctx.block());
+    }
 
     @Override
     public Node visitBlock(SimpLanPlusParser.BlockContext ctx) {

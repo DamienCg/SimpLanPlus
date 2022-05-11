@@ -1,10 +1,13 @@
-// Generated from C:/Users/damie/IdeaProjects/SimpLanPlus/src\SimpLanPlus.g4 by ANTLR 4.9.2
+// Generated from C:/Users/damie/Documents/GitHub/SimpLanPlus/src/Lexer\SimpLanPlus.g4 by ANTLR 4.9.2
 package Lexer;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.Token;
+import org.antlr.v4.runtime.TokenStream;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
+import org.antlr.v4.runtime.misc.*;
 
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class SimpLanPlusLexer extends Lexer {
@@ -96,7 +99,7 @@ public class SimpLanPlusLexer extends Lexer {
 	}
 
 	@Override
-	public String getGrammarFileName() { return "Lexer/SimpLanPlus.g4"; }
+	public String getGrammarFileName() { return "SimpLanPlus.g4"; }
 
 	@Override
 	public String[] getRuleNames() { return ruleNames; }

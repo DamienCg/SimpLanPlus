@@ -1,13 +1,23 @@
-// Generated from C:/Users/damie/IdeaProjects/SimpLanPlus/src\SimpLanPlus.g4 by ANTLR 4.9.2
-package ast;
-import parser.SimpLanPlusParser;
+// Generated from C:/Users/damie/Documents/GitHub/SimpLanPlus/src/Lexer\SimpLanPlus.g4 by ANTLR 4.9.2
+package parser;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
+import parser.SimpLanPlusParser;
 
 /**
  * This interface defines a complete listener for a parse tree produced by
  * {@link SimpLanPlusParser}.
  */
 public interface SimpLanPlusListener extends ParseTreeListener {
+	/**
+	 * Enter a parse tree produced by {@link SimpLanPlusParser#init}.
+	 * @param ctx the parse tree
+	 */
+	void enterInit(SimpLanPlusParser.InitContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link SimpLanPlusParser#init}.
+	 * @param ctx the parse tree
+	 */
+	void exitInit(SimpLanPlusParser.InitContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link SimpLanPlusParser#block}.
 	 * @param ctx the parse tree

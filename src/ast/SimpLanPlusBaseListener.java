@@ -1,10 +1,11 @@
-// Generated from C:/Users/damie/IdeaProjects/SimpLanPlus/src\SimpLanPlus.g4 by ANTLR 4.9.2
+// Generated from C:/Users/damie/Documents/GitHub/SimpLanPlus/src/Lexer\SimpLanPlus.g4 by ANTLR 4.9.2
 package ast;
 
-import parser.SimpLanPlusParser;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
+import parser.SimpLanPlusListener;
+import parser.SimpLanPlusParser;
 
 /**
  * This class provides an empty implementation of {@link SimpLanPlusListener},
@@ -12,6 +13,18 @@ import org.antlr.v4.runtime.tree.TerminalNode;
  * of the available methods.
  */
 public class SimpLanPlusBaseListener implements SimpLanPlusListener {
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterInit(SimpLanPlusParser.InitContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitInit(SimpLanPlusParser.InitContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

@@ -1,7 +1,7 @@
-// Generated from C:/Users/damie/IdeaProjects/SimpLanPlus/src\SimpLanPlus.g4 by ANTLR 4.9.2
+// Generated from C:/Users/damie/Documents/GitHub/SimpLanPlus/src/Lexer\SimpLanPlus.g4 by ANTLR 4.9.2
 package ast;
-import parser.SimpLanPlusParser;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
+import parser.SimpLanPlusParser;
 
 /**
  * This class provides an empty implementation of {@link SimpLanPlusVisitor},
@@ -12,6 +12,13 @@ import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
  * operations with no return type.
  */
 public class SimpLanPlusBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements SimpLanPlusVisitor<T> {
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitInit(SimpLanPlusParser.InitContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

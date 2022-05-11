@@ -8,7 +8,6 @@ import util.Environment;
 import util.SemanticError;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -31,7 +30,7 @@ public class Main {
             lexer.addErrorListener(SyntaxtErrorListener);
             parser.addErrorListener(SemanticErrorListener);
             SimpLanPlusVisitorImpl visitor = new SimpLanPlusVisitorImpl();
-            Node ast = visitor.visit(parser.block());
+            Node ast = visitor.visit(parser.init());
 
             if (SyntaxtErrorListener.getErrors().size() > 0 || SemanticErrorListener.getErrors().size() > 0) {
                 SyntaxtErrorListener.saveErrorFile(SemanticErrorListener);

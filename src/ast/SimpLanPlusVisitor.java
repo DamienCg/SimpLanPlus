@@ -1,7 +1,7 @@
-// Generated from C:/Users/damie/IdeaProjects/SimpLanPlus/src\SimpLanPlus.g4 by ANTLR 4.9.2
+// Generated from C:/Users/damie/Documents/GitHub/SimpLanPlus/src/Lexer\SimpLanPlus.g4 by ANTLR 4.9.2
 package ast;
-import parser.SimpLanPlusParser;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
+import parser.SimpLanPlusParser;
 
 /**
  * This interface defines a complete generic visitor for a parse tree produced
@@ -11,8 +11,12 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  * operations with no return type.
  */
 public interface SimpLanPlusVisitor<T> extends ParseTreeVisitor<T> {
-
-
+	/**
+	 * Visit a parse tree produced by {@link SimpLanPlusParser#init}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitInit(SimpLanPlusParser.InitContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link SimpLanPlusParser#block}.
 	 * @param ctx the parse tree
