@@ -51,7 +51,7 @@ public class Main {
                     System.exit(0);
                 } else {
                     System.out.println("** Now Type Check **");
-                    //ast.typeCheck();
+                    ast.typeCheck();
                 }
             }
         } catch (FileNotFoundException e) {

@@ -39,6 +39,8 @@ public class CallNode implements Node {
 
     @Override
     public TypeNode typeCheck() {
+
+
         if (entry.getType() instanceof DecFunNode) {
             DecFunNode decFunNode = (DecFunNode) entry.getType();
             if (entry != null) {
