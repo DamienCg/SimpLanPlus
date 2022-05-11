@@ -1,9 +1,9 @@
 package ast.node.statement;
 
 import ast.STentry;
+import ast.node.ArrowTypeNode;
 import ast.node.Node;
 import ast.node.TypeNode;
-import ast.node.declaration.DecFunNode;
 import util.Environment;
 import util.SemanticError;
 
@@ -39,26 +39,21 @@ public class CallNode implements Node {
 
     @Override
     public TypeNode typeCheck() {
-
-
-        if (entry.getType() instanceof DecFunNode) {
-            DecFunNode decFunNode = (DecFunNode) entry.getType();
-            if (entry != null) {
-                if (decFunNode.getArgList().size() != expList.size()) {
-                    throw new RuntimeException("Error: wrong number of arguments in function: " + id);
-                } else {
-                    for (int i = 0; i < expList.size(); i++) {
-                        if (!decFunNode.getArgList().get(i).typeCheck().isEqual(expList.get(i).typeCheck())) {
-                            throw new RuntimeException("Error: wrong type of arguments in function: " + id);
-                        }
-                    }
-                }
+        ArrowTypeNode t=null;
+        if (entry.getType() instanceof ArrowTypeNode)
+            t=(ArrowTypeNode) entry.getType();
+        if (t == null) {
+            throw new RuntimeException("Invocation of a non-function "+id);
+        }
+        ArrayList<Node> p = t.getParList();
+        if ( !(p.size() == expList.size()) ) {
+            throw new RuntimeException("Wrong number of parameters in the invocation of "+id);
+        }
+        for (int i=0; i<expList.size(); i++)
+            if (!p.get(i).typeCheck().isEqual(expList.get(i).typeCheck())) {
+                throw new RuntimeException("Wrong type for "+(i+1)+"-th parameter in the invocation of "+id);
             }
-            return decFunNode.getType();
-        }
-        else{
-            throw new RuntimeException("Error: wrong type of arguments in function: " + id);
-        }
+        return t.typeCheck();
     }
 
 

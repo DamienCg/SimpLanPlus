@@ -1,10 +1,7 @@
 package ast.node.declaration;
 
 import ast.STentry;
-import ast.node.Node;
-import ast.node.BlockNode;
-import ast.node.StatementNode;
-import ast.node.TypeNode;
+import ast.node.*;
 import ast.node.statement.IteNode;
 import ast.node.statement.ReturnNode;
 import util.Environment;
@@ -117,6 +114,7 @@ public class DecFunNode implements Node {
     @Override
     public ArrayList<SemanticError> checkSemantics(Environment env) {
         ArrayList<SemanticError> errors = new ArrayList<SemanticError>();
+        STentry newEntry = null;
 
         // Check if the id of function is already declared
         STentry ret = env.lookUp(id);
@@ -124,20 +122,25 @@ public class DecFunNode implements Node {
             errors.add(new SemanticError("The name of Function " + id + " is already taken"));
         }
         else {
-            STentry newEntry = new STentry(env.getNestinglevel(),type,0);
+            newEntry = new STentry(env.getNestinglevel(),type,0);
             SemanticError error = env.addDecl(id, newEntry);
             if (error != null) {
                 errors.add(error);
             }
         }
 
+        ArrayList<Node> parTypes = new ArrayList<Node>();
+
         env.addNewTable();
         //Check declarations arguments function
         if(this.ArgList.size() > 0) {
             for(Node arg:this.ArgList) {
+                parTypes.add(arg.typeCheck());
                 errors.addAll(arg.checkSemantics(env));
             }
         }
+
+        newEntry.addType( new ArrowTypeNode(parTypes, type) );
 
         //Check semantinc on block
         if(this.block!=null){

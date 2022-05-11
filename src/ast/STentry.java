@@ -21,6 +21,8 @@ public class STentry {
   public Node getType ()
   {return type;}
 
+  public void addType (Node t)
+  {type=t;}
 
   public void setIsUse (Boolean bool)
   {this.isUse = bool;}

@@ -1,6 +1,6 @@
-{ int a; int b; int c ;
+{ int a = 0; int b = 2; int c=a ;
      void f(int n, var int x){
           x = n ;}
-     }
-     f(1,a) ; f(2,b) ; f(3,c) ;
+bool dd ;
+     f(1,dd) ; f(2,b) ; f(3,c) ;
    }
