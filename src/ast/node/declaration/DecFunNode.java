@@ -1,5 +1,6 @@
 package ast.node.declaration;
 
+import ast.Label;
 import ast.STentry;
 import ast.node.*;
 import ast.node.statement.IteNode;
@@ -107,7 +108,7 @@ public class DecFunNode implements Node {
     }
 
     @Override
-    public String codeGeneration() {
+    public String codeGeneration(Label labelManager) {
         return null;
     }
 

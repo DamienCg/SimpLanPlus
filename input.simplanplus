@@ -1,6 +1,12 @@
 {
-void f(int m, int n){
-	if (m>n) { print(m+n) ;}
-	else { int x = 1 ; f(m+1,n+1) ; }
+void f(){
+int a;
+void f(){}
 }
-f(5,4) ; }
+
+ if(true){
+
+ }
+ }
+
+

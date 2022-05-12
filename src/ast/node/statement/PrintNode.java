@@ -1,5 +1,6 @@
 package ast.node.statement;
 
+import ast.Label;
 import ast.node.ExpNodes.ExpNode;
 import ast.node.Node;
 import ast.node.TypeNode;
@@ -31,7 +32,7 @@ public class PrintNode implements Node {
     }
 
     @Override
-    public String codeGeneration() {
+    public String codeGeneration(Label labelManager) {
         return null;
     }
 

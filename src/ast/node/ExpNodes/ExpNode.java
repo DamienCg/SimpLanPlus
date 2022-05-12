@@ -1,4 +1,5 @@
 package ast.node.ExpNodes;
+import ast.Label;
 import ast.node.Node;
 import ast.node.TypeNode;
 import util.Environment;
@@ -31,8 +32,9 @@ public class ExpNode implements Node {
     public TypeNode typeCheck() {
         return exp.typeCheck();
     }
+
     @Override
-    public String codeGeneration() {
+    public String codeGeneration(Label labelManager) {
         return null;
     }
 

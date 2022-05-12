@@ -1,4 +1,5 @@
 import Lexer.*;
+import ast.Label;
 import ast.node.Node;
 import ast.node.SimpLanPlusVisitorImpl;
 import parser.SimpLanPlusParser;
@@ -7,7 +8,9 @@ import org.antlr.v4.runtime.*;
 import util.Environment;
 import util.SemanticError;
 
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -51,6 +54,20 @@ public class Main {
                 } else {
                     System.out.println("** Now Type Check **");
                     ast.typeCheck();
+
+                    //-------------------------------
+                    //-----------
+                    System.out.println("** Start CodGen **");
+                    String fileOut = "output.simplanplus";
+                    Label labelManager = new Label();
+                    String code=ast.codeGeneration(labelManager);
+                    /*
+                    BufferedWriter out = new BufferedWriter(new FileWriter(fileOut));
+                    out.write(code);
+                    out.close();
+                    System.out.println("Code generated! Assembling and running generated code.");
+                    */
+
                 }
             }
         } catch (FileNotFoundException e) {

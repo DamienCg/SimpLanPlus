@@ -1,5 +1,6 @@
 package ast.node;
 
+import ast.Label;
 import ast.node.statement.*;
 import org.antlr.runtime.tree.TreeWizard;
 import util.Environment;
@@ -89,7 +90,7 @@ public class StatementNode implements Node {
     }
 
     @Override
-    public String codeGeneration() {
+    public String codeGeneration(Label labelManager) {
         return null;
     }
 

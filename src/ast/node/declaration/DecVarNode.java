@@ -1,5 +1,6 @@
 package ast.node.declaration;
 
+import ast.Label;
 import ast.STentry;
 import ast.node.Node;
 import ast.node.TypeNode;
@@ -34,7 +35,7 @@ public class DecVarNode implements Node {
     }
 
     @Override
-    public String codeGeneration() {
+    public String codeGeneration(Label labelManager) {
         return null;
     }
 

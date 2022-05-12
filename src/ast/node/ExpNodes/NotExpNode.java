@@ -1,5 +1,6 @@
 package ast.node.ExpNodes;
 
+import ast.Label;
 import ast.node.Node;
 import ast.node.TypeNode;
 import util.Environment;
@@ -34,5 +35,10 @@ public class NotExpNode extends BaseExpNode{
     public ArrayList<SemanticError> checkSemantics(Environment env) {
 
         return exp.checkSemantics(env);
+    }
+
+    @Override
+    public String codeGeneration(Label labelManager) {
+        return null;
     }
 }

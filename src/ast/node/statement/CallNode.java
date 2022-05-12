@@ -1,5 +1,6 @@
 package ast.node.statement;
 
+import ast.Label;
 import ast.STentry;
 import ast.node.ArrowTypeNode;
 import ast.node.Node;
@@ -58,7 +59,7 @@ public class CallNode implements Node {
 
 
     @Override
-    public String codeGeneration() {
+    public String codeGeneration(Label labelManager) {
         return null;
     }
 

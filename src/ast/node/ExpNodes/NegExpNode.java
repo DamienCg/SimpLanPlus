@@ -1,5 +1,6 @@
 package ast.node.ExpNodes;
 
+import ast.Label;
 import ast.node.Node;
 import ast.node.TypeNode;
 import util.Environment;
@@ -29,6 +30,11 @@ public class NegExpNode extends BaseExpNode{
             throw new RuntimeException("Trying to do negative on a non int");
         }
         return new TypeNode("int");
+    }
+
+    @Override
+    public String codeGeneration(Label labelManager) {
+        return null;
     }
 
 }

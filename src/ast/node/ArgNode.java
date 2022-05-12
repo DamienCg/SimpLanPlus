@@ -1,5 +1,6 @@
 package ast.node;
 
+import ast.Label;
 import ast.STentry;
 import util.Environment;
 import util.SemanticError;
@@ -35,7 +36,7 @@ public class ArgNode implements Node{
     }
 
     @Override
-    public String codeGeneration() {
+    public String codeGeneration(Label labelManager) {
         return null;
     }
 

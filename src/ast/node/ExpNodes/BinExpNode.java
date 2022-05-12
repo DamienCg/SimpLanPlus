@@ -1,5 +1,6 @@
 package ast.node.ExpNodes;
 
+import ast.Label;
 import ast.STentry;
 import ast.node.Node;
 import ast.node.TypeNode;
@@ -75,7 +76,7 @@ public class BinExpNode implements Node {
     }
 
     @Override
-    public String codeGeneration() {
+    public String codeGeneration(Label labelManager) {
         return null;
     }
 

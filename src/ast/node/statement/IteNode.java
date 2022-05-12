@@ -1,4 +1,5 @@
 package ast.node.statement;
+import ast.Label;
 import ast.node.Node;
 import ast.node.TypeNode;
 import util.Environment;
@@ -56,7 +57,7 @@ public class IteNode implements Node {
     * */
 
     @Override
-    public String codeGeneration() {
+    public String codeGeneration(Label labelManager) {
         return null;
     }
 

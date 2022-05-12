@@ -1,4 +1,6 @@
 package ast.node;
+import ast.Label;
+import ast.node.declaration.DecFunNode;
 import util.Environment;
 import util.SemanticError;
 import java.util.ArrayList;
@@ -59,7 +61,7 @@ public class BlockNode implements Node {
     }
 
     @Override
-    public String codeGeneration() {
+    public String codeGeneration(Label labelManager) {
         return null;
     }
 
@@ -90,7 +92,13 @@ public class BlockNode implements Node {
 
         if(this.declarations != null) {
             for (Node decl : declarations) {
-                errors.addAll(decl.checkSemantics(env));
+                DeclarationNode dec = (DeclarationNode) decl;
+                if(dec.getDec() instanceof DecFunNode){
+                    errors.add(new SemanticError("Function declaration in block function"));
+                }
+                else{
+                    errors.addAll(decl.checkSemantics(env));
+                }
             }
         }
         if(this.statements != null){
