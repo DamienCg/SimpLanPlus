@@ -45,7 +45,7 @@ public class Main {
                 if (myErrors.size() >= 1) {
                     System.out.println("Semantic errors found");
                     for (SemanticError error : myErrors) {
-                        System.out.println(error);
+                        System.err.println(error);
                     }
                     System.exit(0);
                 } else {

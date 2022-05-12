@@ -7,15 +7,14 @@ public class STentry {
   private int offset;
   private Boolean isUse;
   private Boolean isInitialized;
-  private Boolean isFun;
    
   public STentry (int n, Node t, int os) {
     this.nestingLevel=n;
     this.type=t;
     this.offset=os;
     this.isUse = false;
-    this.isInitialized = false;
-    this.isFun = false;}
+    this.isInitialized = false;}
+
 
   
   public Node getType ()
@@ -30,11 +29,6 @@ public class STentry {
   public Boolean getIsUse ()
   {return this.isUse;}
 
-  public void setIsFun (Boolean bool)
-  {this.isFun = bool;}
-
-  public Boolean getIsFun ()
-  {return this.isFun;}
 
   public void setIsInitialized (Boolean bool)
   {this.isInitialized = bool; }
