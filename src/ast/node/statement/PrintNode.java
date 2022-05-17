@@ -28,7 +28,8 @@ public class PrintNode implements Node {
 
     @Override
     public TypeNode typeCheck() {
-        return exp.typeCheck();
+         exp.typeCheck();
+        return new TypeNode("void");
     }
 
     @Override

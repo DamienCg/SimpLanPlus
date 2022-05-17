@@ -1,12 +1,13 @@
 {
-void f(){
-int a;
-void f(){}
-}
 
+ int f(){
  if(true){
+  return 3;
+  }
+  else{
 
+  }
  }
- }
+}
 
 

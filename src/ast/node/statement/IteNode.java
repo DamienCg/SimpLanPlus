@@ -1,11 +1,14 @@
 package ast.node.statement;
 import ast.Label;
+import ast.node.BlockNode;
 import ast.node.Node;
+import ast.node.StatementNode;
 import ast.node.TypeNode;
 import util.Environment;
 import util.SemanticError;
 
 import java.util.ArrayList;
+import java.util.concurrent.BlockingQueue;
 
 public class IteNode implements Node {
     public Node exp;
@@ -69,9 +72,17 @@ public class IteNode implements Node {
             ret.addAll(this.exp.checkSemantics(env));
         }
         if(this.ifstatement != null){
+            StatementNode ifblock = (StatementNode) ifstatement;
+            BlockNode ifblock2 = (BlockNode) ifblock.getNode();
+            if(ifblock2.isEmpty())
+                ret.add(new SemanticError("if statement is empty"));
             ret.addAll(this.ifstatement.checkSemantics(env));
         }
         if(this.elsestatement != null){
+            StatementNode elseblock = (StatementNode) elsestatement;
+            BlockNode elseblock2 = (BlockNode) elseblock.getNode();
+            if(elseblock2.isEmpty())
+                ret.add(new SemanticError("else statement is empty"));
             ret.addAll(this.elsestatement.checkSemantics(env));
         }
         return ret;

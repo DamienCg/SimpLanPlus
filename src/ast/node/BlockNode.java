@@ -24,6 +24,14 @@ public class BlockNode implements Node {
         return statements;
     }
 
+    public boolean isEmpty(){
+        if(statements.size() == 0 && declarations.size() == 0)
+            return true;
+            else
+                return false;
+        }
+
+
     @Override
     public String toString() {
         String ret = "{\n";
@@ -47,7 +55,7 @@ public class BlockNode implements Node {
 
             if (this.declarations != null) {
                 for (Node decl : declarations) {
-                    decl.typeCheck();
+                    st = decl.typeCheck();
                 }
             }
             if (this.statements != null) {

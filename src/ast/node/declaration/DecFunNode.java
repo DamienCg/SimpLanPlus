@@ -79,6 +79,8 @@ public class DecFunNode implements Node {
                 }
             }
 
+            block.typeCheck();
+
 
         return type;
     }

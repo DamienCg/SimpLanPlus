@@ -2,4 +2,4 @@ You had: 0 Lexical errors:
 
 
 You had: 1 Syntax  errors:
-In line 5:8 mismatched input ';' expecting '{'
+In line 8:8 mismatched input 'bool' expecting {'(', '-', '!', BOOL, ID, NUMBER}

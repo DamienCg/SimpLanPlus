@@ -54,7 +54,7 @@ public class CallNode implements Node {
             if (!p.get(i).typeCheck().isEqual(expList.get(i).typeCheck())) {
                 throw new RuntimeException("Wrong type for "+(i+1)+"-th parameter in the invocation of "+id);
             }
-        return t.typeCheck();
+        return new TypeNode("void");
     }
 
 
