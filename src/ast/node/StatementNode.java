@@ -1,6 +1,5 @@
 package ast.node;
 
-import ast.Label;
 import ast.node.statement.*;
 import util.Environment;
 import util.SemanticError;
@@ -89,7 +88,7 @@ public class StatementNode implements Node {
     }
 
     @Override
-    public String codeGeneration(Label labelManager) {
+    public String codeGeneration() {
         return null;
     }
 

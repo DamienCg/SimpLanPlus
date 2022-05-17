@@ -1,6 +1,5 @@
 package ast.node.declaration;
 
-import ast.Label;
 import ast.STentry;
 import ast.node.Node;
 import ast.node.TypeNode;
@@ -35,8 +34,17 @@ public class DecVarNode implements Node {
     }
 
     @Override
-    public String codeGeneration(Label labelManager) {
-        return null;
+    public String codeGeneration() {
+
+        StringBuilder codeGenerated = new StringBuilder();
+        if(exp != null){
+            codeGenerated.append(exp.codeGeneration()).append("\n");
+            codeGenerated.append("push $a0\n");
+        }
+        else{
+            codeGenerated.append("subi $sp $sp 1 // No value assigned\n");
+        }
+        return codeGenerated.toString();
     }
 
     @Override

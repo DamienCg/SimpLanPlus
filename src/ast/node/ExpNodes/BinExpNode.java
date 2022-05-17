@@ -1,7 +1,5 @@
 package ast.node.ExpNodes;
 
-import ast.Label;
-import ast.STentry;
 import ast.node.Node;
 import ast.node.TypeNode;
 import util.Environment;
@@ -76,8 +74,92 @@ public class BinExpNode implements Node {
     }
 
     @Override
-    public String codeGeneration(Label labelManager) {
-        return null;
+    public String codeGeneration() {
+
+        StringBuilder codeGenerated = new StringBuilder();
+        /**
+         * Code generation for lhs and rhs to push them on the stack
+         */
+        String left_generated = left.codeGeneration();
+        codeGenerated.append(left_generated);
+
+        codeGenerated.append("push $a0 // push e1\n");
+        String right_generated = right.codeGeneration();
+        codeGenerated.append(right_generated);
+
+        codeGenerated.append("lw $a2 0($sp) //take e2 and $a2 take e1\n");
+        codeGenerated.append("pop // remove e1 from the stack to preserve stack\n");
+
+        /**
+         * $a2(=e1) operation $a0(=e2)
+         */
+
+        switch (op) {
+            case "+":{
+                codeGenerated.append("add $a0 $a2 $a0 // a0 = t1+a0\n");
+
+                break;
+            }
+            case "-": {
+                codeGenerated.append("sub $a0 $a2 $a0 // a0 = t1-a0\n");
+                break;
+            }
+            case "*": {
+                codeGenerated.append("mult $a0 $a2 $a0 // a0 = t1+a0\n");
+                break;
+            }
+            case "/": {
+                codeGenerated.append("div $a0 $a2 $a0 // a0 = t1/a0\n");
+                break;
+            }
+            /*
+             * le
+             * lt
+             * gt
+             * ge
+             * eq
+             * */
+            case "<=":{
+                codeGenerated.append("le $a0 $a2 $a0 // $a0 = $a2 <= $a0\n");
+                break;
+            }
+            case "<":{
+                codeGenerated.append("lt $a0 $a2 $a0 // $a0 = $a2 < $a0\n");
+                break;
+            }
+            case ">":{
+                codeGenerated.append("gt $a0 $a2 $a0 // $a0 = $a2 > $a0\n");
+                break;
+            }
+            case ">=":{
+                codeGenerated.append("ge $a0 $a2 $a0 // $a0 = $a2 >= $a0\n");
+                break;
+            }
+            case "==":{
+                codeGenerated.append("eq $a0 $a2 $a0 // $a0 = $a2 == $a0\n");
+                break;
+            }
+            case "!=":{
+                codeGenerated.append("eq $a0 $a2 $a0 // $a0 = $a2 == $a0\n");
+                codeGenerated.append("not $a0 $a0 // $a0 = !$a0\n");
+                break;
+            }
+            case "&&":{
+                codeGenerated.append("and $a0 $a2 $a0 // $a0 = $a2 && $a0\n");
+                //codeGenerated.append("mult $a0 $a2 $a0 // $a0 = $a2 && $a0 aka $a0 = $a2 * $a0\n");
+                break;
+            }
+
+            case "||":{
+                codeGenerated.append("or $a0 $a2 $a0 // $a0 = $a2 || $a0\n");
+                break;
+            }
+
+            /**
+             * Case of == and != to implement on boolean expression
+             */
+        }
+        return codeGenerated.toString();
     }
 
     @Override

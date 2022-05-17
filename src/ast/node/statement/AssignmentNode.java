@@ -1,6 +1,5 @@
 package ast.node.statement;
 
-import ast.Label;
 import ast.STentry;
 import ast.node.Node;
 import ast.node.TypeNode;
@@ -25,11 +24,13 @@ public class AssignmentNode implements Node {
                 if(!entry.getType().typeCheck().isEqual(exp.typeCheck())){
             throw new RuntimeException("Type error: " + id + " is not of type " + exp.typeCheck().toString());
         }
-        return entry.getType().typeCheck();
+        return new TypeNode("void");
     }
 
+
+
     @Override
-    public String codeGeneration(Label labelManager) {
+    public String codeGeneration() {
         return null;
     }
 

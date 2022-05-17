@@ -1,5 +1,4 @@
 package ast.node;
-import ast.Label;
 import ast.node.declaration.DecFunNode;
 import util.Environment;
 import util.SemanticError;
@@ -69,7 +68,7 @@ public class BlockNode implements Node {
     }
 
     @Override
-    public String codeGeneration(Label labelManager) {
+    public String codeGeneration() {
         return null;
     }
 

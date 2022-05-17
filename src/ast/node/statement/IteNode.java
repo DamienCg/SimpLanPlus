@@ -1,14 +1,10 @@
 package ast.node.statement;
-import ast.Label;
-import ast.node.BlockNode;
 import ast.node.Node;
-import ast.node.StatementNode;
 import ast.node.TypeNode;
 import util.Environment;
 import util.SemanticError;
 
 import java.util.ArrayList;
-import java.util.concurrent.BlockingQueue;
 
 public class IteNode implements Node {
     public Node exp;
@@ -36,12 +32,19 @@ public class IteNode implements Node {
     public TypeNode typeCheck() {
         TypeNode thenType = ifstatement.typeCheck();
 
+        if(thenType == null)
+            throw new RuntimeException("if statement is empty");
+
+
         if (!(exp.typeCheck().isEqual(new TypeNode("bool")))) {
             throw new RuntimeException("Non boolean condition inside if: " + exp.toString());
         }
         if(ifstatement != null){
             if(elsestatement != null){
                 TypeNode elseType = elsestatement.typeCheck();
+                if(elseType == null )
+                    throw new RuntimeException("else statement is empty");
+
                 if(!thenType.isEqual(elseType)){
                     throw new RuntimeException("Different types inside if: " + thenType.getType() + " and " + elseType.getType());
                 }
@@ -60,7 +63,7 @@ public class IteNode implements Node {
     * */
 
     @Override
-    public String codeGeneration(Label labelManager) {
+    public String codeGeneration() {
         return null;
     }
 
@@ -72,17 +75,9 @@ public class IteNode implements Node {
             ret.addAll(this.exp.checkSemantics(env));
         }
         if(this.ifstatement != null){
-            StatementNode ifblock = (StatementNode) ifstatement;
-            BlockNode ifblock2 = (BlockNode) ifblock.getNode();
-            if(ifblock2.isEmpty())
-                ret.add(new SemanticError("if statement is empty"));
             ret.addAll(this.ifstatement.checkSemantics(env));
         }
         if(this.elsestatement != null){
-            StatementNode elseblock = (StatementNode) elsestatement;
-            BlockNode elseblock2 = (BlockNode) elseblock.getNode();
-            if(elseblock2.isEmpty())
-                ret.add(new SemanticError("else statement is empty"));
             ret.addAll(this.elsestatement.checkSemantics(env));
         }
         return ret;

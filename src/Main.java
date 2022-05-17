@@ -1,5 +1,4 @@
 import Lexer.*;
-import ast.Label;
 import ast.node.Node;
 import ast.node.SimpLanPlusVisitorImpl;
 import parser.SimpLanPlusParser;
@@ -59,14 +58,11 @@ public class Main {
                     //-----------
                     System.out.println("** Start CodGen **");
                     String fileOut = "output.simplanplus";
-                    Label labelManager = new Label();
-                    String code=ast.codeGeneration(labelManager);
-                    /*
+                    String code=ast.codeGeneration();
                     BufferedWriter out = new BufferedWriter(new FileWriter(fileOut));
                     out.write(code);
                     out.close();
                     System.out.println("Code generated! Assembling and running generated code.");
-                    */
 
                 }
             }

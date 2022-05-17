@@ -23,6 +23,7 @@ public class SimpLanPlusVisitorImpl extends SimpLanPlusBaseVisitor<Node> {
         ArrayList<Node> declarations = new ArrayList<Node>();
         ArrayList<Node> statements = new ArrayList<Node>();
 
+
         if (ctx.declaration() != null) {
             for (SimpLanPlusParser.DeclarationContext dc : ctx.declaration()) {
                 declarations.add(visit(dc));
@@ -33,6 +34,7 @@ public class SimpLanPlusVisitorImpl extends SimpLanPlusBaseVisitor<Node> {
                 statements.add(visit(sc));
             }
         }
+
         ret = new BlockNode(declarations, statements);
         return ret;
     }

@@ -1,7 +1,5 @@
 package ast.node;
 
-import ast.Label;
-import ast.node.Node;
 import util.Environment;
 import util.SemanticError;
 
@@ -30,7 +28,7 @@ public class TypeNode implements Node {
     }
 
     @Override
-    public String codeGeneration(Label labelManager) {
+    public String codeGeneration() {
         return null;
     }
 

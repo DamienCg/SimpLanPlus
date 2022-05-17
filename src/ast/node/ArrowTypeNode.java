@@ -1,7 +1,6 @@
 package ast.node;
 import java.util.ArrayList;
 
-import ast.Label;
 import util.Environment;
 import util.SemanticError;
 
@@ -43,7 +42,7 @@ public class ArrowTypeNode implements Node {
 
     //non utilizzato
     @Override
-    public String codeGeneration(Label labelManager) {
+    public String codeGeneration() {
         return null;
     }
 

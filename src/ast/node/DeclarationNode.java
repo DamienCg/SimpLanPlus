@@ -1,6 +1,5 @@
 package ast.node;
 
-import ast.Label;
 import ast.node.declaration.DecFunNode;
 import ast.node.declaration.DecVarNode;
 import util.Environment;
@@ -40,7 +39,7 @@ public class DeclarationNode implements Node {
     }
 
     @Override
-    public String codeGeneration(Label labelManager) {
+    public String codeGeneration() {
         return null;
     }
 

@@ -1,6 +1,5 @@
 package ast.node.ExpNodes;
 
-import ast.Label;
 import ast.node.Node;
 import ast.node.TypeNode;
 import util.Environment;
@@ -28,7 +27,7 @@ public class CallExpNode implements Node{
     }
 
     @Override
-    public String codeGeneration(Label labelManager) {
+    public String codeGeneration() {
         return null;
     }
 
