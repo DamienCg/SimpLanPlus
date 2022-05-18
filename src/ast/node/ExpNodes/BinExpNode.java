@@ -105,7 +105,7 @@ public class BinExpNode implements Node {
                 break;
             }
             case "*": {
-                codeGenerated.append("mult $a0 $a2 $a0 // a0 = t1+a0\n");
+                codeGenerated.append("mult $a0 $a2 $a0 // a0 = t1*a0\n");
                 break;
             }
             case "/": {
@@ -146,7 +146,6 @@ public class BinExpNode implements Node {
             }
             case "&&":{
                 codeGenerated.append("and $a0 $a2 $a0 // $a0 = $a2 && $a0\n");
-                //codeGenerated.append("mult $a0 $a2 $a0 // $a0 = $a2 && $a0 aka $a0 = $a2 * $a0\n");
                 break;
             }
 
@@ -154,10 +153,11 @@ public class BinExpNode implements Node {
                 codeGenerated.append("or $a0 $a2 $a0 // $a0 = $a2 || $a0\n");
                 break;
             }
+            case "!":{
+                codeGenerated.append("not $a0 $a0 // $a0 = !$a0\n");
+                break;
+            }
 
-            /**
-             * Case of == and != to implement on boolean expression
-             */
         }
         return codeGenerated.toString();
     }
