@@ -1,7 +1,7 @@
 {
-if(3){
-
+if(true){
+print(3);
 }else{
-
+print(3);
 }
 }

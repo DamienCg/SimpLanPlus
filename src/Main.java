@@ -57,12 +57,15 @@ public class Main {
                     //-------------------------------
                     //-----------
                     System.out.println("** Start CodGen **");
+                    /*
                     String fileOut = "output.simplanplus";
                     String code=ast.codeGeneration();
                     BufferedWriter out = new BufferedWriter(new FileWriter(fileOut));
                     out.write(code);
                     out.close();
                     System.out.println("Code generated! Assembling and running generated code.");
+
+                     */
 
                 }
             }

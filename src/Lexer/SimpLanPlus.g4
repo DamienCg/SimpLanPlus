@@ -31,7 +31,7 @@ print	    : 'print' exp;
 
 ret	    : 'return' (exp)?;
 
-ite         : 'if' '(' exp ')' '{' statement* '}'('else' '{'statement*'}')?;
+ite         : 'if' '(' exp ')' statement ('else' statement)?;
 
 call        : ID '(' (exp(',' exp)*)? ')';
 
