@@ -24,6 +24,14 @@ public class STentry {
     type=t;
   }
 
+  public int getNestingLevel (){
+    return nestingLevel;
+  }
+
+  public int getOffset (){
+    return offset;
+  }
+
   public void setIsUse (Boolean bool)
   {this.isUse = bool;}
 

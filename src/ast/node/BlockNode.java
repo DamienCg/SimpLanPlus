@@ -11,10 +11,11 @@ public class BlockNode implements Node {
     // I nostri 2 non terminali iniziali
     private ArrayList<Node> declarations;
     private ArrayList<Node> statements;
+    private int current_nl;
 
     //Constructors
 
-    public BlockNode(ArrayList<Node> declarations,ArrayList<Node> statements){
+    public BlockNode(ArrayList<Node> declarations,ArrayList<Node> statements) {
         this.declarations = declarations;
         this.statements = statements;
     }
@@ -67,6 +68,11 @@ public class BlockNode implements Node {
         return st;
     }
 
+    public int getCurrent_nl(){
+        return current_nl;
+    }
+
+
     @Override
     public String codeGeneration() {
         return null;
@@ -75,8 +81,10 @@ public class BlockNode implements Node {
     @Override
     public ArrayList<SemanticError> checkSemantics(Environment env) {
         ArrayList<SemanticError> errors = new ArrayList<SemanticError>();
+            env.addNewTable();
 
-        env.addNewTable();
+        current_nl = env.getNestinglevel();
+
 
         if(this.declarations != null) {
             for (Node decl : declarations) {
@@ -96,6 +104,9 @@ public class BlockNode implements Node {
     public ArrayList<SemanticError> checkSemanticsFunction(Environment env) {
 
         ArrayList<SemanticError> errors = new ArrayList<SemanticError>();
+
+        current_nl = env.getNestinglevel();
+        env.functionOffset();
 
         if(this.declarations != null) {
             for (Node decl : declarations) {

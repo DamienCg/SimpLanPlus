@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public class DerExpNode implements Node{
     private String id;
     private STentry entry;
+    private int nestingLevel;
 
     public DerExpNode(String id) {
         this.id = id; this.entry = null;
@@ -32,7 +33,16 @@ public class DerExpNode implements Node{
 
     @Override
     public String codeGeneration() {
-        return null;
+
+        StringBuilder codeGenerated = new StringBuilder();
+
+        codeGenerated.append("mv $fp $al //put in $al actual fp\n");
+
+        codeGenerated.append("lw $al 0($al) //go up to chain\n".repeat(Math.max(0, nestingLevel - entry.getNestingLevel())));
+
+        codeGenerated.append("lw $a0 ").append(entry.getOffset()).append("($al) //put in $a0 value of Id ").append(id).append("\n");
+
+        return codeGenerated.toString();
     }
 
     @Override
@@ -45,6 +55,7 @@ public class DerExpNode implements Node{
         if (entry == null)
             res.add(new SemanticError("variable "+id+" is not defined"));
         else if (entry != null) {
+            nestingLevel = env.getNestinglevel();
             entry.setIsUse(true);
             if(entry.getIsInitialized() == false){
                 res.add(new SemanticError("variable "+id+" is not initialized"));

@@ -33,7 +33,11 @@ public class NegExpNode extends BaseExpNode{
 
     @Override
     public String codeGeneration() {
-        return null;
+        StringBuilder codeGenerated = new StringBuilder();
+        String loaded_exp = exp.codeGeneration();
+        codeGenerated.append(loaded_exp).append("\n");
+        codeGenerated.append("multi $a0 $a0 -1 //do negate\n");
+        return codeGenerated.toString();
     }
 
 }

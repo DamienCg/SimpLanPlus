@@ -38,6 +38,12 @@ public class NotExpNode extends BaseExpNode{
 
     @Override
     public String codeGeneration() {
-        return null;
+
+        StringBuilder codeGenerated = new StringBuilder();
+        String loaded_exp = exp.codeGeneration();
+        codeGenerated.append(loaded_exp).append("\n");
+        codeGenerated.append("not $a0 $a0\n");
+
+        return codeGenerated.toString();
     }
 }

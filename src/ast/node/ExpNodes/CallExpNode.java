@@ -28,7 +28,8 @@ public class CallExpNode implements Node{
 
     @Override
     public String codeGeneration() {
-        return null;
+
+        return callExpNode.codeGeneration();
     }
 
     @Override

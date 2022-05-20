@@ -29,11 +29,24 @@ public class Environment {
 	}
 
 
-	public void addNewTable(){
+	public void addNewTable(){ // createVoidScope
 		HashMap<String, STentry> hm = new HashMap<>();
 		this.nestingLevel++;
+		offset = 0;
 		this.symTable.add(hm);
 	}
+
+	public void popBlockScope(){
+		this.symTable.remove(this.nestingLevel--);
+	}
+
+	public void functionOffset(){
+		this.offset = -2;
+	}
+	public void blockOffset(){
+		this.offset = -1;
+	}
+
 
 	public SemanticError addDecl(final String id, STentry st){
 		if(symTable.get(this.nestingLevel).containsKey(id)){
