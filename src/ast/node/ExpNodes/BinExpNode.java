@@ -77,7 +77,7 @@ public class BinExpNode implements Node {
     public String codeGeneration() {
 
         StringBuilder codeGenerated = new StringBuilder();
-        /**
+        /*
          * Code generation for lhs and rhs to push them on the stack
          */
         String left_generated = left.codeGeneration();
@@ -90,7 +90,7 @@ public class BinExpNode implements Node {
         codeGenerated.append("lw $a2 0($sp) //take e2 and $a2 take e1\n");
         codeGenerated.append("pop // remove e1 from the stack to preserve stack\n");
 
-        /**
+        /*
          * $a2(=e1) operation $a0(=e2)
          */
 
