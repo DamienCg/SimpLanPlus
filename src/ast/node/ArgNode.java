@@ -11,10 +11,12 @@ public class ArgNode implements Node{
     private String id;
 
 
-    ArgNode(Node type, String id){
+    ArgNode(Node type, String id, boolean isVar){
+        ((TypeNode) type).setisVar(isVar);
         this.type = (TypeNode) type;
         this.id =  id;
     }
+
 
     @Override
     public String toString() {

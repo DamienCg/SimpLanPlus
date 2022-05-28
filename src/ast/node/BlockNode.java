@@ -75,7 +75,20 @@ public class BlockNode implements Node {
 
     @Override
     public String codeGeneration() {
-        return null;
+
+        StringBuilder codeGenerated = new StringBuilder();
+        if(this.declarations != null) {
+            for (Node decl : declarations) {
+                codeGenerated.append(decl.codeGeneration()).append("\n");
+            }
+        }
+        if(this.statements != null){
+            for(Node stmt: statements){
+                codeGenerated.append(stmt.codeGeneration()).append("\n");
+            }
+        }
+        return codeGenerated.toString();
+
     }
 
     @Override

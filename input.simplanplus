@@ -1,7 +1,8 @@
 {
-if(true){
-print(3);
-}else{
-print(3);
+int f (var int a, int b,var bool g) {
+  return a;
 }
+int x = 3+4;
+f(3,3,true);
+
 }

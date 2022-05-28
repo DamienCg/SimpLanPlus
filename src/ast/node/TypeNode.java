@@ -9,9 +9,19 @@ public class TypeNode implements Node {
 //type        : 'int'
 //            | 'bool';
     private String type;
+    private boolean isVar;
 
     public TypeNode(String type) {
         this.type = type;
+        this.isVar = false;
+    }
+
+    public void setisVar(boolean isVar) {
+        this.isVar = isVar;
+    }
+
+    public boolean getisVar() {
+        return this.isVar;
     }
 
     public String getType() {

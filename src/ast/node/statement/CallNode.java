@@ -2,6 +2,7 @@ package ast.node.statement;
 
 import ast.STentry;
 import ast.node.ArrowTypeNode;
+import ast.node.ExpNodes.DerExpNode;
 import ast.node.Node;
 import ast.node.TypeNode;
 import util.Environment;
@@ -49,10 +50,14 @@ public class CallNode implements Node {
         if ( !(p.size() == expList.size()) ) {
             throw new RuntimeException("Wrong number of parameters in the invocation of "+id);
         }
-        for (int i=0; i<expList.size(); i++)
-            if (!p.get(i).typeCheck().isEqual(expList.get(i).typeCheck())) {
-                throw new RuntimeException("Wrong type for "+(i+1)+"-th parameter in the invocation of "+id);
+        for (int i=0; i<expList.size(); i++) {
+            if (((TypeNode) p.get(i)).getisVar() && !(expList.get(i) instanceof DerExpNode)) {
+                throw new RuntimeException("The type for " + (i + 1) + "-th parameter in the invocation of " + id + " Must be a var");
             }
+            if (!p.get(i).typeCheck().isEqual(expList.get(i).typeCheck())) {
+                throw new RuntimeException("Wrong type for " + (i + 1) + "-th parameter in the invocation of " + id);
+            }
+        }
         return new TypeNode("void");
     }
 

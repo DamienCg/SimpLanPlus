@@ -136,7 +136,10 @@ public class SimpLanPlusVisitorImpl extends SimpLanPlusBaseVisitor<Node> {
     }
 
     @Override public Node visitArg(SimpLanPlusParser.ArgContext ctx){
-        return new ArgNode((TypeNode)visit(ctx.type()), ctx.ID().getText());
+        if(ctx.children.size() == 3) // is a var
+            return new ArgNode((TypeNode) visit(ctx.type()), ctx.ID().getText(),true);
+        else
+        return new ArgNode((TypeNode)visit(ctx.type()), ctx.ID().getText(),false);
     }
 
     @Override public Node visitAssignment(SimpLanPlusParser.AssignmentContext ctx){

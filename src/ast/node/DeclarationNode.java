@@ -40,7 +40,8 @@ public class DeclarationNode implements Node {
 
     @Override
     public String codeGeneration() {
-        return null;
+
+        return dec.codeGeneration();
     }
 
     @Override

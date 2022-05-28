@@ -2,4 +2,4 @@ You had: 0 Lexical errors:
 
 
 You had: 1 Syntax  errors:
-In line 5:0 mismatched input 'f' expecting <EOF>
+In line 8:0 extraneous input '}' expecting <EOF>
