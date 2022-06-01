@@ -31,7 +31,13 @@ public class AssignmentNode implements Node {
 
     @Override
     public String codeGeneration() {
-        return null;
+        StringBuilder codeGenerated = new StringBuilder();
+        codeGenerated.append(exp.codeGeneration()).append("\n");
+
+        codeGenerated.append(entry.getType().codeGeneration()).append("\n");
+        codeGenerated.append("sw $a0 0($al) // 0($al) = $a0 ").append(id).append("=exp\n");
+
+        return codeGenerated.toString();
     }
 
     @Override
@@ -48,9 +54,10 @@ public class AssignmentNode implements Node {
         if(exp != null) {
             res.addAll(exp.checkSemantics(env));
             if(entry != null) {
-                this.entry.setIsInitialized(true);
+                IdEntry.setstatus(env.getNestinglevel(), true);
             }
         }
+
          return res;
     }
 

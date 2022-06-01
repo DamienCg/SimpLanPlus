@@ -57,10 +57,11 @@ public class DerExpNode implements Node{
         else if (entry != null) {
             nestingLevel = env.getNestinglevel();
             entry.setIsUse(true);
-            if(entry.getIsInitialized() == false){
-                res.add(new SemanticError("variable "+id+" is not initialized"));
-            }
+
+            if(!entry.getstatus(nestingLevel))
+                res.add(new SemanticError("variable "+id+" is! not initialized"));
         }
+
 
         return res;
     }

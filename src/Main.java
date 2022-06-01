@@ -1,3 +1,5 @@
+import CheckEffect.EffectEnvironment;
+import CheckEffect.EffectError;
 import Lexer.*;
 import ast.node.Node;
 import ast.node.SimpLanPlusVisitorImpl;
@@ -54,16 +56,24 @@ public class Main {
                     System.out.println("** Now Type Check **");
                     ast.typeCheck();
 
-                    //-------------------------------
-                    //-----------
-                    System.out.println("** Start CodGen **");
+                    EffectEnvironment envEffect = new EffectEnvironment();
+                    ArrayList<EffectError> myEffectErrors = ast.checkEffect(envEffect);
+                    if (myEffectErrors.size() >= 1) {
+                        System.out.println("Effect errors found");
+                        for (EffectError error : myEffectErrors) {
+                            System.err.println(error);
+                        }
+                        System.exit(0);
+                    }else {
+                        System.out.println("** Start CodGen **");
 
-                    String fileOut = "output.simplanplus";
-                    String code=ast.codeGeneration();
-                    BufferedWriter out = new BufferedWriter(new FileWriter(fileOut));
-                    out.write(code);
-                    out.close();
-                    System.out.println("Code generated! Assembling and running generated code.");
+                        String fileOut = "output.simplanplus";
+                        String code = ast.codeGeneration();
+                        BufferedWriter out = new BufferedWriter(new FileWriter(fileOut));
+                        out.write(code);
+                        out.close();
+                        System.out.println("Code generated! Assembling and running generated code.");
+                    }
 
 
 

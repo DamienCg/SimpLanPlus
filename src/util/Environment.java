@@ -36,15 +36,15 @@ public class Environment {
 		this.symTable.add(hm);
 	}
 
-	public void popBlockScope(){
-		this.symTable.remove(this.nestingLevel--);
-	}
-
 	public void functionOffset(){
 		this.offset = -2;
 	}
 	public void blockOffset(){
 		this.offset = -1;
+	}
+
+	public int decOffset(){
+		return this.offset--;
 	}
 
 
@@ -76,19 +76,10 @@ public class Environment {
 
 	//distruzione ultimo ambiente creato!
 	public void exitScope(){
-		this.printUnuseVariable(this.nestingLevel);
 		this.symTable.remove(this.nestingLevel);
 		this.nestingLevel--;
 	}
 
-	public void printUnuseVariable(int nestingLevel){
-		HashMap<String, STentry> scope = symTable.get(nestingLevel);
-			scope.entrySet().forEach(entry -> {
-				if(entry != null)
-					if (entry.getValue().getIsUse() == false)
-							System.out.println("Warning: Variable/Function " + entry.getKey() + " not use");
-					});
-	}
 
 }
 

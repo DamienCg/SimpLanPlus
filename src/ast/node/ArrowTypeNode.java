@@ -34,13 +34,12 @@ public class ArrowTypeNode implements Node {
         return new ArrayList<SemanticError>();
     }
 
-    //non utilizzato
     @Override
     public TypeNode typeCheck() {
         return null;
     }
 
-    //non utilizzato
+
     @Override
     public String codeGeneration() {
         return null;

@@ -1,8 +1,13 @@
 {
-int f (var int a, int b,var bool g) {
-  return a;
+int x = 3;
+
+int g;
+
+int f(int v,int b,var int s){
+g = 4;
+return g;
 }
-int x = 3+4;
-f(3,3,true);
+
+int asd = f(3,3,g);
 
 }

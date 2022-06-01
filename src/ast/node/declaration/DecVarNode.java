@@ -60,7 +60,9 @@ public class DecVarNode implements Node {
     public ArrayList<SemanticError> checkSemantics(Environment env) {
         ArrayList<SemanticError> errors = new ArrayList<SemanticError>();
 
-        STentry newEntry = new STentry(env.getNestinglevel(), type, 0);
+
+        int new_offset = env.decOffset(); // return offset decremented by 1
+        STentry newEntry = new STentry(env.getNestinglevel(), type, new_offset);
         SemanticError error = env.addDecl(id, newEntry);
 
         if (error != null) {
@@ -69,7 +71,10 @@ public class DecVarNode implements Node {
 
         if(this.exp!=null){
             errors.addAll(this.exp.checkSemantics(env));
-            newEntry.setIsInitialized(true);
+            newEntry.setstatus(env.getNestinglevel(), true);
+        }
+        else{
+            newEntry.setstatus(env.getNestinglevel(), false);
         }
 
         return errors;

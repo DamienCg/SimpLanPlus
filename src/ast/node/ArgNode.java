@@ -46,7 +46,9 @@ public class ArgNode implements Node{
 
         ArrayList<SemanticError> errors = new ArrayList<SemanticError>();
         STentry entry = new STentry(env.getNestinglevel(),type,0);
-        entry.setIsInitialized(true); //TODO da controllare se va bene nella codgen
+        if(!type.getisVar()) {
+            entry.setstatus(env.getNestinglevel(), true);
+        }
         SemanticError error = env.addDecl(id, entry);
         if (error != null) {
             errors.add(error);

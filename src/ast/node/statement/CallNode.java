@@ -58,7 +58,7 @@ public class CallNode implements Node {
                 throw new RuntimeException("Wrong type for " + (i + 1) + "-th parameter in the invocation of " + id);
             }
         }
-        return new TypeNode("void");
+        return (TypeNode) ((ArrowTypeNode)entry.getType()).getRet();
     }
 
 

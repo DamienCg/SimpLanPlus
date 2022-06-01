@@ -89,7 +89,29 @@ public class StatementNode implements Node {
 
     @Override
     public String codeGeneration() {
-        return null;
+
+        if (statement != null) {
+            if (statement instanceof AssignmentNode) {
+                return statement.codeGeneration();
+            }
+            else if (statement instanceof PrintNode) {
+                return statement.codeGeneration();
+            }
+            else if (statement instanceof BlockNode) {
+                return statement.codeGeneration();
+            }
+            else if (statement instanceof IteNode) {
+                return statement.codeGeneration();
+            }
+            else if (statement instanceof CallNode) {
+                return statement.codeGeneration();
+            }
+            else if (statement instanceof ReturnNode) {
+                return statement.codeGeneration();
+            }
+
+        }
+        return "";
     }
 
     @Override

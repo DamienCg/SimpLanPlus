@@ -65,7 +65,7 @@ public class BlockNode implements Node {
 
             }
 
-        return st;
+        return new TypeNode("void");
     }
 
     public int getCurrent_nl(){
@@ -77,6 +77,11 @@ public class BlockNode implements Node {
     public String codeGeneration() {
 
         StringBuilder codeGenerated = new StringBuilder();
+        codeGenerated.append("push 0\n"); // only if is a main block
+
+        // codeGenerated.append("push $fp //loading new block\n"); for function block
+        codeGenerated.append("mv $sp $fp //Load new $fp\n");
+
         if(this.declarations != null) {
             for (Node decl : declarations) {
                 codeGenerated.append(decl.codeGeneration()).append("\n");
@@ -87,6 +92,7 @@ public class BlockNode implements Node {
                 codeGenerated.append(stmt.codeGeneration()).append("\n");
             }
         }
+        codeGenerated.append("halt\n"); // if is a main block
         return codeGenerated.toString();
 
     }
@@ -98,6 +104,7 @@ public class BlockNode implements Node {
 
         current_nl = env.getNestinglevel();
 
+        env.blockOffset(); // setto l'offset del blocco a -1
 
         if(this.declarations != null) {
             for (Node decl : declarations) {
@@ -119,7 +126,7 @@ public class BlockNode implements Node {
         ArrayList<SemanticError> errors = new ArrayList<SemanticError>();
 
         current_nl = env.getNestinglevel();
-        env.functionOffset();
+        env.functionOffset(); // setto offset funzione a -2
 
         if(this.declarations != null) {
             for (Node decl : declarations) {
