@@ -2,12 +2,19 @@
 int x = 3;
 
 int g;
+int aew;
+void gg(){}
 
-int f(int v,int b,var int s){
-g = 4;
-return g;
+void f(int v,int b,var int s){
+g = v;
+v=s;
+if(x == 3){
+x=4;
+}
+f(x,x,x);
 }
 
-int asd = f(3,3,g);
+int dddd = g;
+f(3,3,g);
 
 }

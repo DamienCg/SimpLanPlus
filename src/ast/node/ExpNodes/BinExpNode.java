@@ -1,5 +1,6 @@
 package ast.node.ExpNodes;
-
+import CheckEffect.EffectEnvironment;
+import CheckEffect.EffectError;
 import ast.node.Node;
 import ast.node.TypeNode;
 import util.Environment;
@@ -71,6 +72,16 @@ public class BinExpNode implements Node {
                 return new TypeNode("bool");
         }
         throw new RuntimeException("Operator not found");
+    }
+
+    @Override
+    public ArrayList<EffectError> checkEffect(EffectEnvironment env) {
+        ArrayList<EffectError> errors = new ArrayList<>();
+
+        errors.addAll(left.checkEffect(env));
+        errors.addAll(right.checkEffect(env));
+
+        return errors;
     }
 
     @Override

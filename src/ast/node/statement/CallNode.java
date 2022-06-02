@@ -1,5 +1,8 @@
 package ast.node.statement;
 
+import CheckEffect.Effect;
+import CheckEffect.EffectEnvironment;
+import CheckEffect.EffectError;
 import ast.STentry;
 import ast.node.ArrowTypeNode;
 import ast.node.ExpNodes.DerExpNode;
@@ -61,6 +64,27 @@ public class CallNode implements Node {
         return (TypeNode) ((ArrowTypeNode)entry.getType()).getRet();
     }
 
+    @Override
+    public ArrayList<EffectError> checkEffect(EffectEnvironment env) {
+        ArrayList<EffectError> ret = new ArrayList<>();
+        Effect effect = env.lookUpEffect(id);
+        if(entry != null){
+            effect.setUse(true);
+        }
+        if(expList != null){
+            for(Node exp : expList){
+                if(exp instanceof DerExpNode d){
+                    Effect vareffect = env.lookUpEffect(d.getId());
+                    if(entry != null)
+                        vareffect.setUse(true);
+                }
+                else{
+                    ret.addAll(exp.checkEffect(env));
+                }
+            }
+        }
+        return ret;
+    }
 
     @Override
     public String codeGeneration() {
@@ -76,9 +100,7 @@ public class CallNode implements Node {
         if(entry == null){
             ret.add(new SemanticError("Undeclared Function " + id));
         }
-        if(entry != null){
-            entry.setIsUse(true);
-        }
+
         if(expList != null){
             for(Node exp : expList){
                 ret.addAll(exp.checkSemantics(env));

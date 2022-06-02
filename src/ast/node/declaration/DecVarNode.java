@@ -1,5 +1,8 @@
 package ast.node.declaration;
 
+import CheckEffect.Effect;
+import CheckEffect.EffectEnvironment;
+import CheckEffect.EffectError;
 import ast.STentry;
 import ast.node.Node;
 import ast.node.TypeNode;
@@ -24,7 +27,6 @@ public class DecVarNode implements Node {
         if (exp != null) {
             if (type.typeCheck().getType().equals(exp.typeCheck().getType())) {
                 return type;
-
             }
             else {
                 throw new RuntimeException("Type error in declaration of variable " + id);
@@ -57,10 +59,22 @@ public class DecVarNode implements Node {
     }
 
     @Override
+    public ArrayList<EffectError> checkEffect(EffectEnvironment env) {
+        ArrayList<EffectError> errors = new ArrayList<EffectError>();
+        Effect newEffect = new Effect(false,false);
+        env.addDecl(id, newEffect);
+
+        if(this.exp!=null){
+            env.updateEffect(id,new Effect(true,false));
+            errors.addAll(this.exp.checkEffect(env));
+        }
+        return errors;
+    }
+
+    @Override
     public ArrayList<SemanticError> checkSemantics(Environment env) {
+
         ArrayList<SemanticError> errors = new ArrayList<SemanticError>();
-
-
         int new_offset = env.decOffset(); // return offset decremented by 1
         STentry newEntry = new STentry(env.getNestinglevel(), type, new_offset);
         SemanticError error = env.addDecl(id, newEntry);
@@ -69,13 +83,8 @@ public class DecVarNode implements Node {
             errors.add(error);
         }
 
-        if(this.exp!=null){
+        if(this.exp!=null)
             errors.addAll(this.exp.checkSemantics(env));
-            newEntry.setstatus(env.getNestinglevel(), true);
-        }
-        else{
-            newEntry.setstatus(env.getNestinglevel(), false);
-        }
 
         return errors;
     }

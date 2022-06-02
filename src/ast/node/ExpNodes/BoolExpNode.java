@@ -1,5 +1,7 @@
 package ast.node.ExpNodes;
 
+import CheckEffect.EffectEnvironment;
+import CheckEffect.EffectError;
 import ast.node.Node;
 import ast.node.TypeNode;
 import util.Environment;
@@ -35,7 +37,13 @@ public class BoolExpNode implements Node{
     }
 
     @Override
+    public ArrayList<EffectError> checkEffect(EffectEnvironment env) {
+        return new ArrayList<EffectError>();
+    }
+
+    @Override
     public ArrayList<SemanticError> checkSemantics(Environment env) {
+
         return new ArrayList<SemanticError>();
     }
 }

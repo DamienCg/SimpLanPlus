@@ -1,6 +1,8 @@
 package ast.node;
 import java.util.ArrayList;
 
+import CheckEffect.EffectEnvironment;
+import CheckEffect.EffectError;
 import util.Environment;
 import util.SemanticError;
 
@@ -31,6 +33,7 @@ public class ArrowTypeNode implements Node {
 
     @Override
     public ArrayList<SemanticError> checkSemantics(Environment env) {
+
         return new ArrayList<SemanticError>();
     }
 
@@ -39,10 +42,15 @@ public class ArrowTypeNode implements Node {
         return null;
     }
 
+    @Override
+    public ArrayList<EffectError> checkEffect(EffectEnvironment env) {
+        return new ArrayList<EffectError>();
+    }
+
 
     @Override
     public String codeGeneration() {
-        return null;
+        return "";
     }
 
 }

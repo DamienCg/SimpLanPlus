@@ -1,5 +1,7 @@
 package ast.node.statement;
 
+import CheckEffect.EffectEnvironment;
+import CheckEffect.EffectError;
 import ast.node.ExpNodes.ExpNode;
 import ast.node.Node;
 import ast.node.TypeNode;
@@ -26,6 +28,15 @@ public class ReturnNode implements Node {
         this.exp = exp;
     }
 
+    @Override
+    public ArrayList<EffectError> checkEffect(EffectEnvironment env) {
+        ArrayList<EffectError> ret = new ArrayList<>();
+        if(exp != null) {
+            return exp.checkEffect(env);
+        }
+        return ret;
+    }
+
 
     @Override
     public String toString() {
@@ -46,6 +57,7 @@ public class ReturnNode implements Node {
 
     @Override
     public String codeGeneration() {
+
         return null;
     }
 

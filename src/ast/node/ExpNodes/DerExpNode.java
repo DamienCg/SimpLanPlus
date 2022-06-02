@@ -1,5 +1,8 @@
 package ast.node.ExpNodes;
 
+import CheckEffect.Effect;
+import CheckEffect.EffectEnvironment;
+import CheckEffect.EffectError;
 import ast.STentry;
 import ast.node.Node;
 import ast.node.TypeNode;
@@ -54,16 +57,24 @@ public class DerExpNode implements Node{
 
         if (entry == null)
             res.add(new SemanticError("variable "+id+" is not defined"));
-        else if (entry != null) {
+        else {
             nestingLevel = env.getNestinglevel();
-            entry.setIsUse(true);
-
-            if(!entry.getstatus(nestingLevel))
-                res.add(new SemanticError("variable "+id+" is! not initialized"));
         }
 
-
         return res;
+    }
+
+    @Override
+    public ArrayList<EffectError> checkEffect(EffectEnvironment env) {
+        ArrayList<EffectError> errors = new ArrayList<EffectError>();
+        Effect effect = env.lookUpEffect(id);
+        if(!effect.getIsInizialized()){
+            errors.add(new EffectError("variable "+id+" is not initialized"));
+        }
+        else{
+            effect.setUse(true);
+        }
+        return errors;
     }
     
 }

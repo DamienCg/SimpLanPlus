@@ -1,5 +1,8 @@
 package ast.node;
 
+import CheckEffect.Effect;
+import CheckEffect.EffectEnvironment;
+import CheckEffect.EffectError;
 import ast.STentry;
 import util.Environment;
 import util.SemanticError;
@@ -42,13 +45,20 @@ public class ArgNode implements Node{
     }
 
     @Override
+    public ArrayList<EffectError> checkEffect(EffectEnvironment env) {
+        ArrayList<EffectError> errors = new ArrayList<EffectError>();
+        // Non ci sono effetti sugli argomenti (Responsabilità del programmatore)
+        Effect effect = new Effect(true,false);
+        env.addDecl(id, effect);
+
+        return errors;
+    }
+
+    @Override
     public ArrayList<SemanticError> checkSemantics(Environment env) {
 
         ArrayList<SemanticError> errors = new ArrayList<SemanticError>();
         STentry entry = new STentry(env.getNestinglevel(),type,0);
-        if(!type.getisVar()) {
-            entry.setstatus(env.getNestinglevel(), true);
-        }
         SemanticError error = env.addDecl(id, entry);
         if (error != null) {
             errors.add(error);

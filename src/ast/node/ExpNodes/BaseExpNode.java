@@ -1,5 +1,6 @@
 package ast.node.ExpNodes;
-
+import CheckEffect.EffectEnvironment;
+import CheckEffect.EffectError;
 import ast.node.Node;
 import ast.node.TypeNode;
 import util.Environment;
@@ -32,6 +33,11 @@ public class BaseExpNode extends ExpNode{
     @Override
     public TypeNode typeCheck() {
         return this.exp.typeCheck();
+    }
+
+    @Override
+    public ArrayList<EffectError> checkEffect(EffectEnvironment env) {
+        return exp.checkEffect(env);
     }
 
     @Override

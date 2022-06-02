@@ -1,5 +1,7 @@
 package ast.node.ExpNodes;
 
+import CheckEffect.EffectEnvironment;
+import CheckEffect.EffectError;
 import ast.node.Node;
 import ast.node.TypeNode;
 import util.Environment;
@@ -46,4 +48,10 @@ public class NotExpNode extends BaseExpNode{
 
         return codeGenerated.toString();
     }
+
+    @Override
+    public ArrayList<EffectError> checkEffect(EffectEnvironment env) {
+        return exp.checkEffect(env);
+    }
+
 }

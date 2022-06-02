@@ -1,4 +1,6 @@
 package ast.node.statement;
+import CheckEffect.EffectEnvironment;
+import CheckEffect.EffectError;
 import ast.node.Node;
 import ast.node.TypeNode;
 import util.Environment;
@@ -61,6 +63,27 @@ public class IteNode implements Node {
     * gamma -| if (exp) { ifstatement} else {elsestatement} : T'
     *
     * */
+
+    @Override
+    public ArrayList<EffectError> checkEffect(EffectEnvironment env) {
+        ArrayList<EffectError> ret = new ArrayList<EffectError>();
+
+        if(this.exp!=null){
+            ret.addAll(this.exp.checkEffect(env));
+        }
+        EffectEnvironment copy_env = new EffectEnvironment(env);
+
+        if(this.ifstatement != null){
+            ret.addAll(this.ifstatement.checkEffect(copy_env));
+        }
+
+        if(this.elsestatement != null){
+            ret.addAll(this.elsestatement.checkEffect(env));
+        }
+
+        env.maxEffect(copy_env);
+        return ret;
+    }
 
     @Override
     public String codeGeneration() {

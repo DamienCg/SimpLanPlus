@@ -1,5 +1,8 @@
 package ast.node.statement;
 
+import CheckEffect.Effect;
+import CheckEffect.EffectEnvironment;
+import CheckEffect.EffectError;
 import ast.STentry;
 import ast.node.Node;
 import ast.node.TypeNode;
@@ -53,12 +56,22 @@ public class AssignmentNode implements Node {
 
         if(exp != null) {
             res.addAll(exp.checkSemantics(env));
-            if(entry != null) {
-                IdEntry.setstatus(env.getNestinglevel(), true);
-            }
         }
 
          return res;
+    }
+
+    @Override
+    public ArrayList<EffectError> checkEffect(EffectEnvironment env) {
+        ArrayList<EffectError> res = new ArrayList<>();
+        Effect Ideffect = env.lookUpEffect(id);
+
+        if(exp != null) {
+            res.addAll(exp.checkEffect(env));
+            env.updateEffect(id,new Effect(true,false));
+        }
+
+        return res;
     }
 
     @Override

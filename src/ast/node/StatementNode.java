@@ -1,5 +1,7 @@
 package ast.node;
 
+import CheckEffect.EffectEnvironment;
+import CheckEffect.EffectError;
 import ast.node.statement.*;
 import util.Environment;
 import util.SemanticError;
@@ -33,31 +35,10 @@ public class StatementNode implements Node {
 
     @Override
     public TypeNode typeCheck() {
-        TypeNode type = null;
-
         if (statement != null) {
-            if (statement instanceof AssignmentNode) {
-                type = statement.typeCheck();
-            }
-            else if (statement instanceof PrintNode) {
-                type = statement.typeCheck();
-            }
-            else if (statement instanceof BlockNode) {
-                type = statement.typeCheck();
-            }
-            else if (statement instanceof IteNode) {
-                type =statement.typeCheck();
-            }
-            else if (statement instanceof CallNode) {
-                type = statement.typeCheck();
-            }
-            else if (statement instanceof ReturnNode) {
-                type = statement.typeCheck();
-            }
-
+            return statement.typeCheck();
         }
-        return type;
-
+        return null;
     }
 
     public Node getChild() {
@@ -90,56 +71,30 @@ public class StatementNode implements Node {
     @Override
     public String codeGeneration() {
 
-        if (statement != null) {
-            if (statement instanceof AssignmentNode) {
-                return statement.codeGeneration();
-            }
-            else if (statement instanceof PrintNode) {
-                return statement.codeGeneration();
-            }
-            else if (statement instanceof BlockNode) {
-                return statement.codeGeneration();
-            }
-            else if (statement instanceof IteNode) {
-                return statement.codeGeneration();
-            }
-            else if (statement instanceof CallNode) {
-                return statement.codeGeneration();
-            }
-            else if (statement instanceof ReturnNode) {
-                return statement.codeGeneration();
-            }
+        if (statement != null)
+            return statement.codeGeneration();;
 
-        }
-        return "";
+
+        return " ";
     }
 
     @Override
     public ArrayList<SemanticError> checkSemantics(Environment env) {
 
         ArrayList<SemanticError> errors = new ArrayList<>();
-        // Passo il check semantics allo statement
         if (statement != null) {
-            if (statement instanceof AssignmentNode) {
-                errors.addAll(((AssignmentNode) statement).checkSemantics(env));
-            }
-            else if (statement instanceof PrintNode) {
-                errors.addAll(((PrintNode) statement).checkSemantics(env));
-            }
-            else if (statement instanceof BlockNode) {
-                errors.addAll(((BlockNode) statement).checkSemantics(env));
-            }
-            else if (statement instanceof IteNode) {
-                errors.addAll(((IteNode) statement).checkSemantics(env));
-            }
-            else if (statement instanceof CallNode) {
-                errors.addAll(((CallNode) statement).checkSemantics(env));
-            }
-            else if (statement instanceof ReturnNode) {
-                errors.addAll(((ReturnNode) statement).checkSemantics(env));
-            }
-
+            errors.addAll(statement.checkSemantics(env));
         }
         return errors;
     }
+
+    @Override
+    public ArrayList<EffectError> checkEffect(EffectEnvironment env) {
+        ArrayList<EffectError> errors = new ArrayList<>();
+        if (statement != null) {
+            errors.addAll(statement.checkEffect(env));
+        }
+        return errors;
+    }
+
 }

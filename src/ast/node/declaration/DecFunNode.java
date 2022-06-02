@@ -1,5 +1,8 @@
 package ast.node.declaration;
 
+import CheckEffect.Effect;
+import CheckEffect.EffectEnvironment;
+import CheckEffect.EffectError;
 import ast.STentry;
 import ast.node.*;
 import ast.node.statement.IteNode;
@@ -28,10 +31,6 @@ public class DecFunNode implements Node {
         return type;
     }
 
-    public ArrayList<Node> getArgList() {
-        return ArgList;
-    }
-
     private void getReturnNodes(Node n){
 
             if (n instanceof ReturnNode) {
@@ -51,7 +50,6 @@ public class DecFunNode implements Node {
                     getReturnNodes(node);
                 }
             }
-
         }
 
 
@@ -59,7 +57,6 @@ public class DecFunNode implements Node {
     public TypeNode typeCheck() {
         getReturnNodes(block);
 
-        //funzione void
         if(type == null){
             for (Node returns: returnNodes){
                 if (!returns.typeCheck().isEqual(new TypeNode("void"))){
@@ -79,7 +76,6 @@ public class DecFunNode implements Node {
             }
 
             block.typeCheck();
-
 
         return type;
     }
@@ -114,13 +110,32 @@ public class DecFunNode implements Node {
     }
 
     @Override
+    public ArrayList<EffectError> checkEffect(EffectEnvironment env) {
+        ArrayList<EffectError> errors = new ArrayList<>();
+        Effect effect = new Effect(true,false);
+        env.addDecl(id,effect);
+        env.addNewTable();
+
+        if(this.ArgList.size() > 0) {
+            for(Node arg:this.ArgList) {
+                errors.addAll(arg.checkEffect(env));
+            }
+        }
+
+        if(this.block!=null){
+            errors.addAll(this.block.checkEffect(env));
+        }
+
+        return errors;
+    }
+
+    @Override
     public ArrayList<SemanticError> checkSemantics(Environment env) {
         ArrayList<SemanticError> errors = new ArrayList<SemanticError>();
         STentry newEntry = null;
 
-        // Check if the id of function is already declared
         STentry ret = env.lookUp(id);
-        if (ret != null) { // If it is already declared
+        if (ret != null) {
             errors.add(new SemanticError("The name of Function " + id + " is already taken"));
         }
         else {
@@ -142,13 +157,14 @@ public class DecFunNode implements Node {
             }
         }
 
-        newEntry.addType( new ArrowTypeNode(parTypes, type) );
+        if(newEntry != null)
+            newEntry.addType( new ArrowTypeNode(parTypes, type) );
 
         //Check semantinc on block
         if(this.block!=null){
-            errors.addAll(this.block.checkSemanticsFunction(env));
+            block.setIsFunction(true);
+            errors.addAll(this.block.checkSemantics(env));
         }
-
 
         return errors;
     }

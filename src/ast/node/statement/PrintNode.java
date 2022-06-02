@@ -1,5 +1,7 @@
 package ast.node.statement;
 
+import CheckEffect.EffectEnvironment;
+import CheckEffect.EffectError;
 import ast.node.ExpNodes.ExpNode;
 import ast.node.Node;
 import ast.node.TypeNode;
@@ -32,12 +34,18 @@ public class PrintNode implements Node {
     }
 
     @Override
+    public ArrayList<EffectError> checkEffect(EffectEnvironment env) {
+        return exp.checkEffect(env);
+    }
+
+    @Override
     public String codeGeneration() {
         return null;
     }
 
     @Override
     public ArrayList<SemanticError> checkSemantics(Environment env) {
+
         return exp.checkSemantics(env);
     }
 }

@@ -1,5 +1,7 @@
 package ast.node;
 
+import CheckEffect.EffectEnvironment;
+import CheckEffect.EffectError;
 import util.Environment;
 import util.SemanticError;
 
@@ -44,7 +46,6 @@ public class TypeNode implements Node {
 
     @Override
     public ArrayList<SemanticError> checkSemantics(Environment env) {
-        // ANche questo va bene così
         return new ArrayList<SemanticError>();
     }
 
@@ -57,5 +58,11 @@ public class TypeNode implements Node {
     public String toString() {
         return this.type;
     }
+
+    @Override
+    public ArrayList<EffectError> checkEffect(EffectEnvironment env) {
+        return new ArrayList<EffectError>();
+    }
+
 }
 

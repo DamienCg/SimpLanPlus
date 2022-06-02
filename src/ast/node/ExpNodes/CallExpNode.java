@@ -1,5 +1,7 @@
 package ast.node.ExpNodes;
 
+import CheckEffect.EffectEnvironment;
+import CheckEffect.EffectError;
 import ast.node.Node;
 import ast.node.TypeNode;
 import util.Environment;
@@ -37,4 +39,12 @@ public class CallExpNode implements Node{
 
         return callExpNode.checkSemantics(env);
     }
+
+
+    @Override
+    public ArrayList<EffectError> checkEffect(EffectEnvironment env) {
+
+        return callExpNode.checkEffect(env);
+    }
+
 }

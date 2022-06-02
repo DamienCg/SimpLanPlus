@@ -55,7 +55,6 @@ public class Main {
                 } else {
                     System.out.println("** Now Type Check **");
                     ast.typeCheck();
-
                     EffectEnvironment envEffect = new EffectEnvironment();
                     ArrayList<EffectError> myEffectErrors = ast.checkEffect(envEffect);
                     if (myEffectErrors.size() >= 1) {
@@ -66,16 +65,15 @@ public class Main {
                         System.exit(0);
                     }else {
                         System.out.println("** Start CodGen **");
-
+/*
                         String fileOut = "output.simplanplus";
                         String code = ast.codeGeneration();
                         BufferedWriter out = new BufferedWriter(new FileWriter(fileOut));
                         out.write(code);
                         out.close();
                         System.out.println("Code generated! Assembling and running generated code.");
+                    */
                     }
-
-
 
                 }
             }

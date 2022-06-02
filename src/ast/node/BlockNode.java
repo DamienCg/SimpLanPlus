@@ -1,4 +1,6 @@
 package ast.node;
+import CheckEffect.EffectEnvironment;
+import CheckEffect.EffectError;
 import ast.node.declaration.DecFunNode;
 import util.Environment;
 import util.SemanticError;
@@ -12,12 +14,15 @@ public class BlockNode implements Node {
     private ArrayList<Node> declarations;
     private ArrayList<Node> statements;
     private int current_nl;
+    private boolean isFunction;
 
     //Constructors
 
     public BlockNode(ArrayList<Node> declarations,ArrayList<Node> statements) {
         this.declarations = declarations;
         this.statements = statements;
+        this.current_nl = 0;
+        this.isFunction = false;
     }
 
     public ArrayList<Node> getStatement(){
@@ -29,6 +34,10 @@ public class BlockNode implements Node {
             return true;
             else
                 return false;
+        }
+
+        public void setIsFunction(boolean isFunction){
+            this.isFunction = isFunction;
         }
 
 
@@ -72,84 +81,72 @@ public class BlockNode implements Node {
         return current_nl;
     }
 
+    @Override
+    public ArrayList<EffectError> checkEffect(EffectEnvironment env) {
+        ArrayList<EffectError> errors = new ArrayList<EffectError>();
+
+        if(!isFunction)
+            env.addNewTable();
+
+        for (Node decl : declarations)
+            errors.addAll(decl.checkEffect(env));
+
+
+        for(Node stmt: statements)
+            errors.addAll(stmt.checkEffect(env));
+
+
+        env.exitScope();
+        return errors;
+    }
+
 
     @Override
     public String codeGeneration() {
 
-        StringBuilder codeGenerated = new StringBuilder();
-        codeGenerated.append("push 0\n"); // only if is a main block
-
-        // codeGenerated.append("push $fp //loading new block\n"); for function block
-        codeGenerated.append("mv $sp $fp //Load new $fp\n");
-
-        if(this.declarations != null) {
-            for (Node decl : declarations) {
-                codeGenerated.append(decl.codeGeneration()).append("\n");
-            }
-        }
-        if(this.statements != null){
-            for(Node stmt: statements){
-                codeGenerated.append(stmt.codeGeneration()).append("\n");
-            }
-        }
-        codeGenerated.append("halt\n"); // if is a main block
-        return codeGenerated.toString();
+       return null;
 
     }
 
-    @Override
     public ArrayList<SemanticError> checkSemantics(Environment env) {
         ArrayList<SemanticError> errors = new ArrayList<SemanticError>();
+
+        if(!isFunction) {
             env.addNewTable();
+            current_nl = env.getNestinglevel();
 
-        current_nl = env.getNestinglevel();
+            env.blockOffset(); // setto l'offset del blocco a -1
 
-        env.blockOffset(); // setto l'offset del blocco a -1
-
-        if(this.declarations != null) {
-            for (Node decl : declarations) {
-                errors.addAll(decl.checkSemantics(env));
-            }
-        }
-        if(this.statements != null){
-            for(Node stmt: statements){
-                errors.addAll(stmt.checkSemantics(env));
-            }
-        }
-
-        env.exitScope();
-        return errors;
-    }
-
-    public ArrayList<SemanticError> checkSemanticsFunction(Environment env) {
-
-        ArrayList<SemanticError> errors = new ArrayList<SemanticError>();
-
-        current_nl = env.getNestinglevel();
-        env.functionOffset(); // setto offset funzione a -2
-
-        if(this.declarations != null) {
-            for (Node decl : declarations) {
-                DeclarationNode dec = (DeclarationNode) decl;
-                if(dec.getDec() instanceof DecFunNode){
-                    errors.add(new SemanticError("Function declaration in block function"));
-                }
-                else{
+            if(this.declarations != null) {
+                for (Node decl : declarations) {
                     errors.addAll(decl.checkSemantics(env));
                 }
             }
         }
+        else{
+            current_nl = env.getNestinglevel();
+            env.functionOffset(); // setto offset funzione a -2
+
+            if(this.declarations != null) {
+                for (Node decl : declarations) {
+                    DeclarationNode dec = (DeclarationNode) decl;
+                    if(dec.getDec() instanceof DecFunNode){
+                        errors.add(new SemanticError("Function declaration in block function"));
+                    }
+                    else{
+                        errors.addAll(decl.checkSemantics(env));
+                    }
+                }
+            }
+        }
         if(this.statements != null){
             for(Node stmt: statements){
                 errors.addAll(stmt.checkSemantics(env));
             }
         }
-
         env.exitScope();
-
         return errors;
     }
-
 
 
 }

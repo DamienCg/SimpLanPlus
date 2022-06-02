@@ -1,5 +1,7 @@
 package ast.node;
 
+import CheckEffect.EffectEnvironment;
+import CheckEffect.EffectError;
 import ast.node.declaration.DecFunNode;
 import ast.node.declaration.DecVarNode;
 import util.Environment;
@@ -59,4 +61,10 @@ public class DeclarationNode implements Node {
         }
         return errors;
     }
+
+    @Override
+    public ArrayList<EffectError> checkEffect(EffectEnvironment env) {
+        return dec.checkEffect(env);
+    }
+
 }
