@@ -1,5 +1,6 @@
 import CheckEffect.EffectEnvironment;
 import CheckEffect.EffectError;
+import Interpreter.Interpreter;
 import Lexer.*;
 import ast.node.Node;
 import ast.node.SimpLanPlusVisitorImpl;
@@ -8,10 +9,7 @@ import SyntaxErrorHandler.*;
 import org.antlr.v4.runtime.*;
 import util.Environment;
 import util.SemanticError;
-
-import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -65,14 +63,8 @@ public class Main {
                         System.exit(0);
                     }else {
                         System.out.println("** Start CodGen **");
-/*
-                        String fileOut = "output.simplanplus";
                         String code = ast.codeGeneration();
-                        BufferedWriter out = new BufferedWriter(new FileWriter(fileOut));
-                        out.write(code);
-                        out.close();
-                        System.out.println("Code generated! Assembling and running generated code.");
-                    */
+                        Interpreter.run(code);
                     }
 
                 }

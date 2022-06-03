@@ -3,7 +3,6 @@ package Interpreter;
 import Interpreter.ast.Instruction;
 import Interpreter.memory.Memory;
 import Interpreter.parser.SVMParser;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -176,30 +175,7 @@ public class SVM {
                     }
                 } catch (Exception e) {
                     System.out.println("Program stopped at program counter: " + ip);
-                    /*
-                    String toPrint = "";
-                    int cont = 0;
-                    for (Instruction ins:code){
-                        if(ins == null)
-                            break;
-                        if(cont > ip -10){
-                            String literalName = SVMParser._LITERAL_NAMES[ins.getCode()];
-                            String str = literalName +" "+(ins.getArg1()!=null?ins.getArg1():"") +" "+(ins.getArg2()!=null?ins.getArg2():"")+" "+(ins.getArg3()!=null?ins.getArg3():"");
-                            toPrint += cont+": "+ str +"\n";
-                            //break;
-                        }
-                        else if(cont == ip){
-                            String literalName = SVMParser._LITERAL_NAMES[ins.getCode()];
-                            String str = literalName +" "+(ins.getArg1()!=null?ins.getArg1():"") +" "+(ins.getArg2()!=null?ins.getArg2():"")+" "+(ins.getArg3()!=null?ins.getArg3():"");
-                            toPrint += cont+": "+ str +"\n";
-                            break;
-                        }
-                        cont++;
-                    }
-                    */
-
                     e.printStackTrace();
-                    //printStack(30);
                     return;
                 }
             }

@@ -2,6 +2,7 @@ package util;
 import java.util.ArrayList;
 import java.util.HashMap;
 import ast.*;
+import ast.node.declaration.DecFunNode;
 
 
 public class Environment {
@@ -9,6 +10,7 @@ public class Environment {
 	private final ArrayList<HashMap<String, STentry>> symTable;
 	private int nestingLevel;
 	private int offset;
+	private DecFunNode getLastParentFunction = null;
 
 	public Environment(int nestingLevel, int offset) {
 		this.symTable = new ArrayList<>();
@@ -16,12 +18,16 @@ public class Environment {
 		this.offset = offset;
 	}
 
-	public int getNestinglevel(){
-		return this.nestingLevel;
+	public DecFunNode getLastParentFunction(){
+		return this.getLastParentFunction;
 	}
 
-	public int getOffset(){
-		return this.offset;
+	public void setLastParentFunction(DecFunNode parentFunction){
+		this.getLastParentFunction = parentFunction;
+	}
+
+	public int getNestinglevel(){
+		return this.nestingLevel;
 	}
 
 	public Environment() {
@@ -32,7 +38,7 @@ public class Environment {
 	public void addNewTable(){ // createVoidScope
 		HashMap<String, STentry> hm = new HashMap<>();
 		this.nestingLevel++;
-		offset = 0;
+		this.offset = 0;
 		this.symTable.add(hm);
 	}
 
@@ -56,10 +62,7 @@ public class Environment {
 		return null;
 	}
 
-	//controlla se non ci sono sconflitti in tal caso inserisce in St
-	// inserimento di una variabile/funzione
 
-	// Search id in the symbol table and returns it if present
 	public STentry lookUp(final String id) {
 
 			for (int i = this.nestingLevel; i >= 0; i--) {

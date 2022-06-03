@@ -2,10 +2,12 @@ package ast.node;
 import CheckEffect.EffectEnvironment;
 import CheckEffect.EffectError;
 import ast.node.declaration.DecFunNode;
+import ast.node.declaration.DecVarNode;
 import util.Environment;
 import util.SemanticError;
 import java.util.ArrayList;
-
+import java.util.Collection;
+import java.util.stream.Collectors;
 
 
 public class BlockNode implements Node {
@@ -15,14 +17,17 @@ public class BlockNode implements Node {
     private ArrayList<Node> statements;
     private int current_nl;
     private boolean isFunction;
+    private boolean isMain;
+    private String missingReturnCode = "";
 
     //Constructors
 
-    public BlockNode(ArrayList<Node> declarations,ArrayList<Node> statements) {
+    public BlockNode(ArrayList<Node> declarations, ArrayList<Node> statements, boolean isMain) {
         this.declarations = declarations;
         this.statements = statements;
         this.current_nl = 0;
         this.isFunction = false;
+        this.isMain = isMain;
     }
 
     public ArrayList<Node> getStatement(){
@@ -35,7 +40,6 @@ public class BlockNode implements Node {
             else
                 return false;
         }
-
         public void setIsFunction(boolean isFunction){
             this.isFunction = isFunction;
         }
@@ -103,12 +107,68 @@ public class BlockNode implements Node {
 
     @Override
     public String codeGeneration() {
+        StringBuilder codeGenerated = new StringBuilder();
 
-       return null;
+        if (!isFunction){
+            codeGenerated.append("push 0\n");
+
+            if (!isMain) {
+                codeGenerated.append("push $fp //loading new block\n");
+            }
+
+            codeGenerated.append("mv $sp $fp //Load new $fp\n");
+
+        }
+
+        Collection<Node> varDec = new ArrayList<>();
+        Collection<Node> funDec = new ArrayList<>();
+        for(Node decl: declarations){
+            if(((DeclarationNode)decl).getDec() instanceof DecVarNode){
+                varDec.add(decl);
+            }
+        }
+        for(Node decl: declarations){
+            if(((DeclarationNode)decl).getDec() instanceof DecFunNode){
+                funDec.add(decl);
+            }
+        }
+
+
+
+        for (Node dec:varDec)
+            codeGenerated.append(dec.codeGeneration()).append("\n");
+
+
+        for (Node stat:statements)
+            codeGenerated.append(stat.codeGeneration()).append("\n");
+
+        if(!isFunction){
+            if(isMain){
+                codeGenerated.append("halt\n");
+            }
+            else{
+                codeGenerated.append("subi $sp $fp 1 //Restore stack pointer as before block creation in blockNode\n");
+                codeGenerated.append("lw $fp 0($fp) //Load old $fp pushed \n");
+            }
+        }
+        else{
+            codeGenerated.append(this.missingReturnCode);
+            this.missingReturnCode = "";
+        }
+
+        if (funDec.size() > 0)
+            codeGenerated.append("//Creating function:\n");
+        for (Node fun:funDec){
+            codeGenerated.append(fun.codeGeneration()).append("\n");
+        }
+        if (funDec.size() > 0)
+            codeGenerated.append("//Ending function.\n");
+        return  codeGenerated.toString();
 
     }
 
     public ArrayList<SemanticError> checkSemantics(Environment env) {
+
         ArrayList<SemanticError> errors = new ArrayList<SemanticError>();
 
         if(!isFunction) {
@@ -144,8 +204,19 @@ public class BlockNode implements Node {
                 errors.addAll(stmt.checkSemantics(env));
             }
         }
+        /*
+        System.out.println("NL: "+env.getNestinglevel());
+        System.out.println("OFFSET: "+env.getOffset());
+        System.out.println("ISMAIN: "+isMain);
+        System.out.println("ISFUNCTION: "+isFunction);
+         */
         env.exitScope();
         return errors;
+    }
+
+
+    public void addMissingReturnFunctionCode(String missingReturnCode) {
+        this.missingReturnCode = missingReturnCode;
     }
 
 

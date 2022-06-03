@@ -8,6 +8,7 @@ import ast.node.ArrowTypeNode;
 import ast.node.ExpNodes.DerExpNode;
 import ast.node.Node;
 import ast.node.TypeNode;
+import ast.node.declaration.DecFunNode;
 import util.Environment;
 import util.SemanticError;
 
@@ -17,12 +18,14 @@ public class CallNode implements Node {
     private String id;
     private ArrayList<Node> expList;
     private STentry entry;
+    private int nestingLevel;
 
 
     public CallNode(String id, ArrayList<Node> expList) {
         this.id = id;
         this.expList = expList;
         this.entry = null;
+        this.nestingLevel = 0;
     }
 
     public String getId() {
@@ -88,7 +91,25 @@ public class CallNode implements Node {
 
     @Override
     public String codeGeneration() {
-        return null;
+        StringBuilder codeGenerated = new StringBuilder();
+
+        codeGenerated.append("push $fp\n");
+
+        for (int i = expList.size()-1; i>=0; i--){
+            codeGenerated.append(expList.get(i).codeGeneration()).append("\n");
+            codeGenerated.append("push $a0\n");
+        }
+
+        codeGenerated.append("mv $fp $al //put in $al actual fp\n");
+
+
+        codeGenerated.append("lw $al 0($al) //go up to chain\n".repeat(Math.max(0, nestingLevel - entry.getNestingLevel())));
+
+        codeGenerated.append("push $al\n");
+        System.err.println(entry.getBeginFuncLabel());
+        codeGenerated.append("jal  ").append(getLabel()).append("// jump to start of function and put in $ra next instruction\n");
+
+        return codeGenerated.toString();
     }
 
     @Override
@@ -100,13 +121,23 @@ public class CallNode implements Node {
         if(entry == null){
             ret.add(new SemanticError("Undeclared Function " + id));
         }
+        else{
+            nestingLevel = env.getNestinglevel();
+        }
 
         if(expList != null){
             for(Node exp : expList){
                 ret.addAll(exp.checkSemantics(env));
             }
         }
+        else{
+            expList = new ArrayList<>();
+        }
         return ret;
+    }
+    String getLabel(){
+        ArrowTypeNode d = (ArrowTypeNode) entry.getType();
+        return d.getBeginFuncLabel();
     }
 }
 

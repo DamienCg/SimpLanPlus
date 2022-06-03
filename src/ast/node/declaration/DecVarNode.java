@@ -41,11 +41,13 @@ public class DecVarNode implements Node {
         StringBuilder codeGenerated = new StringBuilder();
         if(exp != null){
             codeGenerated.append(exp.codeGeneration()).append("\n");
-            codeGenerated.append("push $a0\n");
         }
         else{
-            codeGenerated.append("subi $sp $sp 1 // No value assigned\n");
+            codeGenerated.append("li $a0 0\n");
+           // codeGenerated.append("subi $sp $sp 1 // No value assigned\n");
         }
+        codeGenerated.append("push $a0\n");
+
         return codeGenerated.toString();
     }
 
@@ -76,6 +78,8 @@ public class DecVarNode implements Node {
 
         ArrayList<SemanticError> errors = new ArrayList<SemanticError>();
         int new_offset = env.decOffset(); // return offset decremented by 1
+        System.err.println("new offset of: DIO "+id+" Porco: " + new_offset);
+        //TODO ci sta un false nel costruttore di STentry
         STentry newEntry = new STentry(env.getNestinglevel(), type, new_offset);
         SemanticError error = env.addDecl(id, newEntry);
 

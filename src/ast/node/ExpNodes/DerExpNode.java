@@ -44,8 +44,9 @@ public class DerExpNode implements Node{
         codeGenerated.append("lw $al 0($al) //go up to chain\n".repeat(Math.max(0, nestingLevel - entry.getNestingLevel())));
 
         codeGenerated.append("lw $a0 ").append(entry.getOffset()).append("($al) //put in $a0 value of Id ").append(id).append("\n");
-
+        System.err.println(entry.getOffset());
         return codeGenerated.toString();
+
     }
 
     @Override

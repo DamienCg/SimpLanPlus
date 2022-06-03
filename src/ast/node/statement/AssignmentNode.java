@@ -16,10 +16,12 @@ public class AssignmentNode implements Node {
     private String id;
     private Node exp;
     private STentry entry;
+    private int currentNL;
 
     public AssignmentNode(String id, Node exp){
         this.id = id;
         this.exp = exp;
+        this.currentNL = 0;
     }
 
     @Override
@@ -36,8 +38,10 @@ public class AssignmentNode implements Node {
     public String codeGeneration() {
         StringBuilder codeGenerated = new StringBuilder();
         codeGenerated.append(exp.codeGeneration()).append("\n");
+        codeGenerated.append("mv $fp $al\n");
 
-        codeGenerated.append(entry.getType().codeGeneration()).append("\n");
+        codeGenerated.append("lw $al 0($al) \n".repeat(Math.max(0,this.currentNL-this.entry.getNestingLevel())));
+        codeGenerated.append("addi $al $al" + this.entry.getOffset() + "\n");
         codeGenerated.append("sw $a0 0($al) // 0($al) = $a0 ").append(id).append("=exp\n");
 
         return codeGenerated.toString();
@@ -49,6 +53,7 @@ public class AssignmentNode implements Node {
 
         // check if id is already declared
         STentry IdEntry = env.lookUp(id);
+        this.currentNL = env.getNestinglevel();
         this.entry = IdEntry;
         if(IdEntry == null){
             res.add(new SemanticError("Undeclared variable " + id));
@@ -73,6 +78,7 @@ public class AssignmentNode implements Node {
 
         return res;
     }
+
 
     @Override
     public String toString() {

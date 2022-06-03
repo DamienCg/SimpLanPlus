@@ -8,6 +8,7 @@ import ast.node.*;
 import ast.node.statement.IteNode;
 import ast.node.statement.ReturnNode;
 import util.Environment;
+import util.LabelManager;
 import util.SemanticError;
 import java.util.ArrayList;
 
@@ -18,18 +19,37 @@ public class DecFunNode implements Node {
     private ArrayList<Node> ArgList;
     private BlockNode block;
     private ArrayList<Node> returnNodes;
+    private final String beginFuncLabel;
+    private final String endFuncLabel;
+    private final Node functionNode;
 
-    public DecFunNode(Node type, String id, Node block, ArrayList<Node> argList) {
+    public DecFunNode(Node type, String id, Node block, ArrayList<Node> argList,Node functionNode) {
         this.type = (TypeNode) type;
         this.id = id;
         this.ArgList = argList;
         this.block = (BlockNode) block;
         this.returnNodes = new ArrayList<>();
+        this.beginFuncLabel = LabelManager.freshLabel();
+        this.endFuncLabel = LabelManager.endFreshLabel();
+        this.functionNode = functionNode;
+    }
+
+    public String get_end_fun_label(){
+        return endFuncLabel;
     }
 
     public TypeNode getType() {
         return type;
     }
+
+    public Node getfunctionNode() {
+        return functionNode;
+    }
+
+    public BlockNode getBlock() {
+        return block;
+    }
+
 
     private void getReturnNodes(Node n){
 
@@ -106,7 +126,46 @@ public class DecFunNode implements Node {
 
     @Override
     public String codeGeneration() {
-        return null;
+        int declaration_size = 0;
+        int parameter_size = ArgList.size();
+
+        StringBuilder codeGenerated = new StringBuilder();
+
+        codeGenerated.append("//BEGIN FUNCTION ").append(beginFuncLabel).append("\n");
+        codeGenerated.append(beginFuncLabel).append(":\n");
+
+        codeGenerated.append("mv $sp $fp\n");
+        codeGenerated.append("push $ra\n");
+
+
+        if ((type.getType() == "void") && (returnNodes.size() == 0)) {
+            StringBuilder missingReturnCode = new StringBuilder();
+            missingReturnCode.append("subi $sp $fp 1 //Restore stack pointer as before block creation in a void function without return \n");
+            missingReturnCode.append("lw $fp 0($fp) //Load old $fp pushed \n");
+            missingReturnCode.append("b ").append(endFuncLabel).append("\n");
+
+            block.addMissingReturnFunctionCode(missingReturnCode.toString());
+        }
+
+        codeGenerated.append(block.codeGeneration()).append("\n");
+
+        codeGenerated.append(endFuncLabel).append(":\n");
+
+        codeGenerated.append("lw $ra 0($sp)\n");
+
+        codeGenerated.append("pop\n");
+
+        codeGenerated.append("addi $sp $sp ").append(declaration_size).append("//pop declaration ").append(declaration_size).append("\n");
+        codeGenerated.append("addi $sp $sp ").append(parameter_size).append("// pop parameters").append(parameter_size).append("\n");
+        codeGenerated.append("pop\n");
+        codeGenerated.append("lw $fp 0($sp)\n");
+        codeGenerated.append("pop\n");
+
+        codeGenerated.append("jr $ra\n");
+
+        codeGenerated.append("// END OF ").append(id).append("\n");
+
+        return codeGenerated.toString();
     }
 
     @Override
@@ -132,14 +191,15 @@ public class DecFunNode implements Node {
     @Override
     public ArrayList<SemanticError> checkSemantics(Environment env) {
         ArrayList<SemanticError> errors = new ArrayList<SemanticError>();
+        env.setLastParentFunction(this);
         STentry newEntry = null;
 
-        STentry ret = env.lookUp(id);
-        if (ret != null) {
+        STentry entry = env.lookUp(id);
+        if (entry != null) {
             errors.add(new SemanticError("The name of Function " + id + " is already taken"));
         }
         else {
-            newEntry = new STentry(env.getNestinglevel(),type,0);
+            newEntry = new STentry(env.getNestinglevel(),type,1);
             SemanticError error = env.addDecl(id, newEntry);
             if (error != null) {
                 errors.add(error);
@@ -147,6 +207,7 @@ public class DecFunNode implements Node {
         }
 
         ArrayList<Node> parTypes = new ArrayList<Node>();
+
 
         env.addNewTable();
         //Check declarations arguments function
@@ -158,11 +219,11 @@ public class DecFunNode implements Node {
         }
 
         if(newEntry != null)
-            newEntry.addType( new ArrowTypeNode(parTypes, type) );
+            newEntry.addType( new ArrowTypeNode(parTypes, type,beginFuncLabel,endFuncLabel) );
 
         //Check semantinc on block
         if(this.block!=null){
-            block.setIsFunction(true);
+            this.block.setIsFunction(true);
             errors.addAll(this.block.checkSemantics(env));
         }
 

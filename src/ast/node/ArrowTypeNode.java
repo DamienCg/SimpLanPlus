@@ -10,10 +10,21 @@ public class ArrowTypeNode implements Node {
 
     private ArrayList<Node> parlist;
     private Node ret;
+    private String beginFuncLabel;
+    private String endFuncLabel;
 
-    public ArrowTypeNode (ArrayList<Node> p, Node r) {
+    public ArrowTypeNode (ArrayList<Node> p, Node r, String beginFuncLabel, String endFuncLabel) {
         parlist=p;
         ret=r;
+        this.beginFuncLabel = beginFuncLabel;
+        this.endFuncLabel = endFuncLabel;
+    }
+
+    public String getBeginFuncLabel(){
+        return beginFuncLabel;
+    }
+    public String getEndFuncLabel(){
+        return endFuncLabel;
     }
 
     public String toString() { //
@@ -36,6 +47,7 @@ public class ArrowTypeNode implements Node {
 
         return new ArrayList<SemanticError>();
     }
+
 
     @Override
     public TypeNode typeCheck() {

@@ -1,6 +1,5 @@
 package ast.node;
 import ast.SimpLanPlusBaseVisitor;
-import ast.SimpLanPlusVisitor;
 import ast.node.ExpNodes.*;
 import ast.node.declaration.DecFunNode;
 import ast.node.declaration.DecVarNode;
@@ -14,7 +13,8 @@ public class SimpLanPlusVisitorImpl extends SimpLanPlusBaseVisitor<Node> {
 
     @Override
     public Node visitInit(SimpLanPlusParser.InitContext ctx) {
-        return visit(ctx.block());
+        SimpLanPlusParser.BlockContext ctxBlock = ctx.block();
+        return  visitMainBlock(ctxBlock ,true);
     }
 
     @Override
@@ -35,7 +35,7 @@ public class SimpLanPlusVisitorImpl extends SimpLanPlusBaseVisitor<Node> {
             }
         }
 
-        ret = new BlockNode(declarations, statements);
+        ret = new BlockNode(declarations, statements,false);
         return ret;
     }
 
@@ -101,9 +101,9 @@ public class SimpLanPlusVisitorImpl extends SimpLanPlusBaseVisitor<Node> {
         }
         if (ctx.type() != null) { // is TypeNode
             //  DecFunNode(Node type, Node id, Node block, ArrayList<Node> argList)
-            decFunNode = new DecFunNode(visit(ctx.type()), ctx.ID().getText(), visit(ctx.block()), arguments);
+            decFunNode = new DecFunNode(visit(ctx.type()), ctx.ID().getText(), visit(ctx.block()), arguments,null);
         } else { // is VOID
-            decFunNode = new DecFunNode(new TypeNode("void"), ctx.ID().getText(), visit(ctx.block()), arguments);
+            decFunNode = new DecFunNode(new TypeNode("void"), ctx.ID().getText(), visit(ctx.block()), arguments,null);
         }
 
         return decFunNode;
@@ -212,6 +212,30 @@ public class SimpLanPlusVisitorImpl extends SimpLanPlusBaseVisitor<Node> {
 
     @Override public Node visitValExp(SimpLanPlusParser.ValExpContext ctx){
         return new ValExpNode(Integer.parseInt(ctx.getText()));
+    }
+
+    public Node visitMainBlock(SimpLanPlusParser.BlockContext ctx, Boolean isMainBlock) {
+        BlockNode res;
+
+        ArrayList<Node> declarations = new ArrayList<>();
+        ArrayList<Node> statements = new ArrayList<>();
+
+        if (ctx.declaration()!=null) {
+            for (SimpLanPlusParser.DeclarationContext dc : ctx.declaration()){
+                declarations.add( visit(dc) );
+            }
+        }
+
+        if (ctx.statement()!= null) {
+            for (SimpLanPlusParser.StatementContext st : ctx.statement()){
+                statements.add( visit(st) );
+            }
+        }
+
+        res = new BlockNode(declarations,  statements, isMainBlock);
+
+
+        return res;
     }
 
 

@@ -1,20 +1,7 @@
 {
-int x = 3;
-
-int g;
-int aew;
-void gg(){}
-
-void f(int v,int b,var int s){
-g = v;
-v=s;
-if(x == 3){
-x=4;
+int x = 2;
+void f(int x){
+    print (x);
 }
-f(x,x,x);
-}
-
-int dddd = g;
-f(3,3,g);
-
+f(1);
 }

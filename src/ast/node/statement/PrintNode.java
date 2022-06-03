@@ -40,7 +40,10 @@ public class PrintNode implements Node {
 
     @Override
     public String codeGeneration() {
-        return null;
+        StringBuilder codeGenerated = new StringBuilder();
+        codeGenerated.append(exp.codeGeneration()).append("\n");
+        codeGenerated.append("print $a0\n");
+        return codeGenerated.toString();
     }
 
     @Override

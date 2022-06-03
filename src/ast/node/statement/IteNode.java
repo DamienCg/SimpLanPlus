@@ -4,6 +4,7 @@ import CheckEffect.EffectError;
 import ast.node.Node;
 import ast.node.TypeNode;
 import util.Environment;
+import util.LabelManager;
 import util.SemanticError;
 
 import java.util.ArrayList;
@@ -87,7 +88,32 @@ public class IteNode implements Node {
 
     @Override
     public String codeGeneration() {
-        return null;
+
+        StringBuilder codeGenerated = new StringBuilder();
+        String then_branch = LabelManager.freshLabelglobal("then");
+        String end_label = LabelManager.freshLabelglobal("endIf");
+
+
+        String loaded_cond = exp.codeGeneration();
+        codeGenerated.append(loaded_cond).append("\n");
+        codeGenerated.append("bc $a0 ").append(then_branch).append("\n");
+
+        /**
+         * Code generation else
+         */
+        if(elsestatement != null){
+            String loaded_el = elsestatement.codeGeneration();
+            codeGenerated.append(loaded_el);
+        }
+        codeGenerated.append("b ").append(end_label).append("\n");
+
+        codeGenerated.append(then_branch).append(":\n");
+        String loaded_th = ifstatement.codeGeneration();
+        codeGenerated.append(loaded_th).append("\n");
+        codeGenerated.append(end_label).append(":\n");
+
+
+        return codeGenerated.toString();
     }
 
     @Override

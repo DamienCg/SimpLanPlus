@@ -5,6 +5,7 @@ import CheckEffect.EffectError;
 import ast.node.ExpNodes.ExpNode;
 import ast.node.Node;
 import ast.node.TypeNode;
+import ast.node.declaration.DecFunNode;
 import util.Environment;
 import util.SemanticError;
 
@@ -12,6 +13,9 @@ import java.util.ArrayList;
 
 public class ReturnNode implements Node {
     private Node exp;
+    private DecFunNode parent_f;
+    private int current_nl;
+
 
     public ReturnNode(Node exp) {
 
@@ -57,16 +61,27 @@ public class ReturnNode implements Node {
 
     @Override
     public String codeGeneration() {
-
-        return null;
+        StringBuilder codeGenerated = new StringBuilder();
+        if( exp != null){
+            codeGenerated.append(exp.codeGeneration()).append("\n");
+        }
+        codeGenerated.append("lw $fp 0($fp) //Load old $fp pushed \n".repeat(Math.max(0, current_nl - parent_f.getBlock().getCurrent_nl())));
+        codeGenerated.append("subi $sp $fp 1 //Restore stack pointer as before block creation in return \n");
+        codeGenerated.append("lw $fp 0($fp) //Load old $fp pushed \n");
+        codeGenerated.append("b ").append(parent_f.get_end_fun_label()).append("\n");
+        return codeGenerated.toString();
     }
 
     @Override
     public ArrayList<SemanticError> checkSemantics(Environment env) {
         ArrayList<SemanticError> ret = new ArrayList<>();
+        this.current_nl = env.getNestinglevel();
+        this.parent_f = env.getLastParentFunction();
         if(exp != null) {
             return exp.checkSemantics(env);
         }
+        this.parent_f = (DecFunNode) env.getLastParentFunction();
+
         return ret;
     }
 }
