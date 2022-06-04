@@ -137,6 +137,21 @@ public class DecFunNode implements Node {
         codeGenerated.append("mv $sp $fp\n");
         codeGenerated.append("push $ra\n");
 
+
+        // START DAVID
+        if ((type.isEqual(new TypeNode("void"))) && !(returnNodes.size() == 0)) {
+            StringBuilder missingReturnCode = new StringBuilder();
+
+            missingReturnCode.append("subi $sp $fp 1 //Restore stack pointer as before block creation in a void function without return \n");
+            missingReturnCode.append("lw $fp 0($fp) //Load old $fp pushed \n");
+            missingReturnCode.append("b ").append(endFuncLabel).append("\n");
+
+            block.addMissingReturnFunctionCode(missingReturnCode.toString());
+        }
+        //END DAVID
+
+
+
         codeGenerated.append(block.codeGeneration()).append("\n");
 
         codeGenerated.append(endFuncLabel).append(":\n");

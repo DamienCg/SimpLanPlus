@@ -1,10 +1,20 @@
 {
-int f(int x){
-    print (x);
-    return (2);
-    print (34567);
+void g(int x){
+ if(x==0){
+ print 100;
+ }
+ else{
+ g(x-1);
+ }
 }
-int x = 1;
+
+void f(int x){
 print x;
+x = 5;
+ g(x);
+}
+
+int x = 100;
+f(x);
 
 }

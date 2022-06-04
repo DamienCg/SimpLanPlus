@@ -1,4 +1,4 @@
-li $a0 1
+li $a0 100
 
 push $a0
 
@@ -12,9 +12,7 @@ push $a0
 push 0
 mv $fp $al //put in $al actual fp
 push $al
-jal  Function0// jump to start of function and put in $ra next instruction
-
-print $a0
+jal  Function1// jump to start of function and put in $ra next instruction
 
 halt
 //Creating function:
@@ -24,19 +22,90 @@ mv $sp $fp
 push $ra
 mv $fp $al //put in $al actual fp
 lw $a0 2($al) //put in $a0 value of Id x
+push $a0 // push e1
+li $a0 0
+lw $a2 0($sp) //take e2 and $a2 take e1
+pop // remove e1 from the stack to preserve stack
+eq $a0 $a2 $a0 // $a0 = $a2 == $a0
+
+bc $a0 LABELthen1
+push 0
+push $fp //loading new block
+mv $sp $fp //Load new $fp
+push $fp
+mv $fp $al //put in $al actual fp
+lw $al 0($al) //go up to chain
+lw $a0 2($al) //put in $a0 value of Id x
+push $a0 // push e1
+li $a0 1
+lw $a2 0($sp) //take e2 and $a2 take e1
+pop // remove e1 from the stack to preserve stack
+sub $a0 $a2 $a0 // a0 = t1-a0
+
+push $a0
+push 0
+mv $fp $al //put in $al actual fp
+lw $al 0($al) //go up to chain
+lw $al 0($al) //go up to chain
+push $al
+jal  Function0// jump to start of function and put in $ra next instruction
+
+subi $sp $fp 1 //Restore stack pointer as before block creation in blockNode
+lw $fp 0($fp) //Load old $fp pushed 
+b LABELendIf2
+LABELthen1:
+push 0
+push $fp //loading new block
+mv $sp $fp //Load new $fp
+li $a0 100
 
 print $a0
 
-li $a0 2
+subi $sp $fp 1 //Restore stack pointer as before block creation in blockNode
+lw $fp 0($fp) //Load old $fp pushed 
 
-b endFunction0
-
-li $a0 34567
-
-print $a0
+LABELendIf2:
 
 
 endFunction0:
+subi $sp $fp 1
+lw $fp 0($fp)
+lw $ra 0($sp)
+addi $sp $sp 5//pop declaration 0
+pop
+lw $fp 0($sp)
+pop
+jr $ra
+// END OF g
+
+//BEGIN FUNCTION Function1
+Function1:
+mv $sp $fp
+push $ra
+mv $fp $al //put in $al actual fp
+lw $a0 2($al) //put in $a0 value of Id x
+
+print $a0
+
+li $a0 5
+
+mv $fp $al
+addi $al $al2
+sw $a0 0($al) // 0($al) = $a0 x=exp
+
+push $fp
+mv $fp $al //put in $al actual fp
+lw $a0 2($al) //put in $a0 value of Id x
+
+push $a0
+push 0
+mv $fp $al //put in $al actual fp
+lw $al 0($al) //go up to chain
+push $al
+jal  Function0// jump to start of function and put in $ra next instruction
+
+
+endFunction1:
 subi $sp $fp 1
 lw $fp 0($fp)
 lw $ra 0($sp)
