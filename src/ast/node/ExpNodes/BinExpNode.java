@@ -8,7 +8,7 @@ import util.SemanticError;
 
 import java.util.ArrayList;
 
-public class BinExpNode implements Node {
+public class BinExpNode extends ExpNode {
 
     private String op;
     private Node left;
@@ -16,6 +16,7 @@ public class BinExpNode implements Node {
 
 
     public BinExpNode(Node left, Node right, String op) {
+        super();
         this.left =  left;
         this.right =  right;
         this.op = op;

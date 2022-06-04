@@ -1,16 +1,14 @@
 package ast.node.ExpNodes;
-
 import CheckEffect.Effect;
 import CheckEffect.EffectEnvironment;
 import CheckEffect.EffectError;
 import ast.STentry;
-import ast.node.Node;
 import ast.node.TypeNode;
 import util.Environment;
 import util.SemanticError;
 import java.util.ArrayList;
 
-public class DerExpNode implements Node{
+public class DerExpNode extends ExpNode{
     private String id;
     private STentry entry;
     private int nestingLevel;

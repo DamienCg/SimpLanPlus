@@ -16,6 +16,8 @@ public class ExpNode implements Node {
     public ExpNode(Node exp){
         this.exp = exp;
     }
+    public ExpNode(){}
+
 
     @Override
     public String toString() {

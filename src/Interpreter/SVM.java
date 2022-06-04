@@ -281,7 +281,7 @@ public class SVM {
                     memory.cleanMemory(sp, v);
                 }
                 sp = v;
-                if (sp <= hp) {
+                if (sp <= 0) {
                     throw new Exception("Stack overflow!");
                 }
                 break;

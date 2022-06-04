@@ -9,7 +9,7 @@ import util.SemanticError;
 
 import java.util.ArrayList;
 
-public class NotExpNode extends BaseExpNode{
+public class NotExpNode extends ExpNode{
 
 
     public NotExpNode(Node exp) {

@@ -8,7 +8,7 @@ import util.Environment;
 import util.SemanticError;
 import java.util.ArrayList;
 
-public class NegExpNode extends BaseExpNode{
+public class NegExpNode extends ExpNode{
 
     public NegExpNode(Node exp) {
         super(exp);
