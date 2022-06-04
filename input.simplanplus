@@ -1,12 +1,13 @@
 {
 
 void f(int a, var int b){
-    a = b;
-    print b;
+    int c =a;
+    print c;
 }
 
-int s = 3;
-f(1, s);
-print s;
+int x = 1;
+int y = 2;
+f(x, y);
+
 
 }

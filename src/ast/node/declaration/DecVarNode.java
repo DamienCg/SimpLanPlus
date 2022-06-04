@@ -15,6 +15,7 @@ public class DecVarNode implements Node {
     private TypeNode type;
     private String id;
     private Node exp;
+    private Boolean isInFun = false;
 
     public DecVarNode(Node type, String id, Node exp) {
         this.type = (TypeNode) type;
