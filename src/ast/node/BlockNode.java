@@ -137,6 +137,12 @@ public class BlockNode implements Node {
         }
         // If FUNCTION vars are reserved in call
 
+        for(Node decl: declarations){
+            if(((DeclarationNode)decl).getDec() instanceof DecVarNode d){
+                codeGenerated.append(d.codeGenAsg()).append("\n");
+            }
+        }
+
         for (Node stat:statements)
             codeGenerated.append(stat.codeGeneration()).append("\n");
 
@@ -200,6 +206,8 @@ public class BlockNode implements Node {
                 }
             }
         }
+
+
         if(this.statements != null){
             for(Node stmt: statements){
                 errors.addAll(stmt.checkSemantics(env));

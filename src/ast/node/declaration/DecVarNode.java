@@ -16,11 +16,19 @@ public class DecVarNode implements Node {
     private String id;
     private Node exp;
     private Boolean isInFun = false;
+    private STentry entry;
+    private int currentNL;
 
     public DecVarNode(Node type, String id, Node exp) {
         this.type = (TypeNode) type;
         this.id =  id;
         this.exp = exp;
+        this.entry = null;
+        this.currentNL = 0;
+    }
+
+    public void setInFunction(){
+        this.isInFun = true;
     }
 
     @Override
@@ -40,16 +48,10 @@ public class DecVarNode implements Node {
     public String codeGeneration() {
 
         StringBuilder codeGenerated = new StringBuilder();
-        if(exp != null){
-            codeGenerated.append(exp.codeGeneration()).append("\n");
-        }
-        else{
-            codeGenerated.append("li $a0 0\n");
-           // codeGenerated.append("subi $sp $sp 1 // No value assigned\n");
-        }
+        codeGenerated.append("li $a0 0\n");
         codeGenerated.append("push $a0\n");
-
         return codeGenerated.toString();
+
     }
 
     @Override
@@ -89,7 +91,23 @@ public class DecVarNode implements Node {
         if(this.exp!=null)
             errors.addAll(this.exp.checkSemantics(env));
 
+        this.entry = newEntry;
+        this.currentNL = env.getNestinglevel();
+
         return errors;
+    }
+
+    public String codeGenAsg(){
+        if (this.exp == null) {
+            return "";
+        }
+        StringBuilder codeGenerated = new StringBuilder();
+        codeGenerated.append(exp.codeGeneration()).append("\n");
+        codeGenerated.append("mv $fp $al\n");
+        codeGenerated.append("lw $al 0($al) \n".repeat(Math.max(0,this.currentNL-this.entry.getNestingLevel())));
+        codeGenerated.append("addi $al $al" + this.entry.getOffset() + "\n");
+        codeGenerated.append("sw $a0 0($al) // 0($al) = $a0 ").append(id).append("=exp\n");
+        return codeGenerated.toString();
     }
 
 }

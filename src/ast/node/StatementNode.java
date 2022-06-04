@@ -97,5 +97,12 @@ public class StatementNode implements Node {
         return errors;
     }
 
+    public boolean isBlock() {
+        if (statement instanceof BlockNode) {
+            return true;
+        }
+        return false;
+    }
+
 
 }

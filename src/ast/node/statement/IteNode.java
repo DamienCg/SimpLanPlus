@@ -1,7 +1,9 @@
 package ast.node.statement;
 import CheckEffect.EffectEnvironment;
 import CheckEffect.EffectError;
+import ast.node.BlockNode;
 import ast.node.Node;
+import ast.node.StatementNode;
 import ast.node.TypeNode;
 import util.Environment;
 import util.LabelManager;
@@ -116,16 +118,23 @@ public class IteNode implements Node {
     @Override
     public ArrayList<SemanticError> checkSemantics(Environment env) {
 
-        env.setIf(true);
+        env.setIf(false);
 
         ArrayList<SemanticError> ret = new ArrayList<SemanticError>();
         if(this.exp!=null){
             ret.addAll(this.exp.checkSemantics(env));
         }
-        if(this.ifstatement != null){
+        if(this.ifstatement != null && this.ifstatement instanceof StatementNode s){
+            if (s.isBlock()) {
+                env.setIf(true);
+            }
             ret.addAll(this.ifstatement.checkSemantics(env));
         }
-        if(this.elsestatement != null){
+        env.setIf(false);
+        if(this.elsestatement != null && this.ifstatement instanceof StatementNode s){
+            if (s.isBlock()) {
+                env.setIf(true);
+            }
             ret.addAll(this.elsestatement.checkSemantics(env));
         }
 

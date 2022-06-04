@@ -1,13 +1,15 @@
 {
 
-void f(int a, var int b){
-    int c =a;
-    print c;
+int a=1;
+int c=a;
+
+int f(var int x){
+    int b=2;
+    x=b;
+    return x;
 }
-
-int x = 1;
-int y = 2;
-f(x, y);
-
+int s;
+s = f(s);
+print s;
 
 }
