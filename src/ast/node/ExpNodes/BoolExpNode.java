@@ -46,4 +46,6 @@ public class BoolExpNode implements Node{
 
         return new ArrayList<SemanticError>();
     }
+
+
 }

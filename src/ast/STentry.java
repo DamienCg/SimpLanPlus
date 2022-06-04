@@ -58,4 +58,8 @@ public class STentry {
     return offset;
   }
 
+  public String toString () {
+    return "STentry: nestingLevel=" + nestingLevel + " type=" + type + " offset=" + offset;
+  }
+
 }  

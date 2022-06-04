@@ -11,6 +11,7 @@ public class Environment {
 	private int nestingLevel;
 	private int offset;
 	private DecFunNode getLastParentFunction = null;
+	private DecFunNode lastFuncDecl = null;
 
 	public Environment(int nestingLevel, int offset) {
 		this.symTable = new ArrayList<>();
@@ -24,6 +25,14 @@ public class Environment {
 
 	public void setLastParentFunction(DecFunNode parentFunction){
 		this.getLastParentFunction = parentFunction;
+	}
+
+	public DecFunNode getLastFuncDecl(){
+		return this.lastFuncDecl;
+	}
+
+	public void setLastFuncDecl(DecFunNode funcDecl){
+		this.lastFuncDecl = funcDecl;
 	}
 
 	public int getNestinglevel(){
@@ -43,14 +52,24 @@ public class Environment {
 	}
 
 	public void functionOffset(){
-		this.offset = -2;
+		this.offset = 2;
 	}
 	public void blockOffset(){
-		this.offset = -1;
+		this.offset = 1;
 	}
 
 	public int decOffset(){
-		return this.offset--;
+		int tmp = this.offset;
+		this.offset += 1;
+		return tmp;
+	}
+
+	public int getOffset(){
+		return this.offset;
+	}
+
+	public void setOffset(int offset){
+		this.offset = offset;
 	}
 
 
@@ -59,6 +78,7 @@ public class Environment {
 			return new SemanticError("Variable " + id + " already declared");
 		}
 		symTable.get(this.nestingLevel).put(id, st);
+		//System.out.println("ID: " + id + " in " + st.toString());
 		return null;
 	}
 

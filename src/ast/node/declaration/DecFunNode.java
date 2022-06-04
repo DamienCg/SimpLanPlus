@@ -126,7 +126,7 @@ public class DecFunNode implements Node {
 
     @Override
     public String codeGeneration() {
-        int declaration_size = 0;
+        int declaration_size = this.block.getDeclarations().size();
         int parameter_size = ArgList.size();
 
         StringBuilder codeGenerated = new StringBuilder();
@@ -137,26 +137,16 @@ public class DecFunNode implements Node {
         codeGenerated.append("mv $sp $fp\n");
         codeGenerated.append("push $ra\n");
 
-
-        if ((type.getType() == "void") && (returnNodes.size() == 0)) {
-            StringBuilder missingReturnCode = new StringBuilder();
-            missingReturnCode.append("subi $sp $fp 1 //Restore stack pointer as before block creation in a void function without return \n");
-            missingReturnCode.append("lw $fp 0($fp) //Load old $fp pushed \n");
-            missingReturnCode.append("b ").append(endFuncLabel).append("\n");
-
-            block.addMissingReturnFunctionCode(missingReturnCode.toString());
-        }
-
         codeGenerated.append(block.codeGeneration()).append("\n");
 
         codeGenerated.append(endFuncLabel).append(":\n");
-
+        codeGenerated.append("subi $sp $fp 1\n");
+        codeGenerated.append("lw $fp 0($fp)\n");
         codeGenerated.append("lw $ra 0($sp)\n");
 
-        codeGenerated.append("pop\n");
+        codeGenerated.append("addi $sp $sp ").append(declaration_size + parameter_size + 4).append("//pop declaration ").append(declaration_size).append("\n");
+//      codeGenerated.append("addi $sp $sp ").append(parameter_size).append("// pop parameters").append(parameter_size).append("\n");
 
-        codeGenerated.append("addi $sp $sp ").append(declaration_size).append("//pop declaration ").append(declaration_size).append("\n");
-        codeGenerated.append("addi $sp $sp ").append(parameter_size).append("// pop parameters").append(parameter_size).append("\n");
         codeGenerated.append("pop\n");
         codeGenerated.append("lw $fp 0($sp)\n");
         codeGenerated.append("pop\n");
@@ -192,12 +182,15 @@ public class DecFunNode implements Node {
     public ArrayList<SemanticError> checkSemantics(Environment env) {
         ArrayList<SemanticError> errors = new ArrayList<SemanticError>();
         env.setLastParentFunction(this);
+        env.setLastFuncDecl(this);
         STentry newEntry = null;
 
         STentry entry = env.lookUp(id);
+
         if (entry != null) {
             errors.add(new SemanticError("The name of Function " + id + " is already taken"));
         }
+
         else {
             newEntry = new STentry(env.getNestinglevel(),type,1);
             SemanticError error = env.addDecl(id, newEntry);
@@ -208,8 +201,10 @@ public class DecFunNode implements Node {
 
         ArrayList<Node> parTypes = new ArrayList<Node>();
 
-
+        int oldOffset = env.getOffset();
         env.addNewTable();
+        env.functionOffset();
+
         //Check declarations arguments function
         if(this.ArgList.size() > 0) {
             for(Node arg:this.ArgList) {
@@ -221,13 +216,17 @@ public class DecFunNode implements Node {
         if(newEntry != null)
             newEntry.addType( new ArrowTypeNode(parTypes, type,beginFuncLabel,endFuncLabel) );
 
-        //Check semantinc on block
+        //Check semantics on block
         if(this.block!=null){
             this.block.setIsFunction(true);
             errors.addAll(this.block.checkSemantics(env));
         }
-
+        env.setOffset(oldOffset);
         return errors;
+    }
+
+    public ArrayList<Node> getBlockDeclarations(){
+        return block.getDeclarations();
     }
 
 }

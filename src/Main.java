@@ -64,6 +64,7 @@ public class Main {
                     }else {
                         System.out.println("** Start CodGen **");
                         String code = ast.codeGeneration();
+                        System.out.println("** Start Program **");
                         Interpreter.run(code);
                     }
 

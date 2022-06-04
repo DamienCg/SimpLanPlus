@@ -7,7 +7,6 @@ import util.Environment;
 import util.SemanticError;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.stream.Collectors;
 
 
 public class BlockNode implements Node {
@@ -109,35 +108,34 @@ public class BlockNode implements Node {
     public String codeGeneration() {
         StringBuilder codeGenerated = new StringBuilder();
 
-        if (!isFunction){
-            codeGenerated.append("push 0\n");
-
-            if (!isMain) {
-                codeGenerated.append("push $fp //loading new block\n");
-            }
-
-            codeGenerated.append("mv $sp $fp //Load new $fp\n");
-
-        }
-
-        Collection<Node> varDec = new ArrayList<>();
+        ArrayList<Node> varDec = new ArrayList<>();
         Collection<Node> funDec = new ArrayList<>();
+
         for(Node decl: declarations){
             if(((DeclarationNode)decl).getDec() instanceof DecVarNode){
                 varDec.add(decl);
             }
         }
+
         for(Node decl: declarations){
             if(((DeclarationNode)decl).getDec() instanceof DecFunNode){
                 funDec.add(decl);
             }
         }
 
-
-
-        for (Node dec:varDec)
-            codeGenerated.append(dec.codeGeneration()).append("\n");
-
+        if (!isFunction){
+            // BLOCK
+            for (int i = varDec.size()-1; i >= 0; i--) {
+                codeGenerated.append(varDec.get(i).codeGeneration()).append("\n");
+            }
+            codeGenerated.append("push 0\n"); // block
+            if (!isMain) {
+                // if
+                codeGenerated.append("push $fp //loading new block\n");
+            }
+            codeGenerated.append("mv $sp $fp //Load new $fp\n");
+        }
+        // If FUNCTION vars are reserved in call
 
         for (Node stat:statements)
             codeGenerated.append(stat.codeGeneration()).append("\n");
@@ -150,9 +148,8 @@ public class BlockNode implements Node {
                 codeGenerated.append("subi $sp $fp 1 //Restore stack pointer as before block creation in blockNode\n");
                 codeGenerated.append("lw $fp 0($fp) //Load old $fp pushed \n");
             }
-        }
-        else{
-            codeGenerated.append(this.missingReturnCode);
+        }else{
+            //codeGenerated.append(this.missingReturnCode);
             this.missingReturnCode = "";
         }
 
@@ -177,6 +174,10 @@ public class BlockNode implements Node {
 
             env.blockOffset(); // setto l'offset del blocco a -1
 
+            if (!isMain) {
+                env.decOffset();
+            }
+
             if(this.declarations != null) {
                 for (Node decl : declarations) {
                     errors.addAll(decl.checkSemantics(env));
@@ -185,7 +186,7 @@ public class BlockNode implements Node {
         }
         else{
             current_nl = env.getNestinglevel();
-            env.functionOffset(); // setto offset funzione a -2
+            //env.functionOffset(); // setto offset funzione a -2
 
             if(this.declarations != null) {
                 for (Node decl : declarations) {
@@ -204,12 +205,6 @@ public class BlockNode implements Node {
                 errors.addAll(stmt.checkSemantics(env));
             }
         }
-        /*
-        System.out.println("NL: "+env.getNestinglevel());
-        System.out.println("OFFSET: "+env.getOffset());
-        System.out.println("ISMAIN: "+isMain);
-        System.out.println("ISFUNCTION: "+isFunction);
-         */
         env.exitScope();
         return errors;
     }
@@ -219,5 +214,8 @@ public class BlockNode implements Node {
         this.missingReturnCode = missingReturnCode;
     }
 
+    public ArrayList<Node> getDeclarations() {
+        return this.declarations;
+    }
 
 }

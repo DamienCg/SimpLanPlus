@@ -19,6 +19,7 @@ public class CallNode implements Node {
     private ArrayList<Node> expList;
     private STentry entry;
     private int nestingLevel;
+    private DecFunNode f;
 
 
     public CallNode(String id, ArrayList<Node> expList) {
@@ -26,6 +27,7 @@ public class CallNode implements Node {
         this.expList = expList;
         this.entry = null;
         this.nestingLevel = 0;
+        this.f = null;
     }
 
     public String getId() {
@@ -95,10 +97,17 @@ public class CallNode implements Node {
 
         codeGenerated.append("push $fp\n");
 
+        ArrayList<Node> blockDeclarations = f.getBlockDeclarations();
+
+        for (int i = blockDeclarations.size()-1; i >= 0; i--){
+            codeGenerated.append(blockDeclarations.get(i).codeGeneration());
+            codeGenerated.append("push $a0\n");
+        }
         for (int i = expList.size()-1; i>=0; i--){
             codeGenerated.append(expList.get(i).codeGeneration()).append("\n");
             codeGenerated.append("push $a0\n");
         }
+        codeGenerated.append("push 0\n"); //FONDAMENTALE!
 
         codeGenerated.append("mv $fp $al //put in $al actual fp\n");
 
@@ -106,7 +115,6 @@ public class CallNode implements Node {
         codeGenerated.append("lw $al 0($al) //go up to chain\n".repeat(Math.max(0, nestingLevel - entry.getNestingLevel())));
 
         codeGenerated.append("push $al\n");
-        System.err.println(entry.getBeginFuncLabel());
         codeGenerated.append("jal  ").append(getLabel()).append("// jump to start of function and put in $ra next instruction\n");
 
         return codeGenerated.toString();
@@ -133,6 +141,8 @@ public class CallNode implements Node {
         else{
             expList = new ArrayList<>();
         }
+        this.f = env.getLastFuncDecl();
+
         return ret;
     }
     String getLabel(){

@@ -78,8 +78,6 @@ public class DecVarNode implements Node {
 
         ArrayList<SemanticError> errors = new ArrayList<SemanticError>();
         int new_offset = env.decOffset(); // return offset decremented by 1
-        System.err.println("new offset of: DIO "+id+" Porco: " + new_offset);
-        //TODO ci sta un false nel costruttore di STentry
         STentry newEntry = new STentry(env.getNestinglevel(), type, new_offset);
         SemanticError error = env.addDecl(id, newEntry);
 

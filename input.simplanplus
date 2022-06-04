@@ -1,7 +1,10 @@
 {
-int x = 2;
-void f(int x){
+int f(int x){
     print (x);
+    return (2);
+    print (34567);
 }
-f(1);
+int x = 1;
+print x;
+
 }
