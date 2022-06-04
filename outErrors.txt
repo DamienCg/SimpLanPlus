@@ -1,6 +1,5 @@
 You had: 0 Lexical errors:
 
 
-You had: 2 Syntax  errors:
-In line 7:4 extraneous input 'int' expecting {'{', '}', 'print', 'return', 'if', ID}
-In line 10:0 mismatched input 'void' expecting <EOF>
+You had: 1 Syntax  errors:
+In line 7:4 mismatched input 'int' expecting <EOF>

@@ -1,20 +1,10 @@
 {
-void g(int x){
- if(x==0){
- print 100;
- }
- else{
- g(x-1);
- }
-}
+    int f(int x) {
+    if (x>1){return x; }
+    else{ return 6;}
+    }
 
-void f(int x){
-print x;
-x = 5;
- g(x);
-}
+    int pipettino = 987654321;
 
-int x = 100;
-f(x);
-
+    print f(pipettino);
 }

@@ -31,6 +31,7 @@ public class SVM {
 
     public void cpu() {
         while (true) {
+            //printStack();
             if (hp + 1 >= sp) {
                 System.out.println("\nError: Out of memory");
                 return;
@@ -302,4 +303,20 @@ public class SVM {
         }
 
     }
+
+    private void printStack(){
+        System.out.println("\n\n STACK:");
+        for(int i = MEMORY_SIZE-1; i > sp ; i--){
+            int cellValue;
+
+            try {
+                cellValue = memory.read(i);
+            } catch (Exception e) {
+                cellValue = -0;
+            }
+            System.out.println("Cell " + i + " : "+ cellValue);
+        }
+        System.out.println("ENDSTACK\n");
+    }
+
 }

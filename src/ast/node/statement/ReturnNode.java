@@ -61,23 +61,6 @@ public class ReturnNode implements Node {
 
     @Override
     public String codeGeneration() {
-
-        // DAVID:
-        StringBuilder codeGenerated = new StringBuilder();
-        if( exp != null){
-            codeGenerated.append(exp.codeGeneration()).append("\n");
-        }
-
-        codeGenerated.append("lw $fp 0($fp) //Load old $fp pushed \n".repeat(Math.max(0, current_nl - parent_f.getBlock().getCurrent_nl())));
-
-        codeGenerated.append("subi $sp $fp 1 //Restore stack pointer as before block creation in return \n");
-        codeGenerated.append("lw $fp 0($fp) //Load old $fp pushed \n");
-
-        codeGenerated.append("b ").append(parent_f.get_end_fun_label()).append("\n");
-        return codeGenerated.toString();
-
-        /*
-        //FILLPIPPO:
         StringBuilder codeGenerated = new StringBuilder();
 
         if( exp != null){
@@ -87,7 +70,6 @@ public class ReturnNode implements Node {
         codeGenerated.append("b ").append(parent_f.get_end_fun_label()).append("\n");
 
         return codeGenerated.toString();
-        */
 
     }
 
