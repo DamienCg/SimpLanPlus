@@ -1,15 +1,12 @@
 package ast.node.ExpNodes;
-
 import CheckEffect.EffectEnvironment;
 import CheckEffect.EffectError;
-import ast.node.Node;
 import ast.node.TypeNode;
 import util.Environment;
 import util.SemanticError;
-
 import java.util.ArrayList;
 
-public class ValExpNode implements Node {
+public class ValExpNode extends ExpNode{
 
     private Integer ValExpNode;
 

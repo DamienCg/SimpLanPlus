@@ -8,7 +8,7 @@ import util.Environment;
 import util.SemanticError;
 import java.util.ArrayList;
 
-public class CallExpNode implements Node{
+public class CallExpNode extends ExpNode{
 
     private Node callExpNode;
 

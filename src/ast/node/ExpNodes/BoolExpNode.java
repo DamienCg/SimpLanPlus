@@ -8,7 +8,7 @@ import util.Environment;
 import util.SemanticError;
 import java.util.ArrayList;
 
-public class BoolExpNode implements Node{
+public class BoolExpNode extends ExpNode{
 
     private boolean BoolExpNode;
 

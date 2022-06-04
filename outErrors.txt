@@ -1,6 +1,11 @@
 You had: 0 Lexical errors:
 
 
+<<<<<<< Updated upstream
 You had: 2 Syntax  errors:
 In line 8:0 extraneous input 'void' expecting {'{', '}', 'print', 'return', 'if', ID}
 In line 8:8 missing ';' at '{'
+=======
+You had: 1 Syntax  errors:
+In line 15:8 extraneous input 'print' expecting {'(', '-', '!', BOOL, ID, NUMBER}
+>>>>>>> Stashed changes
