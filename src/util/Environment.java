@@ -12,6 +12,7 @@ public class Environment {
 	private int offset;
 	private DecFunNode getLastParentFunction = null;
 	private DecFunNode lastFuncDecl = null;
+	private Boolean isIf;
 
 	public Environment(int nestingLevel, int offset) {
 		this.symTable = new ArrayList<>();
@@ -37,6 +38,14 @@ public class Environment {
 
 	public int getNestinglevel(){
 		return this.nestingLevel;
+	}
+
+	public void setIf(Boolean isIf){
+		this.isIf = isIf;
+	}
+
+	public Boolean getIf(){
+		return this.isIf;
 	}
 
 	public Environment() {

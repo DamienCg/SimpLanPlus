@@ -15,6 +15,7 @@ public class ReturnNode implements Node {
     private Node exp;
     private DecFunNode parent_f;
     private int current_nl;
+    Boolean is_if = false;
 
 
     public ReturnNode(Node exp) {
@@ -66,7 +67,11 @@ public class ReturnNode implements Node {
         if( exp != null){
             codeGenerated.append(exp.codeGeneration()).append("\n");
         }
-
+        if (is_if){
+            //codeGenerated.append("lw $fp 0($fp) //Load old $fp pushed \n".repeat(Math.max(0, current_nl - parent_f.getBlock().getCurrent_nl())));
+            codeGenerated.append("subi $sp $fp 1 //Restore stack pointer as before block creation in return \n");
+            codeGenerated.append("lw $fp 0($fp) //Load old $fp pushed \n");
+        }
         codeGenerated.append("b ").append(parent_f.get_end_fun_label()).append("\n");
 
         return codeGenerated.toString();
@@ -78,11 +83,11 @@ public class ReturnNode implements Node {
         ArrayList<SemanticError> ret = new ArrayList<>();
         this.current_nl = env.getNestinglevel();
         this.parent_f = env.getLastParentFunction();
+        this.is_if = env.getIf();
         if(exp != null) {
             return exp.checkSemantics(env);
         }
         this.parent_f = (DecFunNode) env.getLastParentFunction();
-
         return ret;
     }
 }

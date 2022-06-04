@@ -82,7 +82,7 @@ public class IteNode implements Node {
             ret.addAll(this.elsestatement.checkEffect(env));
         }
 
-        env.maxEffect(copy_env);
+        env.maxEffect(copy_env); //TODO NON FUNZIONA
         return ret;
     }
 
@@ -116,6 +116,8 @@ public class IteNode implements Node {
     @Override
     public ArrayList<SemanticError> checkSemantics(Environment env) {
 
+        env.setIf(true);
+
         ArrayList<SemanticError> ret = new ArrayList<SemanticError>();
         if(this.exp!=null){
             ret.addAll(this.exp.checkSemantics(env));
@@ -126,6 +128,9 @@ public class IteNode implements Node {
         if(this.elsestatement != null){
             ret.addAll(this.elsestatement.checkSemantics(env));
         }
+
+        env.setIf(false);
+
         return ret;
     }
 }
