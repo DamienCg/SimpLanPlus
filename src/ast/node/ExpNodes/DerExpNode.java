@@ -36,12 +36,41 @@ public class DerExpNode extends ExpNode{
 
         StringBuilder codeGenerated = new StringBuilder();
 
-        codeGenerated.append("mv $fp $al //put in $al actual fp\n");
-        codeGenerated.append("lw $al 0($al) //go up to chain\n".repeat(Math.max(0, nestingLevel - entry.getNestingLevel())));
-        codeGenerated.append("lw $a0 ").append(entry.getOffset()).append("($al) //put in $a0 value of Id ").append(id).append("\n");
+        //TODO in derxpnode e assignmn la gestione dei riferimenti passati alla funzione
+        /*
+        invece di pushare il valore pusho indirizzo e se è var vado a prendere il valore
+
+        Come faccio questo?
+        Scalo la catena e vedo a cercare $al di x poi faccio subi o addi al e offset di x
+        devo mettere in al al + offset di x.
+        */
+
+        if (isVar()){
+            codeGenerated.append("//Var loading\n");
+            codeGenerated.append("mv $fp $al //put in $al actual fp\n");
+            codeGenerated.append("lw $al 0($al) //go up to chain\n".repeat(Math.max(0, nestingLevel - entry.getNestingLevel())));
+            codeGenerated.append("lw $al "+entry.getOffset()+"($al) //get value\n");
+            codeGenerated.append("lw $a0 0($al) //put in $a0 value of Id ").append(id).append("\n");
+        }else{
+            codeGenerated.append("//Value loading\n");
+            codeGenerated.append("mv $fp $al //put in $al actual fp\n");
+            codeGenerated.append("lw $al 0($al) //go up to chain\n".repeat(Math.max(0, nestingLevel - entry.getNestingLevel())));
+            codeGenerated.append("lw $a0 ").append(entry.getOffset()).append("($al) //put in $a0 value of Id ").append(id).append("\n");
+        }
+
 
         return codeGenerated.toString();
 
+    }
+
+    public String codeGenVar(){
+        StringBuilder codeGenerated = new StringBuilder();
+
+        codeGenerated.append("mv $fp $al //put in $al actual fp\n");
+        codeGenerated.append("lw $al 0($al) //go up to chain\n".repeat(Math.max(0, nestingLevel - entry.getNestingLevel())));
+        codeGenerated.append("addi $a0 $al ").append(entry.getOffset()).append(" //put in $a0 value of Id ").append(id).append("\n");
+
+        return codeGenerated.toString();
     }
 
     @Override
@@ -71,6 +100,10 @@ public class DerExpNode extends ExpNode{
             effect.setUse(true);
         }
         return errors;
+    }
+
+    private boolean isVar(){
+        return ((TypeNode)entry.getType()).getisVar();
     }
     
 }

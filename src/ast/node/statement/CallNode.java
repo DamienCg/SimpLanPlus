@@ -104,7 +104,13 @@ public class CallNode implements Node {
             codeGenerated.append("push $a0\n");
         }
         for (int i = expList.size()-1; i>=0; i--){
-            codeGenerated.append(expList.get(i).codeGeneration()).append("\n");
+            Node n = expList.get(i);
+            if (n instanceof DerExpNode d){
+                codeGenerated.append(d.codeGenVar());
+            }
+            else{
+                codeGenerated.append(expList.get(i).codeGeneration()).append("\n");
+            }
             codeGenerated.append("push $a0\n");
         }
         codeGenerated.append("push 0\n"); //FONDAMENTALE!

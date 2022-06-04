@@ -2,4 +2,4 @@ You had: 0 Lexical errors:
 
 
 You had: 1 Syntax  errors:
-In line 7:4 mismatched input 'int' expecting <EOF>
+In line 5:1 extraneous input '<EOF>' expecting {'{', '}', 'void', 'int', 'bool', 'print', 'return', 'if', ID}
