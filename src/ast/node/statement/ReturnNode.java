@@ -74,6 +74,7 @@ public class ReturnNode implements Node {
         }
         codeGenerated.append("b ").append(parent_f.get_end_fun_label()).append("\n");
 
+
         return codeGenerated.toString();
 
     }
@@ -82,12 +83,11 @@ public class ReturnNode implements Node {
     public ArrayList<SemanticError> checkSemantics(Environment env) {
         ArrayList<SemanticError> ret = new ArrayList<>();
         this.current_nl = env.getNestinglevel();
-        this.parent_f = env.getLastParentFunction();
+        this.parent_f = env.getLastFuncDecl(); //TODO settato questa prima era getparesntlastfunction
         this.is_if = env.getIf();
         if(exp != null) {
             return exp.checkSemantics(env);
         }
-        this.parent_f = (DecFunNode) env.getLastParentFunction();
         return ret;
     }
 }

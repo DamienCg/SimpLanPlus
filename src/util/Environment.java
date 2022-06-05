@@ -25,6 +25,7 @@ public class Environment {
 	}
 
 	public void setLastParentFunction(DecFunNode parentFunction){
+
 		this.getLastParentFunction = parentFunction;
 	}
 

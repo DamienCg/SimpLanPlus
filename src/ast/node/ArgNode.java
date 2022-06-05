@@ -20,6 +20,13 @@ public class ArgNode implements Node{
         this.id =  id;
     }
 
+    public Boolean isVar(){
+        return type.getisVar();
+    }
+
+    public String getId(){
+        return id;
+    }
 
     @Override
     public String toString() {

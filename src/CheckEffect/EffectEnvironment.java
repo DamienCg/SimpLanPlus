@@ -1,5 +1,4 @@
 package CheckEffect;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -16,6 +15,19 @@ public class EffectEnvironment {
 
     public EffectEnvironment() {
         this(-1);
+    }
+
+    public int getNestingLevel() {
+        return nestingLevel;
+    }
+
+    public Effect getEffect(String id) {
+        for (int i = EffectTable.size() - 1; i >= 0; i--) {
+            if (EffectTable.get(i).containsKey(id)) {
+                return EffectTable.get(i).get(id);
+            }
+        }
+        return null;
     }
 
     public EffectEnvironment(EffectEnvironment env) {
@@ -68,29 +80,28 @@ public class EffectEnvironment {
 
     public void printUnusedVariable(int nestingLevel){
         HashMap<String, Effect> scope = EffectTable.get(nestingLevel);
-        scope.entrySet().forEach(entry -> {
-            if(entry != null)
-                if (!entry.getValue().getUse())
-                    System.out.println("Warning: Variable/Function " + entry.getKey() + " not use");
-        });
+
+        for (String key : scope.keySet()) {
+            if(!scope.get(key).getUse()){
+                System.out.println("Warning: variable " + key + " in block (nestingLevel: "+nestingLevel+ ") is not used");
+            }
+        }
     }
 
 
-    public void maxEffect(EffectEnvironment effect2) {
-        for (HashMap<String, Effect> map : this.EffectTable) {
+    public static EffectEnvironment maxEffect(EffectEnvironment effect1, EffectEnvironment effect2) {
+       //FINO A QUA è giusto!
+        for (HashMap<String, Effect> map : effect1.EffectTable) {
             for (String key : map.keySet()) {
-                Effect effect = map.get(key);
-                Effect effect2Value = effect2.lookUpEffect(key);
-                if (effect2Value != null) {
-                    if (effect.getIsInizialized() && !effect2Value.getIsInizialized()) {
-                        this.updateEffect(key, effect);
-                    }
-                    if(effect.getUse() && !effect2Value.getUse()){
-                        this.updateEffect(key, effect);
-                    }
+                Effect ef1 = map.get(key);
+                Effect ef2 = effect2.lookUpEffect(key);
+                if (ef2 != null) {
+                    Effect ef = Effect.maxEffect(ef1, ef2);
+                    effect1.updateEffect(key, ef);
                 }
             }
         }
+        return effect1;
     }
 
 }

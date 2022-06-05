@@ -103,6 +103,7 @@ public class SVM {
                             regStore(arg1, value);
                             break;
                         case SVMParser.LOADW:
+
                             offset = Integer.parseInt(arg2);
                             address = offset + regRead(arg3);
                             regStore(arg1, memory.read(address));
@@ -219,24 +220,6 @@ public class SVM {
             System.exit(0);
         }
         regStore(lhs, numerator / denominator);
-    }
-
-    void allocatePointer(String lhs) throws Exception {
-        int address = memory.allocate();
-
-        if (address >= hp) hp = address + 1;
-        if (address == -1 || hp > sp) {
-            System.out.println("Memory is full!!");
-            return;
-        }
-        regStore(lhs, address);
-    }
-
-    void deallocatePointer(String lhs) {
-        int address = regRead(lhs);
-        if (address == hp - 1)
-            hp--;
-        memory.free(address);
     }
 
     private int regRead(String reg) {

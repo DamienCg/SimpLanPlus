@@ -21,6 +21,10 @@ public class DerExpNode extends ExpNode{
         return id;
     }
 
+    public STentry getEntry() {
+        return entry;
+    }
+
     @Override
     public String toString() {
         return id;
@@ -35,6 +39,8 @@ public class DerExpNode extends ExpNode{
     public String codeGeneration() {
 
         StringBuilder codeGenerated = new StringBuilder();
+
+
 
         codeGenerated.append("mv $fp $al //put in $al actual fp\n");
         if (isVar()){
@@ -78,7 +84,7 @@ public class DerExpNode extends ExpNode{
 
         return res;
     }
-
+//int g = f(s);
     @Override
     public ArrayList<EffectError> checkEffect(EffectEnvironment env) {
         ArrayList<EffectError> errors = new ArrayList<EffectError>();
@@ -92,7 +98,7 @@ public class DerExpNode extends ExpNode{
         return errors;
     }
 
-    private boolean isVar(){
+    public boolean isVar(){
         return ((TypeNode)entry.getType()).getisVar();
     }
     

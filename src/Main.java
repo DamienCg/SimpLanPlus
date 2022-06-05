@@ -54,6 +54,7 @@ public class Main {
                     System.out.println("** Now Type Check **");
                     ast.typeCheck();
                     EffectEnvironment envEffect = new EffectEnvironment();
+                    System.out.println("** Now CheckEFFECT **");
                     ArrayList<EffectError> myEffectErrors = ast.checkEffect(envEffect);
                     if (myEffectErrors.size() >= 1) {
                         System.out.println("Effect errors found");

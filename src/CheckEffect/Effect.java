@@ -5,9 +5,25 @@ public class Effect {
 
        private boolean isUse = false;
        private boolean isinizialized = false;
+       private String idRef = "";
 
-       public void setUse (boolean bool){
+
+    public static Effect maxEffect(Effect ef1, Effect ef2) {
+        boolean isUsed = ef1.isUse || ef2.isUse;
+        boolean isInitialized = ef1.isinizialized || ef2.isinizialized;
+        return new Effect(isInitialized, isUsed);
+    }
+
+    public String getIdRef (){
+        return this.idRef;
+    }
+
+    public void setUse (boolean bool){
               this.isUse = bool;
+       }
+
+       public void setIdRef (String idRef){
+              this.idRef = idRef;
        }
 
        public void setIsInizialized (boolean bool){

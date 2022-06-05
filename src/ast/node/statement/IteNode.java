@@ -1,4 +1,5 @@
 package ast.node.statement;
+import CheckEffect.Effect;
 import CheckEffect.EffectEnvironment;
 import CheckEffect.EffectError;
 import ast.node.BlockNode;
@@ -10,6 +11,8 @@ import util.LabelManager;
 import util.SemanticError;
 
 import java.util.ArrayList;
+
+import static CheckEffect.EffectEnvironment.maxEffect;
 
 public class IteNode implements Node {
     public Node exp;
@@ -76,15 +79,15 @@ public class IteNode implements Node {
         }
         EffectEnvironment copy_env = new EffectEnvironment(env);
 
-        if(this.ifstatement != null){
-            ret.addAll(this.ifstatement.checkEffect(copy_env));
+        if(this.ifstatement != null){ //x
+            ret.addAll(this.ifstatement.checkEffect(env));
         }
 
-        if(this.elsestatement != null){
-            ret.addAll(this.elsestatement.checkEffect(env));
+        if(this.elsestatement != null){ //y
+            ret.addAll(this.elsestatement.checkEffect(copy_env));
         }
 
-        env.maxEffect(copy_env); //TODO NON FUNZIONA
+        maxEffect(env,copy_env); //TODO NON FUNZIONA
         return ret;
     }
 

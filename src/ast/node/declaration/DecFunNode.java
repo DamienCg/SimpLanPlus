@@ -50,6 +50,10 @@ public class DecFunNode implements Node {
         return block;
     }
 
+    public String getId() {
+        return id;
+    }
+//TODO FARE RITORNO EFFETTI DA UNA FUNZIONE!
 
     private void getReturnNodes(Node n){
 
@@ -160,15 +164,29 @@ public class DecFunNode implements Node {
 
     @Override
     public ArrayList<EffectError> checkEffect(EffectEnvironment env) {
+        return new ArrayList<>();
+    }
+
+    public ArrayList<EffectError> CheckEffectCall(EffectEnvironment env, ArrayList<Effect> MyVarInOrder, ArrayList<String> MyIdVarInOrder){
         ArrayList<EffectError> errors = new ArrayList<>();
-        Effect effect = new Effect(true,false);
+        Effect effect = new Effect(true,true);
+        EffectEnvironment precEnv = new EffectEnvironment(env);
         env.addDecl(id,effect);
         env.addNewTable();
 
-        if(this.ArgList.size() > 0) {
-            for(Node arg:this.ArgList) {
-                errors.addAll(arg.checkEffect(env));
-            }
+        ArrayList<String> IdVarInFUN = new ArrayList<>();
+        int j = 0;
+        for(int i = 0; i < ArgList.size(); i++){
+           if(ArgList.get(i) instanceof ArgNode d && d.isVar()){
+               env.addDecl(d.getId(),MyVarInOrder.get(j));
+               Effect eff = env.lookUpEffect(d.getId());
+               eff.setIdRef(MyIdVarInOrder.get(j));
+               j++;
+           }
+           else if(ArgList.get(i) instanceof ArgNode d && !d.isVar()){
+               Effect eff = new Effect(true,false);
+               env.addDecl(d.getId(),eff);
+           }
         }
 
         if(this.block!=null){
@@ -178,10 +196,10 @@ public class DecFunNode implements Node {
         return errors;
     }
 
+
     @Override
     public ArrayList<SemanticError> checkSemantics(Environment env) {
         ArrayList<SemanticError> errors = new ArrayList<SemanticError>();
-        env.setLastParentFunction(this);
         env.setLastFuncDecl(this);
         STentry newEntry = null;
 

@@ -4,6 +4,7 @@ import CheckEffect.Effect;
 import CheckEffect.EffectEnvironment;
 import CheckEffect.EffectError;
 import ast.STentry;
+import ast.node.ExpNodes.DerExpNode;
 import ast.node.Node;
 import ast.node.TypeNode;
 import util.Environment;
@@ -38,6 +39,17 @@ public class AssignmentNode implements Node {
     public String codeGeneration() {
         StringBuilder codeGenerated = new StringBuilder();
         codeGenerated.append(exp.codeGeneration()).append("\n");
+
+        System.err.println("Asg "+id + " " + this.currentNL + " " + entry.getNestingLevel() + " " + entry.getOffset());
+
+        if (isVar()){
+            codeGenerated.append("mv $fp $al\n");
+            codeGenerated.append("//Var loading\n");
+            codeGenerated.append("lw $al 0($al) //go up to chain\n".repeat(Math.max(0, this.currentNL - entry.getNestingLevel())));
+            codeGenerated.append("lw $al "+entry.getOffset()+"($al) //put in $a0 value of Id ").append(id).append("\n");
+            codeGenerated.append("sw $a0 0($al) //put in $a0 value of Id ").append(id).append("\n");
+        }
+
         codeGenerated.append("mv $fp $al\n");
 
         codeGenerated.append("lw $al 0($al) \n".repeat(Math.max(0,this.currentNL-this.entry.getNestingLevel())));
@@ -71,10 +83,33 @@ public class AssignmentNode implements Node {
         ArrayList<EffectError> res = new ArrayList<>();
         Effect Ideffect = env.lookUpEffect(id);
 
-        if(exp != null) {
+        if(!Ideffect.getIdRef().equals("")){
+            Effect Ideffect2 = new Effect(Ideffect);
+            String realID = Ideffect2.getIdRef();
             res.addAll(exp.checkEffect(env));
-            env.updateEffect(id,new Effect(true,false));
+            env.updateEffect(id, Ideffect2);
+            env.updateEffect(realID, Ideffect2);
+            if(exp != null) {
+                Ideffect2.setIsInizialized(true);
+                env.updateEffect(realID,Ideffect2);
+            }
         }
+
+        if (exp != null) {
+            res.addAll(exp.checkEffect(env));
+            Ideffect.setIsInizialized(true);
+            //Ideffect.setUse(true); //TODO vedere se funziona altrimenti eliminare
+            if(exp instanceof DerExpNode){
+                String idExp = ((DerExpNode) exp).getId();
+                Effect Ideffect2 = env.lookUpEffect(idExp);
+                Ideffect2.setUse(true);
+                env.updateEffect(idExp,Ideffect2);
+
+            }
+            env.updateEffect(id, Ideffect);
+
+        }
+
 
         return res;
     }
@@ -88,6 +123,10 @@ public class AssignmentNode implements Node {
         if(exp != null)
             ret += " = " + exp;
         return ret + "}";
+    }
+
+    public boolean isVar(){
+        return ((TypeNode)entry.getType()).getisVar();
     }
 }
 
