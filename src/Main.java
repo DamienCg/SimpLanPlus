@@ -40,30 +40,24 @@ public class Main {
             }
             // NO Lexical OR Syntax ERRORS
             else {
-                System.out.println("NO Lexical OR Syntax ERRORS");
-                System.out.println("Start semantic analysis");
                 Environment env = new Environment();
                 ArrayList<SemanticError> myErrors = ast.checkSemantics(env);
                 if (myErrors.size() >= 1) {
-                    System.out.println("Semantic errors found");
                     for (SemanticError error : myErrors) {
-                        System.err.println(error);
+                        System.err.println("Error: "+error);
                     }
                     System.exit(0);
                 } else {
-                    System.out.println("** Now Type Check **");
                     ast.typeCheck();
                     EffectEnvironment envEffect = new EffectEnvironment();
-                    System.out.println("** Now CheckEFFECT **");
+
                     ArrayList<EffectError> myEffectErrors = ast.checkEffect(envEffect);
                     if (myEffectErrors.size() >= 1) {
-                        System.out.println("Effect errors found");
                         for (EffectError error : myEffectErrors) {
-                            System.err.println(error);
+                            System.err.println("Error: "+error);
                         }
                         System.exit(0);
                     }else {
-                        System.out.println("** Start CodGen **");
                         String code = ast.codeGeneration();
                         System.out.println("** Start Program **");
                         Interpreter.run(code);

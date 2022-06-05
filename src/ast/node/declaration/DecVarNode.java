@@ -31,6 +31,14 @@ public class DecVarNode implements Node {
         this.isInFun = true;
     }
 
+    public STentry getEntry(){
+        return this.entry;
+    }
+
+    public String getId(){
+        return this.id;
+    }
+
     @Override
     public TypeNode typeCheck() {
         if (exp != null) {
@@ -66,11 +74,11 @@ public class DecVarNode implements Node {
     @Override
     public ArrayList<EffectError> checkEffect(EffectEnvironment env) {
         ArrayList<EffectError> errors = new ArrayList<EffectError>();
-        Effect newEffect = new Effect(false,false);
+        Effect newEffect = new Effect(false);
         env.addDecl(id, newEffect);
 
         if(this.exp!=null){
-            env.updateEffect(id,new Effect(true,false));
+            env.updateEffect(id,new Effect(true));
             errors.addAll(this.exp.checkEffect(env));
         }
         return errors;

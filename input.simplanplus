@@ -1,14 +1,6 @@
-{
-
-void f(int m, int n){
-	if (m>n) {
-	print(m+n) ;}
-	else {
-	int x = 1 ;
-	f(m+1,n+1) ;
-	}
-
-}
-f(4,5) ;
-
-}
+{ int a; int b; int c = 1 ;
+     void h(int n, var int x, var int y, var int z){
+          if (n==0) return ; else { x = y ; h(n-1,y,z,x) ;}
+     }
+     h(5,a,b,c) ;
+   }

@@ -96,7 +96,6 @@ public class CallNode implements Node {
             if (expList.get(i) instanceof DerExpNode) {
                 String id = ((DerExpNode) expList.get(i)).getId();
                 Effect effArg = env.lookUpEffect(id);
-                effArg.setUse(true);
                 env.updateEffect(id, effArg);
             }
         }
@@ -182,6 +181,7 @@ public class CallNode implements Node {
         if (expList != null) {
             for (Node exp : expList) {
                 ret.addAll(exp.checkSemantics(env));
+                entry.setUsedd();
             }
         } else {
             expList = new ArrayList<>();

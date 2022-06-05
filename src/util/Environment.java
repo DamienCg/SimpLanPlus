@@ -106,12 +106,23 @@ public class Environment {
 
 	}
 
-
 	//distruzione ultimo ambiente creato!
 	public void exitScope(){
+		printUnUsedVariable();
 		this.symTable.remove(this.nestingLevel);
 		this.nestingLevel--;
 	}
+
+
+	public void printUnUsedVariable(){
+		HashMap<String, STentry> scope = symTable.get(this.nestingLevel);
+		for(String key : scope.keySet()){
+			if(scope.get(key).isUsed() == false){
+				System.err.println("Warning! Variable " + key + " is not used");
+			}
+		}
+	}
+
 
 
 }

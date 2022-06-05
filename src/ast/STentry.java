@@ -1,14 +1,12 @@
 package ast;
 import ast.node.*;
 import ast.node.declaration.DecFunNode;
-
-import java.util.HashMap;
-
 public class STentry {
  
   private int nestingLevel;
   private Node type;
   private int offset;
+  private boolean isUsed = false;
 
   //Fun entry per la gestione dei ritorni
   private String beginFuncLabel = "";
@@ -41,6 +39,15 @@ public class STentry {
   public void setEndLabel(String endFuncLabel) {
     this.endFuncLabel = endFuncLabel;
   }
+
+  public void setUsedd() {
+    this.isUsed = true;
+  }
+
+    public boolean isUsed() {
+        return isUsed;
+    }
+
 
   
   public Node getType ()

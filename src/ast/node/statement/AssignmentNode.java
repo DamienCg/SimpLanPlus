@@ -102,7 +102,6 @@ public class AssignmentNode implements Node {
             if(exp instanceof DerExpNode){
                 String idExp = ((DerExpNode) exp).getId();
                 Effect Ideffect2 = env.lookUpEffect(idExp);
-                Ideffect2.setUse(true);
                 env.updateEffect(idExp,Ideffect2);
 
             }

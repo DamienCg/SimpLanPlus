@@ -98,7 +98,6 @@ public class BlockNode implements Node {
         for(Node stmt: statements)
             errors.addAll(stmt.checkEffect(env));
 
-
         env.exitScope();
         return errors;
     }

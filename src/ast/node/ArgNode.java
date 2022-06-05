@@ -55,7 +55,7 @@ public class ArgNode implements Node{
     public ArrayList<EffectError> checkEffect(EffectEnvironment env) {
         ArrayList<EffectError> errors = new ArrayList<EffectError>();
         // Non ci sono effetti sugli argomenti (Responsabilità del programmatore)
-        Effect effect = new Effect(true,false);
+        Effect effect = new Effect(true);
         env.addDecl(id, effect);
 
         return errors;

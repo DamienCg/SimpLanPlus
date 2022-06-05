@@ -80,6 +80,7 @@ public class DerExpNode extends ExpNode{
             res.add(new SemanticError("variable "+id+" is not defined"));
         else {
             nestingLevel = env.getNestinglevel();
+            entry.setUsedd();
         }
 
         return res;
@@ -91,9 +92,6 @@ public class DerExpNode extends ExpNode{
         Effect effect = env.lookUpEffect(id);
         if(!effect.getIsInizialized()){
             errors.add(new EffectError("variable "+id+" is not initialized"));
-        }
-        else{
-            effect.setUse(true);
         }
         return errors;
     }

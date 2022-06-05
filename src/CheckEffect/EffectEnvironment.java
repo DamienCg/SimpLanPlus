@@ -1,4 +1,7 @@
 package CheckEffect;
+import ast.STentry;
+import util.Environment;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -73,24 +76,13 @@ public class EffectEnvironment {
     }
 
     public void exitScope(){
-        this.printUnusedVariable(this.nestingLevel);
         this.EffectTable.remove(this.nestingLevel);
         this.nestingLevel--;
     }
 
-    public void printUnusedVariable(int nestingLevel){
-        HashMap<String, Effect> scope = EffectTable.get(nestingLevel);
-
-        for (String key : scope.keySet()) {
-            if(!scope.get(key).getUse()){
-                System.out.println("Warning: variable " + key + " in block (nestingLevel: "+nestingLevel+ ") is not used");
-            }
-        }
-    }
 
 
     public static EffectEnvironment maxEffect(EffectEnvironment effect1, EffectEnvironment effect2) {
-       //FINO A QUA è giusto!
         for (HashMap<String, Effect> map : effect1.EffectTable) {
             for (String key : map.keySet()) {
                 Effect ef1 = map.get(key);
@@ -103,5 +95,6 @@ public class EffectEnvironment {
         }
         return effect1;
     }
+
 
 }

@@ -169,7 +169,7 @@ public class DecFunNode implements Node {
 
     public ArrayList<EffectError> CheckEffectCall(EffectEnvironment env, ArrayList<Effect> MyVarInOrder, ArrayList<String> MyIdVarInOrder){
         ArrayList<EffectError> errors = new ArrayList<>();
-        Effect effect = new Effect(true,true);
+        Effect effect = new Effect(true);
         EffectEnvironment precEnv = new EffectEnvironment(env);
         env.addDecl(id,effect);
         env.addNewTable();
@@ -184,7 +184,7 @@ public class DecFunNode implements Node {
                j++;
            }
            else if(ArgList.get(i) instanceof ArgNode d && !d.isVar()){
-               Effect eff = new Effect(true,false);
+               Effect eff = new Effect(true);
                env.addDecl(d.getId(),eff);
            }
         }
