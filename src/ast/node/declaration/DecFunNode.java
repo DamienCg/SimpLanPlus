@@ -14,16 +14,16 @@ import java.util.ArrayList;
 
 public class DecFunNode implements Node {
 
-    private TypeNode type;
-    private String id;
-    private ArrayList<Node> ArgList;
-    private BlockNode block;
-    private ArrayList<Node> returnNodes;
+    private final TypeNode type;
+    private final String id;
+    private final ArrayList<Node> ArgList;
+    private final BlockNode block;
+    private final ArrayList<Node> returnNodes;
     private final String beginFuncLabel;
     private final String endFuncLabel;
-    private final Node functionNode;
 
-    public DecFunNode(Node type, String id, Node block, ArrayList<Node> argList,Node functionNode) {
+
+    public DecFunNode(Node type, String id, Node block, ArrayList<Node> argList) {
         this.type = (TypeNode) type;
         this.id = id;
         this.ArgList = argList;
@@ -31,7 +31,6 @@ public class DecFunNode implements Node {
         this.returnNodes = new ArrayList<>();
         this.beginFuncLabel = LabelManager.freshLabel();
         this.endFuncLabel = LabelManager.endFreshLabel();
-        this.functionNode = functionNode;
     }
 
     public String get_end_fun_label(){
@@ -42,10 +41,6 @@ public class DecFunNode implements Node {
         return type;
     }
 
-    public Node getfunctionNode() {
-        return functionNode;
-    }
-
     public BlockNode getBlock() {
         return block;
     }
@@ -53,7 +48,6 @@ public class DecFunNode implements Node {
     public String getId() {
         return id;
     }
-//TODO FARE RITORNO EFFETTI DA UNA FUNZIONE!
 
     private void getReturnNodes(Node n){
 
@@ -62,7 +56,7 @@ public class DecFunNode implements Node {
             }
 
             if (n instanceof IteNode) {
-                getReturnNodes(((IteNode) n).ifstatement);
+                getReturnNodes(((IteNode) n).thenstatement);
                 getReturnNodes(((IteNode) n).elsestatement);
             }
             if(n instanceof StatementNode){
@@ -88,16 +82,17 @@ public class DecFunNode implements Node {
                 }
             }
         }
-
+        if(type != null) {
             if (type.getType() != "void" && returnNodes.size() == 0) {
                 throw new RuntimeException("Function " + this.id + " must contain return statement");
             }
 
             for (Node returns : returnNodes) {
                 if (!returns.typeCheck().isEqual(type)) {
-                    throw new RuntimeException("Function " + this.id + " must return type " + type.toString());
+                    throw new RuntimeException("Function " + this.id + " must return type " + type.getType());
                 }
             }
+        }
 
             block.typeCheck();
 
@@ -149,7 +144,6 @@ public class DecFunNode implements Node {
         codeGenerated.append("lw $ra 0($sp)\n");
 
         codeGenerated.append("addi $sp $sp ").append(declaration_size + parameter_size + 2).append("//pop declaration ").append(declaration_size).append("\n");
-//      codeGenerated.append("addi $sp $sp ").append(parameter_size).append("// pop parameters").append(parameter_size).append("\n");
 
         codeGenerated.append("pop\n");
         codeGenerated.append("lw $fp 0($sp)\n");
@@ -170,11 +164,9 @@ public class DecFunNode implements Node {
     public ArrayList<EffectError> CheckEffectCall(EffectEnvironment env, ArrayList<Effect> MyVarInOrder, ArrayList<String> MyIdVarInOrder){
         ArrayList<EffectError> errors = new ArrayList<>();
         Effect effect = new Effect(true);
-        EffectEnvironment precEnv = new EffectEnvironment(env);
         env.addDecl(id,effect);
         env.addNewTable();
 
-        ArrayList<String> IdVarInFUN = new ArrayList<>();
         int j = 0;
         for(int i = 0; i < ArgList.size(); i++){
            if(ArgList.get(i) instanceof ArgNode d && d.isVar()){
@@ -199,7 +191,7 @@ public class DecFunNode implements Node {
 
     @Override
     public ArrayList<SemanticError> checkSemantics(Environment env) {
-        ArrayList<SemanticError> errors = new ArrayList<SemanticError>();
+        ArrayList<SemanticError> errors = new ArrayList<>();
         env.setLastFuncDecl(this);
         STentry newEntry = null;
 
@@ -217,7 +209,7 @@ public class DecFunNode implements Node {
             }
         }
 
-        ArrayList<Node> parTypes = new ArrayList<Node>();
+        ArrayList<Node> parTypes = new ArrayList<>();
 
         int oldOffset = env.getOffset();
         env.addNewTable();

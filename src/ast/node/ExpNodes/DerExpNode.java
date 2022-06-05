@@ -9,7 +9,7 @@ import util.SemanticError;
 import java.util.ArrayList;
 
 public class DerExpNode extends ExpNode{
-    private String id;
+    private final String id;
     private STentry entry;
     private int nestingLevel;
 
@@ -19,10 +19,6 @@ public class DerExpNode extends ExpNode{
 
     public String getId() {
         return id;
-    }
-
-    public STentry getEntry() {
-        return entry;
     }
 
     @Override

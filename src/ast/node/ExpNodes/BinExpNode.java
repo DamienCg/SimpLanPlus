@@ -10,9 +10,9 @@ import java.util.ArrayList;
 
 public class BinExpNode extends ExpNode {
 
-    private String op;
-    private Node left;
-    private Node right;
+    private final String op;
+    private final Node left;
+    private final Node right;
 
 
     public BinExpNode(Node left, Node right, String op) {

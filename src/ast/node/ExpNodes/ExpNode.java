@@ -22,7 +22,7 @@ public class ExpNode implements Node {
     @Override
     public String toString() {
         if(exp != null) {
-            return "\nExpNode{" + exp.toString() + "}";
+            return "\nExpNode{ }";
         }
         else return "";
     }

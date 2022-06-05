@@ -14,8 +14,8 @@ import java.util.ArrayList;
 
 public class AssignmentNode implements Node {
 
-    private String id;
-    private Node exp;
+    private final String id;
+    private final Node exp;
     private STentry entry;
     private int currentNL;
 

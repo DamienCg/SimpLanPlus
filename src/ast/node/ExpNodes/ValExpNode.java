@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class ValExpNode extends ExpNode{
 
-    private Integer ValExpNode;
+    private final Integer ValExpNode;
 
     public ValExpNode(int val) {
         this.ValExpNode = val;
@@ -28,7 +28,7 @@ public class ValExpNode extends ExpNode{
 
     @Override
     public ArrayList<EffectError> checkEffect(EffectEnvironment env) {
-        return new ArrayList<EffectError>();
+        return new ArrayList<>();
     }
 
     @Override
@@ -39,6 +39,6 @@ public class ValExpNode extends ExpNode{
     @Override
     public ArrayList<SemanticError> checkSemantics(Environment env) {
 
-        return new ArrayList<SemanticError>();
+        return new ArrayList<>();
     }
 }

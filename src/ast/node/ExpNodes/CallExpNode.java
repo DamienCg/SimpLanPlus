@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class CallExpNode extends ExpNode{
 
-    private Node callExpNode;
+    private final Node callExpNode;
 
     public CallExpNode(Node call){
         callExpNode = call;

@@ -1,7 +1,4 @@
 package CheckEffect;
-import ast.STentry;
-import util.Environment;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -18,19 +15,6 @@ public class EffectEnvironment {
 
     public EffectEnvironment() {
         this(-1);
-    }
-
-    public int getNestingLevel() {
-        return nestingLevel;
-    }
-
-    public Effect getEffect(String id) {
-        for (int i = EffectTable.size() - 1; i >= 0; i--) {
-            if (EffectTable.get(i).containsKey(id)) {
-                return EffectTable.get(i).get(id);
-            }
-        }
-        return null;
     }
 
     public EffectEnvironment(EffectEnvironment env) {

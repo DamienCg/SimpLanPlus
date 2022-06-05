@@ -101,9 +101,9 @@ public class SimpLanPlusVisitorImpl extends SimpLanPlusBaseVisitor<Node> {
         }
         if (ctx.type() != null) { // is TypeNode
             //  DecFunNode(Node type, Node id, Node block, ArrayList<Node> argList)
-            decFunNode = new DecFunNode(visit(ctx.type()), ctx.ID().getText(), visit(ctx.block()), arguments,null);
+            decFunNode = new DecFunNode(visit(ctx.type()), ctx.ID().getText(), visit(ctx.block()), arguments);
         } else { // is VOID
-            decFunNode = new DecFunNode(new TypeNode("void"), ctx.ID().getText(), visit(ctx.block()), arguments,null);
+            decFunNode = new DecFunNode(new TypeNode("void"), ctx.ID().getText(), visit(ctx.block()), arguments);
         }
 
         return decFunNode;

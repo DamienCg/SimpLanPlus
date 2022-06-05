@@ -2,4 +2,4 @@ You had: 0 Lexical errors:
 
 
 You had: 1 Syntax  errors:
-In line 22:0 extraneous input '<EOF>' expecting {'{', '}', 'print', 'return', 'if', ID}
+In line 12:0 extraneous input 'int' expecting {'{', '}', 'print', 'return', 'if', ID}

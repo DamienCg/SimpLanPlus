@@ -16,7 +16,7 @@ public class NegExpNode extends ExpNode{
 
     @Override
     public String toString() {
-        return  "-" + this.toString() ;
+        return  "-" ;
     }
 
     @Override

@@ -16,12 +16,12 @@ import static CheckEffect.EffectEnvironment.maxEffect;
 
 public class IteNode implements Node {
     public Node exp;
-    public Node ifstatement;
+    public Node thenstatement;
     public Node elsestatement;
 
     public IteNode(Node exp, Node ifstatement, Node elsestatement) {
         this.exp = exp;
-        this.ifstatement = ifstatement;
+        this.thenstatement = ifstatement;
         this.elsestatement = elsestatement;
     }
 
@@ -29,16 +29,16 @@ public class IteNode implements Node {
     public String toString() {
         String ret = "if (" + exp.toString() + ") \n";
         if (elsestatement != null) {
-            return ret += ifstatement.toString() + "\n else \n" + elsestatement.toString() + "\n";
+            return ret += thenstatement.toString() + "\n else \n" + elsestatement.toString() + "\n";
         }
         else {
-            return ret += ifstatement.toString() + "\n";
+            return ret += thenstatement.toString() + "\n";
         }
     }
 
     @Override
     public TypeNode typeCheck() {
-        TypeNode thenType = ifstatement.typeCheck();
+        TypeNode thenType = thenstatement.typeCheck();
 
         if(thenType == null)
             throw new RuntimeException("if statement is empty");
@@ -47,7 +47,7 @@ public class IteNode implements Node {
         if (!(exp.typeCheck().isEqual(new TypeNode("bool")))) {
             throw new RuntimeException("Non boolean condition inside if: " + exp.toString());
         }
-        if(ifstatement != null){
+        if(thenstatement != null){
             if(elsestatement != null){
                 TypeNode elseType = elsestatement.typeCheck();
                 if(elseType == null )
@@ -79,8 +79,8 @@ public class IteNode implements Node {
         }
         EffectEnvironment copy_env = new EffectEnvironment(env);
 
-        if(this.ifstatement != null){ //x
-            ret.addAll(this.ifstatement.checkEffect(env));
+        if(this.thenstatement != null){ //x
+            ret.addAll(this.thenstatement.checkEffect(env));
         }
 
         if(this.elsestatement != null){ //y
@@ -110,7 +110,7 @@ public class IteNode implements Node {
         }
         codeGenerated.append("b ").append(end_label).append("\n");
         codeGenerated.append(then_branch).append(":\n");
-        String loaded_th = ifstatement.codeGeneration();
+        String loaded_th = thenstatement.codeGeneration();
         codeGenerated.append(loaded_th).append("\n");
         codeGenerated.append(end_label).append(":\n");
 
@@ -127,14 +127,14 @@ public class IteNode implements Node {
         if(this.exp!=null){
             ret.addAll(this.exp.checkSemantics(env));
         }
-        if(this.ifstatement != null && this.ifstatement instanceof StatementNode s){
+        if(this.thenstatement != null && this.thenstatement instanceof StatementNode s){
             if (s.isBlock()) {
                 env.setIf(true);
             }
-            ret.addAll(this.ifstatement.checkSemantics(env));
+            ret.addAll(this.thenstatement.checkSemantics(env));
         }
         env.setIf(false);
-        if(this.elsestatement != null && this.ifstatement instanceof StatementNode s){
+        if(this.elsestatement != null && this.thenstatement instanceof StatementNode s){
             if (s.isBlock()) {
                 env.setIf(true);
             }

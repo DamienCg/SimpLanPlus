@@ -2,7 +2,6 @@ package ast.node.ExpNodes;
 
 import CheckEffect.EffectEnvironment;
 import CheckEffect.EffectError;
-import ast.node.Node;
 import ast.node.TypeNode;
 import util.Environment;
 import util.SemanticError;
@@ -10,7 +9,7 @@ import java.util.ArrayList;
 
 public class BoolExpNode extends ExpNode{
 
-    private boolean BoolExpNode;
+    private final boolean BoolExpNode;
 
     public BoolExpNode(boolean boolExpNode) {
         BoolExpNode = boolExpNode;
@@ -19,7 +18,7 @@ public class BoolExpNode extends ExpNode{
     @Override
     public String toString() {
         String ret = "";
-        if (BoolExpNode == true)
+        if (BoolExpNode)
             ret += "Bool: true";
          else
             ret += "Bool: false";
@@ -38,13 +37,13 @@ public class BoolExpNode extends ExpNode{
 
     @Override
     public ArrayList<EffectError> checkEffect(EffectEnvironment env) {
-        return new ArrayList<EffectError>();
+        return new ArrayList<>();
     }
 
     @Override
     public ArrayList<SemanticError> checkSemantics(Environment env) {
 
-        return new ArrayList<SemanticError>();
+        return new ArrayList<>();
     }
 
 

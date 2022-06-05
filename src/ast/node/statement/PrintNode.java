@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class PrintNode implements Node {
 
-    private Node exp;
+    private final Node exp;
 
     public PrintNode(Node exp){
         this.exp = (ExpNode) exp;

@@ -59,7 +59,7 @@ public class Main {
                         System.exit(0);
                     }else {
                         String code = ast.codeGeneration();
-                        System.out.println("** Start Program **");
+                        System.out.println("** Compiling... **");
                         Interpreter.run(code);
                     }
 

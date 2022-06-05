@@ -18,7 +18,7 @@ public class NotExpNode extends ExpNode{
 
     @Override
     public String toString() {
-        return "!" + this.toString();
+        return "!";
     }
 
     @Override

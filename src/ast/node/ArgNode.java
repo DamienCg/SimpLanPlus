@@ -10,8 +10,8 @@ import java.util.ArrayList;
 
 public class ArgNode implements Node{
     // arg         : ('var')? type ID;
-    private TypeNode type;
-    private String id;
+    private final TypeNode type;
+    private final String id;
 
 
     ArgNode(Node type, String id, boolean isVar){

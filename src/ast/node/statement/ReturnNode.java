@@ -14,7 +14,6 @@ import java.util.ArrayList;
 public class ReturnNode implements Node {
     private Node exp;
     private DecFunNode parent_f;
-    private int current_nl;
     Boolean is_if = false;
 
 
@@ -82,8 +81,7 @@ public class ReturnNode implements Node {
     @Override
     public ArrayList<SemanticError> checkSemantics(Environment env) {
         ArrayList<SemanticError> ret = new ArrayList<>();
-        this.current_nl = env.getNestinglevel();
-        this.parent_f = env.getLastFuncDecl(); //TODO settato questa prima era getparesntlastfunction
+        this.parent_f = env.getLastFuncDecl();
         this.is_if = env.getIf();
         if(exp != null) {
             return exp.checkSemantics(env);

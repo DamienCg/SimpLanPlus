@@ -15,12 +15,11 @@ import util.SemanticError;
 import java.util.ArrayList;
 
 public class CallNode implements Node {
-    private String id;
+    private final String id;
     private ArrayList<Node> expList;
     private STentry entry;
     private int nestingLevel;
     private DecFunNode f;
-    private boolean isRecursive;
     private int countCall = -1;
 
 
@@ -162,14 +161,7 @@ public class CallNode implements Node {
         ArrayList<SemanticError> ret = new ArrayList<>();
         env.setLastParentFunction(f);
         STentry entry = env.lookUp(id);
-        if(env.getLastFuncDecl() != null) {
-            if (id.equals(env.getLastFuncDecl().getId())) {
-                isRecursive = true;
-            }
-        }
-        else{
-            isRecursive = false;
-        }
+
         this.entry = entry;
         // check if id is already declared
         if (entry == null) {

@@ -12,10 +12,9 @@ import java.util.ArrayList;
 
 public class DecVarNode implements Node {
 
-    private TypeNode type;
-    private String id;
-    private Node exp;
-    private Boolean isInFun = false;
+    private final TypeNode type;
+    private final String id;
+    private final Node exp;
     private STentry entry;
     private int currentNL;
 
@@ -25,14 +24,6 @@ public class DecVarNode implements Node {
         this.exp = exp;
         this.entry = null;
         this.currentNL = 0;
-    }
-
-    public void setInFunction(){
-        this.isInFun = true;
-    }
-
-    public STentry getEntry(){
-        return this.entry;
     }
 
     public String getId(){
