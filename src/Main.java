@@ -58,6 +58,7 @@ public class Main {
                         }
                         System.exit(0);
                     }else {
+                        System.out.println("Start CodGen");
                         String code = ast.codeGeneration();
                         System.out.println("** Compiling... **");
                         Interpreter.run(code);

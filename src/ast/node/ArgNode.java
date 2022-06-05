@@ -21,6 +21,7 @@ public class ArgNode implements Node{
     }
 
     public Boolean isVar(){
+
         return type.getisVar();
     }
 

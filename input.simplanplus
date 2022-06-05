@@ -1,6 +1,25 @@
-{ int a; int b; int c = 1 ;
-     void h(int n, var int x, var int y, var int z){
-          if (n==0) return ; else { x = y ; h(n-1,y,z,x) ;}
-     }
-     h(5,a,b,c) ;
-   }
+{
+
+void f(int x){
+    if(x == 0){
+        print x;
+    }
+    else{
+        f(x-1);
+    }
+}
+
+void g(var int xx1){
+    f(xx1);
+}
+
+void h(var int xx2){
+    xx2 = 2;
+    f(xx2);
+}
+
+
+int q;
+g(q);
+h(q);
+}

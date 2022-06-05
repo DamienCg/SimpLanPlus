@@ -169,11 +169,11 @@ public class DecFunNode implements Node {
 
         int j = 0;
         for(int i = 0; i < ArgList.size(); i++){
-           if(ArgList.get(i) instanceof ArgNode d && d.isVar()){
-               env.addDecl(d.getId(),MyVarInOrder.get(j));
-               Effect eff = env.lookUpEffect(d.getId());
-               eff.setIdRef(MyIdVarInOrder.get(j));
-               j++;
+           if(ArgList.get(i) instanceof ArgNode d && d.isVar() && MyIdVarInOrder.size() > 0 ){
+                   env.addDecl(d.getId(), MyVarInOrder.get(j));
+                   Effect eff = env.lookUpEffect(d.getId());
+                   eff.setIdRef(MyIdVarInOrder.get(j));
+                   j++;
            }
            else if(ArgList.get(i) instanceof ArgNode d && !d.isVar()){
                Effect eff = new Effect(true);

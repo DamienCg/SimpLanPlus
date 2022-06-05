@@ -78,7 +78,8 @@ public class CallNode implements Node {
     @Override
     public ArrayList<EffectError> checkEffect(EffectEnvironment env) {
         ArrayList<EffectError> ret = new ArrayList<>();
-        countCall++;
+
+
 
         ArrowTypeNode t = null;
         if (entry.getType() instanceof ArrowTypeNode)
@@ -99,6 +100,7 @@ public class CallNode implements Node {
             }
         }
 
+
         for (int i =0; i<p.size();i++){
             if (!p.get(i).typeCheck().getisVar()){
                 if (expList.get(i) instanceof DerExpNode d && !env.lookUpEffect(d.getId()).getIsInizialized()) {
@@ -112,11 +114,11 @@ public class CallNode implements Node {
             }
         }
 
-        if(countCall > 0) {
-            this.setcountCall();
+        if (env.isRecursive(id)){
             return ret;
         }
 
+        env.setLastCall(id);
         ret.addAll(f.CheckEffectCall(env,MyVarInOrder,MyIdVarInOrder));
 
         return ret;
@@ -162,12 +164,14 @@ public class CallNode implements Node {
         env.setLastParentFunction(f);
         STentry entry = env.lookUp(id);
 
+
         this.entry = entry;
         // check if id is already declared
         if (entry == null) {
             ret.add(new SemanticError("Undeclared Function " + id));
         } else {
             nestingLevel = env.getNestinglevel();
+            entry.setUsedd();
         }
 
         if (expList != null) {

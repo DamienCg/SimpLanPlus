@@ -6,11 +6,13 @@ public class EffectEnvironment {
 
     private int nestingLevel;
     private final ArrayList<HashMap<String, Effect>> EffectTable;
+    private String lastCall="";
 
 
     public EffectEnvironment(int nestingLevel) {
         this.nestingLevel = nestingLevel;
         this.EffectTable = new ArrayList<>();;
+        this.lastCall = "";
     }
 
     public EffectEnvironment() {
@@ -28,6 +30,7 @@ public class EffectEnvironment {
             }
             this.EffectTable.add(newMap);
         }
+        this.lastCall = env.lastCall;
     }
 
 
@@ -80,5 +83,12 @@ public class EffectEnvironment {
         return effect1;
     }
 
+    public void setLastCall(String lastCall){
+        this.lastCall = lastCall;
+    }
+
+    public boolean isRecursive(String s){
+        	return this.lastCall.equals(s);
+    }
 
 }
