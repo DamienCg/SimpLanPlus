@@ -12,6 +12,7 @@ import ast.node.TypeNode;
 import ast.node.declaration.DecFunNode;
 import util.Environment;
 import util.SemanticError;
+
 import java.util.ArrayList;
 
 public class CallNode implements Node {
@@ -31,7 +32,7 @@ public class CallNode implements Node {
         this.f = null;
     }
 
-    private void setcountCall(){
+    private void setcountCall() {
         this.countCall = 0;
     }
 
@@ -79,28 +80,23 @@ public class CallNode implements Node {
     public ArrayList<EffectError> checkEffect(EffectEnvironment env) {
         ArrayList<EffectError> ret = new ArrayList<>();
 
+        ArrayList<Node> p = f.getArgList();
+        ArrayList<Effect> refIDsEffects = new ArrayList<>();
 
-
-        ArrowTypeNode t = null;
-        if (entry.getType() instanceof ArrowTypeNode)
-            t = (ArrowTypeNode) entry.getType();
-
-        ArrayList<Node> p = t.getParList();
-        ArrayList<Effect> MyVarInOrder = new ArrayList<>();
-        ArrayList<String> MyIdVarInOrder = new ArrayList<>();
-
-
-
-        //for explist
-        for (int i = 0; i < expList.size(); i++) {
-            if (expList.get(i) instanceof DerExpNode) {
-                String id = ((DerExpNode) expList.get(i)).getId();
-                Effect effArg = env.lookUpEffect(id);
-                env.updateEffect(id, effArg);
+        for (int i = 0; i < p.size(); i++) {
+            // Saving var effect entries
+            if (expList.get(i) instanceof DerExpNode d && p.get(i) instanceof ArgNode a && a.isVar()) {
+                String id = d.getId();
+                Effect effArg = env.lookUp(id);
+                System.err.println(effArg.getEffect());
+                refIDsEffects.add(effArg);
+            } else {
+                // Checking effects for expressions
+                ret = expList.get(i).checkEffect(env);
             }
         }
 
-
+        /*
         for (int i =0; i<p.size();i++){
             if (!p.get(i).typeCheck().getisVar()){
                 if (expList.get(i) instanceof DerExpNode d && !env.lookUpEffect(d.getId()).getIsInizialized()) {
@@ -112,14 +108,14 @@ public class CallNode implements Node {
                 MyVarInOrder.add(effArg);
                 MyIdVarInOrder.add(expList.get(i).toString());
             }
-        }
+        }*/
 
-        if (env.isRecursive(id)){
+        if (env.isRecursive(f)) {
             return ret;
         }
+        env.setLastCall(f);
 
-        env.setLastCall(id);
-        ret.addAll(f.CheckEffectCall(env,MyVarInOrder,MyIdVarInOrder));
+        ret.addAll(f.CheckEffectCall(env, refIDsEffects));
 
         return ret;
     }
@@ -172,24 +168,29 @@ public class CallNode implements Node {
         } else {
             nestingLevel = env.getNestinglevel();
             entry.setUsedd();
-        }
 
-        if (expList != null) {
-            for (Node exp : expList) {
-                ret.addAll(exp.checkSemantics(env));
-                entry.setUsedd();
+            if (expList != null) {
+                for (Node exp : expList) {
+                    ret.addAll(exp.checkSemantics(env));
+                    entry.setUsedd();
+                }
+            } else {
+                expList = new ArrayList<>();
             }
-        } else {
-            expList = new ArrayList<>();
+            this.f = new DecFunNode(((ArrowTypeNode) entry.getType()).getF());
         }
-        this.f = env.getLastFuncDecl();
-
         return ret;
     }
 
     String getLabel() {
         ArrowTypeNode d = (ArrowTypeNode) entry.getType();
         return d.getBeginFuncLabel();
+    }
+
+    private ArrowTypeNode getArrowTypeNode() {
+        if (entry.getType() instanceof ArrowTypeNode a)
+            return a;
+        return null;
     }
 }
 

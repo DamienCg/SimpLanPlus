@@ -85,8 +85,7 @@ public class DerExpNode extends ExpNode{
     @Override
     public ArrayList<EffectError> checkEffect(EffectEnvironment env) {
         ArrayList<EffectError> errors = new ArrayList<EffectError>();
-        Effect effect = env.lookUpEffect(id);
-        if(!effect.getIsInizialized()){
+        if (!env.lookUp(id).getEffect()){
             errors.add(new EffectError("variable "+id+" is not initialized"));
         }
         return errors;

@@ -64,13 +64,13 @@ public class DecVarNode implements Node {
 
     @Override
     public ArrayList<EffectError> checkEffect(EffectEnvironment env) {
-        ArrayList<EffectError> errors = new ArrayList<EffectError>();
-        Effect newEffect = new Effect(false);
-        env.addDecl(id, newEffect);
+        Effect e = env.addDecl(id);
+
+        ArrayList<EffectError> errors = new ArrayList<>();
 
         if(this.exp!=null){
-            env.updateEffect(id,new Effect(true));
-            errors.addAll(this.exp.checkEffect(env));
+            errors = exp.checkEffect(env);
+            e.setInitialized();
         }
         return errors;
     }

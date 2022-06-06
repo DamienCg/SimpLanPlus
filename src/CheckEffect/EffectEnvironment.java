@@ -1,4 +1,7 @@
 package CheckEffect;
+import ast.node.declaration.DecFunNode;
+import ast.node.declaration.DecVarNode;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -6,13 +9,13 @@ public class EffectEnvironment {
 
     private int nestingLevel;
     private final ArrayList<HashMap<String, Effect>> EffectTable;
-    private String lastCall="";
+    private DecFunNode lastCall;
 
 
     public EffectEnvironment(int nestingLevel) {
         this.nestingLevel = nestingLevel;
         this.EffectTable = new ArrayList<>();;
-        this.lastCall = "";
+        this.lastCall = null;
     }
 
     public EffectEnvironment() {
@@ -26,7 +29,7 @@ public class EffectEnvironment {
         for (HashMap<String, Effect> map : env.EffectTable) {
             HashMap<String, Effect> newMap = new HashMap<>();
             for (String key : map.keySet()) {
-                newMap.put(key, new Effect(map.get(key)));
+                newMap.put(key, (map.get(key)));
             }
             this.EffectTable.add(newMap);
         }
@@ -40,13 +43,13 @@ public class EffectEnvironment {
         this.EffectTable.add(hm);
     }
 
-    public void addDecl(final String id, Effect st){
-
-        EffectTable.get(this.nestingLevel).put(id, st);
+    public Effect addDecl(final String id){
+        EffectTable.get(this.nestingLevel).put(id, new Effect(id,false));
+        return lookUp(id);
     }
 
 
-    public Effect lookUpEffect(final String id) {
+    public Effect lookUp(final String id) {
         for (int i = this.nestingLevel; i >= 0; i--) {
             HashMap<String, Effect> scope = EffectTable.get(i);
             Effect stEntry = scope.get(id);
@@ -73,7 +76,7 @@ public class EffectEnvironment {
         for (HashMap<String, Effect> map : effect1.EffectTable) {
             for (String key : map.keySet()) {
                 Effect ef1 = map.get(key);
-                Effect ef2 = effect2.lookUpEffect(key);
+                Effect ef2 = effect2.lookUp(key);
                 if (ef2 != null) {
                     Effect ef = Effect.maxEffect(ef1, ef2);
                     effect1.updateEffect(key, ef);
@@ -83,12 +86,15 @@ public class EffectEnvironment {
         return effect1;
     }
 
-    public void setLastCall(String lastCall){
+    public void setLastCall(DecFunNode lastCall){
         this.lastCall = lastCall;
     }
 
-    public boolean isRecursive(String s){
-        	return this.lastCall.equals(s);
+    public boolean isRecursive(DecFunNode s){
+        if (this.lastCall == null) return false;
+        if (this.lastCall.getId().equals(s.getId())) return true;
+        return false;
     }
+
 
 }

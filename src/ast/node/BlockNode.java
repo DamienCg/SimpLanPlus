@@ -80,10 +80,6 @@ public class BlockNode implements Node {
         return new TypeNode("void");
     }
 
-    public int getCurrent_nl(){
-        return current_nl;
-    }
-
     @Override
     public ArrayList<EffectError> checkEffect(EffectEnvironment env) {
         ArrayList<EffectError> errors = new ArrayList<EffectError>();
@@ -94,11 +90,12 @@ public class BlockNode implements Node {
         for (Node decl : declarations)
             errors.addAll(decl.checkEffect(env));
 
-
-        for(Node stmt: statements)
+        for(Node stmt: statements) {
             errors.addAll(stmt.checkEffect(env));
+        }
 
         env.exitScope();
+
         return errors;
     }
 
@@ -206,7 +203,6 @@ public class BlockNode implements Node {
             }
         }
 
-
         if(this.statements != null){
             for(Node stmt: statements){
                 errors.addAll(stmt.checkSemantics(env));
@@ -214,11 +210,6 @@ public class BlockNode implements Node {
         }
         env.exitScope();
         return errors;
-    }
-
-
-    public void addMissingReturnFunctionCode(String missingReturnCode) {
-        this.missingReturnCode = missingReturnCode;
     }
 
     public ArrayList<Node> getDeclarations() {

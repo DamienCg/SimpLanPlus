@@ -33,6 +33,16 @@ public class DecFunNode implements Node {
         this.endFuncLabel = LabelManager.endFreshLabel();
     }
 
+    public DecFunNode(DecFunNode f){
+        this.type = f.type;
+        this.id = f.id;
+        this.ArgList = f.ArgList;
+        this.block = f.block;
+        this.returnNodes = f.returnNodes;
+        this.beginFuncLabel = f.beginFuncLabel;
+        this.endFuncLabel = f.endFuncLabel;
+    }
+
     public String get_end_fun_label(){
         return endFuncLabel;
     }
@@ -161,24 +171,30 @@ public class DecFunNode implements Node {
         return new ArrayList<>();
     }
 
-    public ArrayList<EffectError> CheckEffectCall(EffectEnvironment env, ArrayList<Effect> MyVarInOrder, ArrayList<String> MyIdVarInOrder){
+    public ArrayList<EffectError> CheckEffectCall(EffectEnvironment env, ArrayList<Effect> varEffects) {
+
         ArrayList<EffectError> errors = new ArrayList<>();
-        Effect effect = new Effect(true);
-        env.addDecl(id,effect);
         env.addNewTable();
 
-        int j = 0;
-        for(int i = 0; i < ArgList.size(); i++){
-           if(ArgList.get(i) instanceof ArgNode d && d.isVar() && MyIdVarInOrder.size() > 0 ){
-                   env.addDecl(d.getId(), MyVarInOrder.get(j));
-                   Effect eff = env.lookUpEffect(d.getId());
-                   eff.setIdRef(MyIdVarInOrder.get(j));
-                   j++;
-           }
-           else if(ArgList.get(i) instanceof ArgNode d && !d.isVar()){
-               Effect eff = new Effect(true);
-               env.addDecl(d.getId(),eff);
-           }
+
+        ArrayList<ArgNode> vars = new ArrayList<>();
+        for (Node n:this.ArgList){
+            if (n instanceof ArgNode a && a.isVar()){
+                vars.add(a);
+            }else{
+                if (n instanceof ArgNode a){
+                    env.addDecl(a.getId());
+                    env.lookUp(a.getId()).setInitialized();
+                }
+            }
+        }
+
+        System.err.println("Vars " + vars.size());
+        System.err.println("varEffects " + varEffects.size());
+
+
+        for (int i=0; i<vars.size(); i++){
+            env.addDecl(vars.get(i).getId()).addRef(varEffects.get(i));
         }
 
         if(this.block!=null){
@@ -199,10 +215,9 @@ public class DecFunNode implements Node {
 
         if (entry != null) {
             errors.add(new SemanticError("The name of Function " + id + " is already taken"));
-        }
-
-        else {
+        } else {
             newEntry = new STentry(env.getNestinglevel(),type,1);
+            System.err.println(type.getClass().toString());
             SemanticError error = env.addDecl(id, newEntry);
             if (error != null) {
                 errors.add(error);
@@ -226,6 +241,8 @@ public class DecFunNode implements Node {
         if(newEntry != null)
             newEntry.addType( new ArrowTypeNode(parTypes, type,beginFuncLabel,endFuncLabel) );
 
+        ((ArrowTypeNode) newEntry.getType()).setF(this);
+
         //Check semantics on block
         if(this.block!=null){
             this.block.setIsFunction(true);
@@ -237,6 +254,10 @@ public class DecFunNode implements Node {
 
     public ArrayList<Node> getBlockDeclarations(){
         return block.getDeclarations();
+    }
+
+    public ArrayList<Node> getArgList() {
+        return ArgList;
     }
 
 

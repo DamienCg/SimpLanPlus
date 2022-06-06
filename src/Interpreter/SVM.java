@@ -288,7 +288,8 @@ public class SVM {
     }
 
     private void printStack(){
-        System.out.println("\n\n STACK:");
+        System.out.println("\n\nFP: "+fp);
+        System.out.println("STACK:");
         for(int i = MEMORY_SIZE-1; i > sp ; i--){
             int cellValue;
 

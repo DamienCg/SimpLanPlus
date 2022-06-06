@@ -1,25 +1,4 @@
-{
+{ int a; int b; int c = 1 ;
+     if (c > 1) { b = c ; } else { a = b ; }
+   }
 
-void f(int x){
-    if(x == 0){
-        print x;
-    }
-    else{
-        f(x-1);
-    }
-}
-
-void g(var int xx1){
-    f(xx1);
-}
-
-void h(var int xx2){
-    xx2 = 2;
-    f(xx2);
-}
-
-
-int q;
-g(q);
-h(q);
-}

@@ -3,6 +3,7 @@ import java.util.ArrayList;
 
 import CheckEffect.EffectEnvironment;
 import CheckEffect.EffectError;
+import ast.node.declaration.DecFunNode;
 import util.Environment;
 import util.SemanticError;
 
@@ -12,6 +13,7 @@ public class ArrowTypeNode implements Node {
     private Node ret;
     private String beginFuncLabel;
     private String endFuncLabel;
+    private DecFunNode f;
 
     public ArrowTypeNode (ArrayList<Node> p, Node r, String beginFuncLabel, String endFuncLabel) {
         parlist=p;
@@ -65,4 +67,10 @@ public class ArrowTypeNode implements Node {
         return "";
     }
 
+    public void setF(DecFunNode f) {
+        this.f = new DecFunNode(f);
+    }
+    public DecFunNode getF() {
+        return f;
+    }
 }

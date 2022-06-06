@@ -21,7 +21,6 @@ public class ArgNode implements Node{
     }
 
     public Boolean isVar(){
-
         return type.getisVar();
     }
 
@@ -55,9 +54,7 @@ public class ArgNode implements Node{
     @Override
     public ArrayList<EffectError> checkEffect(EffectEnvironment env) {
         ArrayList<EffectError> errors = new ArrayList<EffectError>();
-        // Non ci sono effetti sugli argomenti (Responsabilità del programmatore)
-        Effect effect = new Effect(true);
-        env.addDecl(id, effect);
+        env.addDecl(id);
 
         return errors;
     }
