@@ -1,5 +1,4 @@
 package ast.node.ExpNodes;
-import CheckEffect.Effect;
 import CheckEffect.EffectEnvironment;
 import CheckEffect.EffectError;
 import ast.STentry;
@@ -42,7 +41,7 @@ public class DerExpNode extends ExpNode{
         if (isVar()){
             codeGenerated.append("//Var loading\n");
             codeGenerated.append("lw $al 0($al) //go up to chain\n".repeat(Math.max(0, nestingLevel - entry.getNestingLevel())));
-            codeGenerated.append("lw $al "+entry.getOffset()+"($al) //get value\n");
+            codeGenerated.append("lw $al ").append(entry.getOffset()).append("($al) //get value\n");
             codeGenerated.append("lw $a0 0($al) //put in $a0 value of Id ").append(id).append("\n");
         }else{
             codeGenerated.append("//Value loading\n");
@@ -84,7 +83,7 @@ public class DerExpNode extends ExpNode{
 //int g = f(s);
     @Override
     public ArrayList<EffectError> checkEffect(EffectEnvironment env) {
-        ArrayList<EffectError> errors = new ArrayList<EffectError>();
+        ArrayList<EffectError> errors = new ArrayList<>();
         if (!env.lookUp(id).getEffect()){
             errors.add(new EffectError("variable "+id+" is not initialized"));
         }

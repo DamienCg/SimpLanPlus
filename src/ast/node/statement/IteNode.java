@@ -1,8 +1,6 @@
 package ast.node.statement;
-import CheckEffect.Effect;
 import CheckEffect.EffectEnvironment;
 import CheckEffect.EffectError;
-import ast.node.BlockNode;
 import ast.node.Node;
 import ast.node.StatementNode;
 import ast.node.TypeNode;
@@ -32,7 +30,7 @@ public class IteNode implements Node {
             return ret += thenstatement.toString() + "\n else \n" + elsestatement.toString() + "\n";
         }
         else {
-            return ret += thenstatement.toString() + "\n";
+            return ret + (thenstatement.toString() + "\n");
         }
     }
 
@@ -61,18 +59,9 @@ public class IteNode implements Node {
         return thenType;
     }
 
-    /*
-    * gamma -| exp: T    gamma -| ifstatement: T1    gamma -| elsestatement: T2
-    * -------------     ------------------  ------------------
-    *  T = bool        T1 = T'    T2 = T'
-    *---------------------------------------------------------
-    * gamma -| if (exp) { ifstatement} else {elsestatement} : T'
-    *
-    * */
-
     @Override
     public ArrayList<EffectError> checkEffect(EffectEnvironment env) {
-        ArrayList<EffectError> ret = new ArrayList<EffectError>();
+        ArrayList<EffectError> ret = new ArrayList<>();
 
         if(this.exp!=null){
             ret.addAll(this.exp.checkEffect(env));
@@ -101,9 +90,6 @@ public class IteNode implements Node {
         codeGenerated.append(exp.codeGeneration()).append("\n");
         codeGenerated.append("bc $a0 ").append(then_branch).append("\n");
 
-        /**
-         * Code generation else
-         */
         if(elsestatement != null){
             String loaded_el = elsestatement.codeGeneration();
             codeGenerated.append(loaded_el);
@@ -113,8 +99,6 @@ public class IteNode implements Node {
         String loaded_th = thenstatement.codeGeneration();
         codeGenerated.append(loaded_th).append("\n");
         codeGenerated.append(end_label).append(":\n");
-
-
         return codeGenerated.toString();
     }
 
@@ -122,7 +106,7 @@ public class IteNode implements Node {
     public ArrayList<SemanticError> checkSemantics(Environment env) {
 
         env.setIf(false);
-        ArrayList<SemanticError> ret = new ArrayList<SemanticError>();
+        ArrayList<SemanticError> ret = new ArrayList<>();
         if(this.exp!=null){
             ret.addAll(this.exp.checkSemantics(env));
         }

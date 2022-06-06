@@ -21,8 +21,6 @@ public class CallNode implements Node {
     private STentry entry;
     private int nestingLevel;
     private DecFunNode f;
-    private int countCall = -1;
-
 
     public CallNode(String id, ArrayList<Node> expList) {
         this.id = id;
@@ -30,10 +28,6 @@ public class CallNode implements Node {
         this.entry = null;
         this.nestingLevel = 0;
         this.f = null;
-    }
-
-    private void setcountCall() {
-        this.countCall = 0;
     }
 
     public String getId() {
@@ -88,35 +82,17 @@ public class CallNode implements Node {
             if (expList.get(i) instanceof DerExpNode d && p.get(i) instanceof ArgNode a && a.isVar()) {
                 String id = d.getId();
                 Effect effArg = env.lookUp(id);
-                System.err.println(effArg.getEffect());
                 refIDsEffects.add(effArg);
             } else {
                 // Checking effects for expressions
                 ret = expList.get(i).checkEffect(env);
             }
         }
-
-        /*
-        for (int i =0; i<p.size();i++){
-            if (!p.get(i).typeCheck().getisVar()){
-                if (expList.get(i) instanceof DerExpNode d && !env.lookUpEffect(d.getId()).getIsInizialized()) {
-                    ret.add(new EffectError(d.getId()+ " is not initialized"));
-                }
-            }
-            else{
-                Effect effArg = env.lookUpEffect(expList.get(i).toString());
-                MyVarInOrder.add(effArg);
-                MyIdVarInOrder.add(expList.get(i).toString());
-            }
-        }*/
-
         if (env.isRecursive(f)) {
             return ret;
         }
         env.setLastCall(f);
-
         ret.addAll(f.CheckEffectCall(env, refIDsEffects));
-
         return ret;
     }
 
@@ -160,7 +136,6 @@ public class CallNode implements Node {
         env.setLastParentFunction(f);
         STentry entry = env.lookUp(id);
 
-
         this.entry = entry;
         // check if id is already declared
         if (entry == null) {
@@ -187,10 +162,5 @@ public class CallNode implements Node {
         return d.getBeginFuncLabel();
     }
 
-    private ArrowTypeNode getArrowTypeNode() {
-        if (entry.getType() instanceof ArrowTypeNode a)
-            return a;
-        return null;
-    }
 }
 

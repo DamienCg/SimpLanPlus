@@ -3,7 +3,7 @@ package CheckEffect;
 
 public class Effect {
 
-    private String id;
+    private final String id;
     private boolean isinizialized = false;
     private Effect idRef = null;
     int nestingLevel;

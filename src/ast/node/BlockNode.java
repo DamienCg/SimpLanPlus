@@ -12,19 +12,16 @@ import java.util.Collection;
 public class BlockNode implements Node {
 
     // I nostri 2 non terminali iniziali
-    private ArrayList<Node> declarations;
-    private ArrayList<Node> statements;
-    private int current_nl;
+    private final ArrayList<Node> declarations;
+    private final ArrayList<Node> statements;
     private boolean isFunction;
-    private boolean isMain;
-    private String missingReturnCode = "";
+    private final boolean isMain;
 
     //Constructors
 
     public BlockNode(ArrayList<Node> declarations, ArrayList<Node> statements, boolean isMain) {
         this.declarations = declarations;
         this.statements = statements;
-        this.current_nl = 0;
         this.isFunction = false;
         this.isMain = isMain;
     }
@@ -33,13 +30,8 @@ public class BlockNode implements Node {
         return statements;
     }
 
-    public boolean isEmpty(){
-        if(statements.size() == 0 && declarations.size() == 0)
-            return true;
-            else
-                return false;
-        }
-        public void setIsFunction(boolean isFunction){
+
+    public void setIsFunction(boolean isFunction){
             this.isFunction = isFunction;
         }
 
@@ -63,16 +55,14 @@ public class BlockNode implements Node {
 
     @Override
     public TypeNode typeCheck() {
-        TypeNode st = null;
-
             if (this.declarations != null) {
                 for (Node decl : declarations) {
-                    st = decl.typeCheck();
+                    decl.typeCheck();
                 }
             }
             if (this.statements != null) {
                 for (Node stmt : statements) {
-                     st = stmt.typeCheck();
+                     stmt.typeCheck();
                 }
 
             }
@@ -150,9 +140,6 @@ public class BlockNode implements Node {
                 codeGenerated.append("subi $sp $fp 1 //Restore stack pointer as before block creation in blockNode\n");
                 codeGenerated.append("lw $fp 0($fp) //Load old $fp pushed \n");
             }
-        }else{
-            //codeGenerated.append(this.missingReturnCode);
-            this.missingReturnCode = "";
         }
 
         if (funDec.size() > 0)
@@ -172,12 +159,10 @@ public class BlockNode implements Node {
 
         if(!isFunction) {
             env.addNewTable();
-            current_nl = env.getNestinglevel();
-
-            env.blockOffset(); // setto l'offset del blocco a -1
+            env.blockOffset(); // setto l'offset del blocco a 1
 
             if (!isMain) {
-                env.decOffset();
+                env.decOffset(); // setto a 2
             }
 
             if(this.declarations != null) {
@@ -187,9 +172,6 @@ public class BlockNode implements Node {
             }
         }
         else{
-            current_nl = env.getNestinglevel();
-            //env.functionOffset(); // setto offset funzione a -2
-
             if(this.declarations != null) {
                 for (Node decl : declarations) {
                     DeclarationNode dec = (DeclarationNode) decl;

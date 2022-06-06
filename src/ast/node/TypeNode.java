@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class TypeNode implements Node {
 //type        : 'int'
 //            | 'bool';
-    private String type;
+    private final String type;
     private boolean isVar;
 
     public TypeNode(String type) {
@@ -46,7 +46,7 @@ public class TypeNode implements Node {
 
     @Override
     public ArrayList<SemanticError> checkSemantics(Environment env) {
-        return new ArrayList<SemanticError>();
+        return new ArrayList<>();
     }
 
     public boolean isEqual(TypeNode typeNode) {
@@ -61,7 +61,7 @@ public class TypeNode implements Node {
 
     @Override
     public ArrayList<EffectError> checkEffect(EffectEnvironment env) {
-        return new ArrayList<EffectError>();
+        return new ArrayList<>();
     }
 
 }

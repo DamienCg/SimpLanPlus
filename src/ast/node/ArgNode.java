@@ -1,6 +1,4 @@
 package ast.node;
-
-import CheckEffect.Effect;
 import CheckEffect.EffectEnvironment;
 import CheckEffect.EffectError;
 import ast.STentry;
@@ -55,7 +53,6 @@ public class ArgNode implements Node{
     public ArrayList<EffectError> checkEffect(EffectEnvironment env) {
         ArrayList<EffectError> errors = new ArrayList<EffectError>();
         env.addDecl(id);
-
         return errors;
     }
 

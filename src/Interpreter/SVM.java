@@ -13,10 +13,8 @@ public class SVM {
 
     private final Instruction[] code;
     private final Memory memory = new Memory(MEMORY_SIZE);
-
     private int ip = 0;                 // instruction pointer, internal register, no write nor read
     private int sp = MEMORY_SIZE;       // stack pointer
-    private int hp = 0;                 // heap pointer read-only
     private int fp = MEMORY_SIZE - 1;    // frame pointer
     private int ra;
     private int al;
@@ -32,7 +30,7 @@ public class SVM {
     public void cpu() {
         while (true) {
             //printStack();
-            if (hp + 1 >= sp) {
+            if (1 >= sp) {
                 System.out.println("\nError: Out of memory");
                 return;
             } else {
@@ -170,8 +168,6 @@ public class SVM {
 
                         case SVMParser.HALT:
                             System.out.println("Halting program...");
-                            //printStack(20);
-                            //System.out.println("\nResult: " + memory.read(sp) + "\n");
 
                             return;
                     }
@@ -237,12 +233,8 @@ public class SVM {
                 return ra;
 
             default:
-                switch (reg.charAt(1)) {
-                    case 'r':
-                        // return r[Integer.parseInt(reg.substring(2))];
-                    case 'a':
-                        return a[Integer.parseInt(reg.substring(2))];
-
+                if (reg.charAt(1) == 'a') {
+                    return a[Integer.parseInt(reg.substring(2))];
                 }
                 break;
         }
@@ -273,34 +265,13 @@ public class SVM {
                 ra = v;
                 break;
             default:
-                switch (reg.charAt(1)) {
-                    case 'r':
-                        // r[Integer.parseInt(reg.substring(2))] = v;
-                        break;
-                    case 'a':
-                        a[Integer.parseInt(reg.substring(2))] = v;
-
-                        break;
+                if (reg.charAt(1) == 'a') {
+                    a[Integer.parseInt(reg.substring(2))] = v;
+                } else {
+                    throw new IllegalStateException("Unexpected value: " + reg.charAt(1));
                 }
                 break;
         }
 
     }
-
-    private void printStack(){
-        System.out.println("\n\nFP: "+fp);
-        System.out.println("STACK:");
-        for(int i = MEMORY_SIZE-1; i > sp ; i--){
-            int cellValue;
-
-            try {
-                cellValue = memory.read(i);
-            } catch (Exception e) {
-                cellValue = -0;
-            }
-            System.out.println("Cell " + i + " : "+ cellValue);
-        }
-        System.out.println("ENDSTACK\n");
-    }
-
 }

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class DeclarationNode implements Node {
     // declaration : decFun
     //            | decVar ;
-    private Node dec;
+    private final Node dec;
 
     public DeclarationNode(Node dec) {
         this.dec = dec;

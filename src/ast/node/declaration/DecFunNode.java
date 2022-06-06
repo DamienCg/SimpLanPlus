@@ -11,6 +11,7 @@ import util.Environment;
 import util.LabelManager;
 import util.SemanticError;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class DecFunNode implements Node {
 
@@ -93,7 +94,7 @@ public class DecFunNode implements Node {
             }
         }
         if(type != null) {
-            if (type.getType() != "void" && returnNodes.size() == 0) {
+            if (!Objects.equals(type.getType(), "void") && returnNodes.size() == 0) {
                 throw new RuntimeException("Error: Function " + this.id + " must contain return statement");
             }
 
@@ -130,7 +131,7 @@ public class DecFunNode implements Node {
             }
         }
         ret += ")\n";
-        return ret += block.toString()+"\n";
+        return ret + (block.toString() + "\n");
     }
 
     @Override
@@ -236,6 +237,7 @@ public class DecFunNode implements Node {
         if(newEntry != null)
             newEntry.addType( new ArrowTypeNode(parTypes, type,beginFuncLabel,endFuncLabel) );
 
+        if(newEntry != null)
         ((ArrowTypeNode) newEntry.getType()).setF(this);
 
         //Check semantics on block

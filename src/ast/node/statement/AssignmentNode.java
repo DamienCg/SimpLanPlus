@@ -1,5 +1,4 @@
 package ast.node.statement;
-
 import CheckEffect.EffectEnvironment;
 import CheckEffect.EffectError;
 import ast.STentry;
@@ -7,7 +6,6 @@ import ast.node.Node;
 import ast.node.TypeNode;
 import util.Environment;
 import util.SemanticError;
-
 import java.util.ArrayList;
 
 public class AssignmentNode implements Node {
@@ -41,11 +39,11 @@ public class AssignmentNode implements Node {
         if (isVar()) {
             codeGenerated.append("//Var loading\n");
             codeGenerated.append("lw $al 0($al) //go up to chain\n".repeat(Math.max(0, this.currentNL - entry.getNestingLevel())));
-            codeGenerated.append("lw $al " + entry.getOffset() + "($al) //put in $a0 value of Id ").append(id).append("\n");
+            codeGenerated.append("lw $al ").append(entry.getOffset()).append("($al) //put in $a0 value of Id ").append(id).append("\n");
             codeGenerated.append("sw $a0 0($al) //put in $a0 value of Id ").append(id).append("\n");
         } else {
             codeGenerated.append("lw $al 0($al) \n".repeat(Math.max(0, this.currentNL - this.entry.getNestingLevel())));
-            codeGenerated.append("addi $al $al" + this.entry.getOffset() + "\n");
+            codeGenerated.append("addi $al $al").append(this.entry.getOffset()).append("\n");
             codeGenerated.append("sw $a0 0($al) // 0($al) = $a0 ").append(id).append("=exp\n");
         }
         return codeGenerated.toString();
@@ -72,11 +70,8 @@ public class AssignmentNode implements Node {
 
     @Override
     public ArrayList<EffectError> checkEffect(EffectEnvironment env) {
-        ArrayList<EffectError> errors = new ArrayList<>();
-
-        errors = exp.checkEffect(env);
+        ArrayList<EffectError>  errors = exp.checkEffect(env);
         env.lookUp(id).setInitialized();
-
         return errors;
     }
 

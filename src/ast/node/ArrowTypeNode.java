@@ -1,6 +1,5 @@
 package ast.node;
 import java.util.ArrayList;
-
 import CheckEffect.EffectEnvironment;
 import CheckEffect.EffectError;
 import ast.node.declaration.DecFunNode;
@@ -9,24 +8,19 @@ import util.SemanticError;
 
 public class ArrowTypeNode implements Node {
 
-    private ArrayList<Node> parlist;
-    private Node ret;
-    private String beginFuncLabel;
-    private String endFuncLabel;
+    private final ArrayList<Node> parlist;
+    private final Node ret;
+    private final String beginFuncLabel;
     private DecFunNode f;
 
     public ArrowTypeNode (ArrayList<Node> p, Node r, String beginFuncLabel, String endFuncLabel) {
         parlist=p;
         ret=r;
         this.beginFuncLabel = beginFuncLabel;
-        this.endFuncLabel = endFuncLabel;
     }
 
     public String getBeginFuncLabel(){
         return beginFuncLabel;
-    }
-    public String getEndFuncLabel(){
-        return endFuncLabel;
     }
 
     public String toString() { //
@@ -47,7 +41,7 @@ public class ArrowTypeNode implements Node {
     @Override
     public ArrayList<SemanticError> checkSemantics(Environment env) {
 
-        return new ArrayList<SemanticError>();
+        return new ArrayList<>();
     }
 
 
@@ -58,7 +52,7 @@ public class ArrowTypeNode implements Node {
 
     @Override
     public ArrayList<EffectError> checkEffect(EffectEnvironment env) {
-        return new ArrayList<EffectError>();
+        return new ArrayList<>();
     }
 
 

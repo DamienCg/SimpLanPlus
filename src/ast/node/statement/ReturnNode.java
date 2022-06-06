@@ -46,7 +46,7 @@ public class ReturnNode implements Node {
     public String toString() {
      String ret = "return";
         if(exp != null) {
-         ret += " " + exp.toString();
+         ret += " " + exp;
         }
      return ret + ";";
     }

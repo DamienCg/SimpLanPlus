@@ -55,9 +55,10 @@ public class DecVarNode implements Node {
 
     @Override
     public String toString() {
-       if (exp != null)
-           return type.toString() + " " + id + " = " + exp.toString() + ";";
-       else
+       if (exp != null) {
+           String s = type.toString() + " " + id + " = " + exp.toString() + ";";
+           return s;
+       } else
            return type.toString() + " " + id + ";";
 
     }
@@ -79,7 +80,7 @@ public class DecVarNode implements Node {
     public ArrayList<SemanticError> checkSemantics(Environment env) {
 
 
-        ArrayList<SemanticError> errors = new ArrayList<SemanticError>();
+        ArrayList<SemanticError> errors = new ArrayList<>();
 
         if(this.exp!=null)
             errors.addAll(this.exp.checkSemantics(env));

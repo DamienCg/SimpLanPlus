@@ -21,7 +21,7 @@ public class SimpLanPlusVisitorImpl extends SimpLanPlusBaseVisitor<Node> {
     public Node visitBlock(SimpLanPlusParser.BlockContext ctx) {
         BlockNode ret;
         ArrayList<Node> declarations = new ArrayList<Node>();
-        ArrayList<Node> statements = new ArrayList<Node>();
+        ArrayList<Node> statements = new ArrayList<>();
 
 
         if (ctx.declaration() != null) {
@@ -56,13 +56,6 @@ public class SimpLanPlusVisitorImpl extends SimpLanPlusBaseVisitor<Node> {
 
     @Override
     public Node visitStatement(SimpLanPlusParser.StatementContext ctx) {
-        //statement   : assignment ';'
-        //      | print ';'
-        //       | ret ';'
-        //      | ite
-        //        | call ';'
-        //        | block;
-        //      ALL CASES IS LOGIC OR
         StatementNode statementNode;
 
         if (ctx.assignment() != null) {

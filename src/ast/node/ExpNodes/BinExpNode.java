@@ -164,7 +164,7 @@ public class BinExpNode extends ExpNode {
 
     @Override
     public ArrayList<SemanticError> checkSemantics(Environment env) {
-        ArrayList<SemanticError> ret = new ArrayList<SemanticError>();
+        ArrayList<SemanticError> ret = new ArrayList<>();
 
         if(this.left!=null) {
             ret.addAll(left.checkSemantics(env));

@@ -1,6 +1,5 @@
 // Generated from C:/Users/damie/Documents/GitHub/SimpLanPlus/src/Lexer\SimpLanPlus.g4 by ANTLR 4.9.2
 package ast;
-
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
