@@ -48,12 +48,8 @@ public class Main {
                     }
                     System.exit(0);
                 } else {
-                    System.out.println("Semantic check passed");
-                    System.out.println("Type checking...");
                     ast.typeCheck();
-                    System.out.println("Type checking passed");
                     EffectEnvironment envEffect = new EffectEnvironment();
-                    System.out.println("Checking effects...");
                     ArrayList<EffectError> myEffectErrors = ast.checkEffect(envEffect);
                     if (myEffectErrors.size() >= 1) {
                         for (EffectError error : myEffectErrors) {
@@ -61,9 +57,7 @@ public class Main {
                         }
                         System.exit(0);
                     }else {
-                        System.out.println("Start CodGen");
                         String code = ast.codeGeneration();
-                        System.out.println("** Compiling... **");
                         Interpreter.run(code);
                     }
 

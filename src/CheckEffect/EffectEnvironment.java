@@ -1,6 +1,5 @@
 package CheckEffect;
 import ast.node.declaration.DecFunNode;
-import ast.node.declaration.DecVarNode;
 
 import java.util.ArrayList;
 import java.util.HashMap;

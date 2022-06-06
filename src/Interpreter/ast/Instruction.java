@@ -44,9 +44,5 @@ public class Instruction {
     public String getArg3(){
         return arg3;
     }
-
-    public void setCode(int code) {
-        this.code = code;
-    }
-
+    
 }

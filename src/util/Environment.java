@@ -2,6 +2,7 @@ package util;
 import java.util.ArrayList;
 import java.util.HashMap;
 import ast.*;
+import ast.node.TypeNode;
 import ast.node.declaration.DecFunNode;
 
 
@@ -115,7 +116,12 @@ public class Environment {
 		HashMap<String, STentry> scope = symTable.get(this.nestingLevel);
 		for(String key : scope.keySet()){
 			if(scope.get(key).isUsed() == false){
-				System.err.println("Warning! Variable " + key + " is not used");
+				if((scope.get(key).getType() instanceof TypeNode)) {
+					System.out.println("\033[0;33m" + "Warning! Variable " + key + " is not used" + "\033[0m");
+				}
+				else{
+					System.out.println("\033[0;33m" + "Warning! Function " + key + " is not used" + "\033[0m");
+				}
 			}
 		}
 	}

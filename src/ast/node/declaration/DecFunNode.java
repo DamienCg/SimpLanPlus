@@ -88,18 +88,18 @@ public class DecFunNode implements Node {
         if(type == null){
             for (Node returns: returnNodes){
                 if (!returns.typeCheck().isEqual(new TypeNode("void"))){
-                    throw new RuntimeException("Function " + this.id + " must contain void returns" );
+                    throw new RuntimeException("Error: Function " + this.id + " must contain void returns" );
                 }
             }
         }
         if(type != null) {
             if (type.getType() != "void" && returnNodes.size() == 0) {
-                throw new RuntimeException("Function " + this.id + " must contain return statement");
+                throw new RuntimeException("Error: Function " + this.id + " must contain return statement");
             }
 
             for (Node returns : returnNodes) {
                 if (!returns.typeCheck().isEqual(type)) {
-                    throw new RuntimeException("Function " + this.id + " must return type " + type.getType());
+                    throw new RuntimeException("Error: Function " + this.id + " must return type " + type.getType());
                 }
             }
         }
@@ -189,10 +189,6 @@ public class DecFunNode implements Node {
             }
         }
 
-        System.err.println("Vars " + vars.size());
-        System.err.println("varEffects " + varEffects.size());
-
-
         for (int i=0; i<vars.size(); i++){
             env.addDecl(vars.get(i).getId()).addRef(varEffects.get(i));
         }
@@ -217,7 +213,6 @@ public class DecFunNode implements Node {
             errors.add(new SemanticError("The name of Function " + id + " is already taken"));
         } else {
             newEntry = new STentry(env.getNestinglevel(),type,1);
-            System.err.println(type.getClass().toString());
             SemanticError error = env.addDecl(id, newEntry);
             if (error != null) {
                 errors.add(error);

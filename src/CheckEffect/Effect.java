@@ -6,7 +6,7 @@ public class Effect {
     private String id;
     private boolean isinizialized = false;
     private Effect idRef = null;
-    int nestingLevel; // NON LO USO ????
+    int nestingLevel;
 
     public Effect(String id, boolean b) {
         this.id = id;
@@ -47,12 +47,6 @@ public class Effect {
         this.isinizialized = ref.isinizialized;
     }
 
-    public void max(Effect e){
-        this.isinizialized = this.isinizialized || e.isinizialized;
-        if (this.isinizialized) {
-            this.idRef.isinizialized = this.idRef.isinizialized || e.idRef.isinizialized ;
-        }
-    }
 
     public String toString() {
         if (this.idRef != null) {
