@@ -108,10 +108,9 @@ public class CallNode implements Node {
 
         for (int i = blockDeclarations.size() - 1; i >= 0; i--) {
             codeGenerated.append(blockDeclarations.get(i).codeGeneration());
-            codeGenerated.append("push $a0\n");
+
         }
         for (int i = expList.size() - 1; i >= 0; i--) {
-
             Node n = expList.get(i);
             if (n instanceof DerExpNode d && ((TypeNode) p.get(i)).getisVar()) {
                 codeGenerated.append(d.codeGenVar());
@@ -120,7 +119,8 @@ public class CallNode implements Node {
             }
             codeGenerated.append("push $a0\n");
         }
-        codeGenerated.append("push 0\n");
+
+        codeGenerated.append("push 0 \n");
 
         codeGenerated.append("mv $fp $al //put in $al actual fp\n");
 

@@ -47,8 +47,7 @@ public class DecVarNode implements Node {
     public String codeGeneration() {
 
         StringBuilder codeGenerated = new StringBuilder();
-        codeGenerated.append("li $a0 0\n");
-        codeGenerated.append("push $a0\n");
+        codeGenerated.append("push 0\n");
         return codeGenerated.toString();
 
     }

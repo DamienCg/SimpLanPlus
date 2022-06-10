@@ -156,6 +156,7 @@ public class DecFunNode implements Node {
         codeGenerated.append("lw $fp 0($fp)\n");
         codeGenerated.append("lw $ra 0($sp)\n");
 
+
         codeGenerated.append("addi $sp $sp ").append(declaration_size + parameter_size + 2).append("//pop declaration ").append(declaration_size).append("\n");
 
         codeGenerated.append("pop\n");
