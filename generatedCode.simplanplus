@@ -1,26 +1,13 @@
-li $a0 0
-push $a0
-
 push 0
 mv $sp $fp //Load new $fp
-li $a0 1
-
-mv $fp $al
-addi $al $al1
-sw $a0 0($al) // 0($al) = $a0 z=exp
-
 push $fp
-mv $fp $al //put in $al actual fp
-addi $a0 $al 1 //put in $a0 value of Id z
+li $a0 30
+
 push $a0
 push 0
 mv $fp $al //put in $al actual fp
 push $al
 jal  Function0// jump to start of function and put in $ra next instruction
-
-mv $fp $al //put in $al actual fp
-//Value loading
-lw $a0 1($al) //put in $a0 value of Id z
 
 print $a0
 
@@ -32,31 +19,62 @@ mv $sp $fp
 push $ra
 mv $fp $al //put in $al actual fp
 //Value loading
-lw $al 0($al) //go up to chain
-lw $a0 1($al) //put in $a0 value of Id z
+lw $a0 2($al) //put in $a0 value of Id n
+push $a0 // push e1
+li $a0 1
+lw $a2 0($sp) //take e2 and $a2 take e1
+pop // remove e1 from the stack to preserve stack
+le $a0 $a2 $a0 // $a0 = $a2 <= $a0
 
-print $a0
-
-li $a0 2
-
-mv $fp $al
-//Var loading
-lw $al 2($al) //put in $a0 value of Id x
-sw $a0 0($al) //put in $a0 value of Id x
-
+bc $a0 LABELthen1
+b LABELendIf2
+LABELthen1:
 mv $fp $al //put in $al actual fp
 //Value loading
-lw $al 0($al) //go up to chain
-lw $a0 1($al) //put in $a0 value of Id z
+lw $a0 2($al) //put in $a0 value of Id n
 
-print $a0
+b endFunction0
 
+LABELendIf2:
+
+push $fp
 mv $fp $al //put in $al actual fp
-//Var loading
-lw $al 2($al) //get value
-lw $a0 0($al) //put in $a0 value of Id x
+//Value loading
+lw $a0 2($al) //put in $a0 value of Id n
+push $a0 // push e1
+li $a0 1
+lw $a2 0($sp) //take e2 and $a2 take e1
+pop // remove e1 from the stack to preserve stack
+sub $a0 $a2 $a0 // a0 = t1-a0
 
-print $a0
+push $a0
+push 0
+mv $fp $al //put in $al actual fp
+lw $al 0($al) //go up to chain
+push $al
+jal  Function0// jump to start of function and put in $ra next instruction
+push $a0 // push e1
+push $fp
+mv $fp $al //put in $al actual fp
+//Value loading
+lw $a0 2($al) //put in $a0 value of Id n
+push $a0 // push e1
+li $a0 2
+lw $a2 0($sp) //take e2 and $a2 take e1
+pop // remove e1 from the stack to preserve stack
+sub $a0 $a2 $a0 // a0 = t1-a0
+
+push $a0
+push 0
+mv $fp $al //put in $al actual fp
+lw $al 0($al) //go up to chain
+push $al
+jal  Function0// jump to start of function and put in $ra next instruction
+lw $a2 0($sp) //take e2 and $a2 take e1
+pop // remove e1 from the stack to preserve stack
+add $a0 $a2 $a0 // a0 = t1+a0
+
+b endFunction0
 
 
 endFunction0:
@@ -68,6 +86,6 @@ pop
 lw $fp 0($sp)
 pop
 jr $ra
-// END OF f
+// END OF Fibonacci
 
 //Ending function.

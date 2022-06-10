@@ -1,12 +1,11 @@
 {
-    int z = 1;
+    int Fibonacci(int n)
+    {
+        if (n <= 1)
+            return n;
 
-    void f(var int x) {
-        print z;
-        x = 2;
-        print z;
-        print x;
+        return Fibonacci(n-1) + Fibonacci(n-2);
     }
-    f(z);
-    print(z);
+
+    print Fibonacci(30);
 }
