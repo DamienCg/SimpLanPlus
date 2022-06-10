@@ -1,6 +1,7 @@
 package ast.node.statement;
 import CheckEffect.EffectEnvironment;
 import CheckEffect.EffectError;
+import ast.node.BlockNode;
 import ast.node.Node;
 import ast.node.StatementNode;
 import ast.node.TypeNode;
@@ -37,9 +38,6 @@ public class IteNode implements Node {
     @Override
     public TypeNode typeCheck() {
         TypeNode thenType = thenstatement.typeCheck();
-
-        if(thenType == null)
-            throw new RuntimeException("if statement is empty");
 
 
         if (!(exp.typeCheck().isEqual(new TypeNode("bool")))) {

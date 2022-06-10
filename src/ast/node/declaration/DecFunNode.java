@@ -60,6 +60,8 @@ public class DecFunNode implements Node {
         return id;
     }
 
+    /*
+    * Push in returnNodes all return statement in function ID */
     private void getReturnNodes(Node n){
 
             if (n instanceof ReturnNode) {
@@ -172,11 +174,11 @@ public class DecFunNode implements Node {
         return new ArrayList<>();
     }
 
+    /*Open new table before ARG so my nesting level in fuction body and ARGnode is the same*/
     public ArrayList<EffectError> CheckEffectCall(EffectEnvironment env, ArrayList<Effect> varEffects) {
 
         ArrayList<EffectError> errors = new ArrayList<>();
         env.addNewTable();
-
 
         ArrayList<ArgNode> vars = new ArrayList<>();
         for (Node n:this.ArgList){

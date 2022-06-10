@@ -53,8 +53,13 @@ public class BlockNode implements Node {
     }
     //Stampo i rispettivi sottoalberi dx e sx
 
+
+    // Un blocco restituisce ret e non sempre void perchè tutto è un blocco! eg:
+    // if(e){print x;} else {return 3;} se blocco restituisce sempre void questo sarebbe un errore!
     @Override
     public TypeNode typeCheck() {
+        TypeNode ret = new TypeNode("void");
+
             if (this.declarations != null) {
                 for (Node decl : declarations) {
                     decl.typeCheck();
@@ -62,12 +67,14 @@ public class BlockNode implements Node {
             }
             if (this.statements != null) {
                 for (Node stmt : statements) {
-                     stmt.typeCheck();
+                    TypeNode tmp = stmt.typeCheck();
+                    if(!tmp.isEqual(ret))
+                        ret = tmp;
+
                 }
 
             }
-
-        return new TypeNode("void");
+        return ret;
     }
 
     @Override

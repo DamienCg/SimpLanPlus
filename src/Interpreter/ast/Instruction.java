@@ -1,7 +1,7 @@
 package Interpreter.ast;
 
 public class Instruction {
-    private int code;
+    private final int code;
     private final String arg1;
     private final String arg2;
     private final String arg3;
