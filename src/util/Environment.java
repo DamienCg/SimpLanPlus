@@ -11,7 +11,7 @@ public class Environment {
 	private final ArrayList<HashMap<String, STentry>> symTable;
 	private int nestingLevel;
 	private int offset;
-	private DecFunNode lastParentFunction = null;
+
 	private DecFunNode lastFuncDecl = null;
 	private Boolean isIf = false;
 
@@ -22,10 +22,6 @@ public class Environment {
 	}
 
 
-
-	public void setLastParentFunction(DecFunNode parentFunction){
-		this.lastParentFunction = parentFunction;
-	}
 
 	public DecFunNode getLastFuncDecl(){
 		return this.lastFuncDecl;
@@ -66,7 +62,7 @@ public class Environment {
 		this.offset = 1;
 	}
 
-	public int decOffset(){
+	public int plusOffset(){
 		int tmp = this.offset;
 		this.offset += 1;
 		return tmp;
@@ -75,7 +71,6 @@ public class Environment {
 	public int getOffset(){
 		return this.offset;
 	}
-
 	public void setOffset(int offset){
 		this.offset = offset;
 	}

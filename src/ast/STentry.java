@@ -14,7 +14,7 @@ public class STentry {
     this.offset=os;
   }
 
-  public void setUsedd() {
+  public void setUsed() {
     this.isUsed = true;
   }
 

@@ -103,21 +103,24 @@ public class CallNode implements Node {
         codeGenerated.append("push $fp\n");
 
         ArrayList<Node> blockDeclarations = f.getBlockDeclarations();
+        ArrowTypeNode t = (ArrowTypeNode) entry.getType();
+        ArrayList<Node> p = t.getParList();
 
         for (int i = blockDeclarations.size() - 1; i >= 0; i--) {
             codeGenerated.append(blockDeclarations.get(i).codeGeneration());
             codeGenerated.append("push $a0\n");
         }
         for (int i = expList.size() - 1; i >= 0; i--) {
+
             Node n = expList.get(i);
-            if (n instanceof DerExpNode d) {
+            if (n instanceof DerExpNode d && ((TypeNode) p.get(i)).getisVar()) {
                 codeGenerated.append(d.codeGenVar());
             } else {
                 codeGenerated.append(expList.get(i).codeGeneration()).append("\n");
             }
             codeGenerated.append("push $a0\n");
         }
-        codeGenerated.append("push 0\n"); //FONDAMENTALE!
+        codeGenerated.append("push 0\n");
 
         codeGenerated.append("mv $fp $al //put in $al actual fp\n");
 
@@ -133,7 +136,7 @@ public class CallNode implements Node {
     @Override
     public ArrayList<SemanticError> checkSemantics(Environment env) {
         ArrayList<SemanticError> ret = new ArrayList<>();
-        env.setLastParentFunction(f);
+
         STentry entry = env.lookUp(id);
 
         this.entry = entry;
@@ -142,17 +145,20 @@ public class CallNode implements Node {
             ret.add(new SemanticError("Undeclared Function " + id));
         } else {
             nestingLevel = env.getNestinglevel();
-            entry.setUsedd();
+            entry.setUsed();
 
             if (expList != null) {
                 for (Node exp : expList) {
                     ret.addAll(exp.checkSemantics(env));
-                    entry.setUsedd();
+                    entry.setUsed();
                 }
             } else {
                 expList = new ArrayList<>();
             }
-            this.f = new DecFunNode(((ArrowTypeNode) entry.getType()).getF());
+
+            if (entry.getType() instanceof ArrowTypeNode) {
+                this.f = new DecFunNode(((ArrowTypeNode) entry.getType()).getF());
+            }
         }
         return ret;
     }

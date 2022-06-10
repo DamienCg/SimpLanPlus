@@ -1,5 +1,11 @@
-You had: 0 Lexical errors:
+You had: 2 Lexical errors:
+In line 2:13 token recognition error at: '.'
+In line 3:12 token recognition error at: '.'
 
 
-You had: 1 Syntax  errors:
-In line 5:5 mismatched input 'f' expecting <EOF>
+You had: 5 Syntax  errors:
+In line 2:7 no viable alternative at input 'doublepi'
+In line 2:14 extraneous input '14' expecting ';'
+In line 3:7 no viable alternative at input 'doublee'
+In line 3:13 extraneous input '71' expecting ';'
+In line 4:7 no viable alternative at input 'doublea'

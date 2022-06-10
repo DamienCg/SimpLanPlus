@@ -30,25 +30,23 @@ public class DerExpNode extends ExpNode{
         return this.entry.getType().typeCheck();
     }
 
+
     @Override
     public String codeGeneration() {
 
         StringBuilder codeGenerated = new StringBuilder();
 
-
-
         codeGenerated.append("mv $fp $al //put in $al actual fp\n");
         if (isVar()){
             codeGenerated.append("//Var loading\n");
             codeGenerated.append("lw $al 0($al) //go up to chain\n".repeat(Math.max(0, nestingLevel - entry.getNestingLevel())));
-            codeGenerated.append("lw $al ").append(entry.getOffset()).append("($al) //get value\n");
+            codeGenerated.append("lw $al ").append(entry.getOffset()).append("($al) //get value\n"); //mette in al l'indirizzo della var parametro attuale
             codeGenerated.append("lw $a0 0($al) //put in $a0 value of Id ").append(id).append("\n");
         }else{
             codeGenerated.append("//Value loading\n");
             codeGenerated.append("lw $al 0($al) //go up to chain\n".repeat(Math.max(0, nestingLevel - entry.getNestingLevel())));
             codeGenerated.append("lw $a0 ").append(entry.getOffset()).append("($al) //put in $a0 value of Id ").append(id).append("\n");
         }
-
 
         return codeGenerated.toString();
 
@@ -75,7 +73,7 @@ public class DerExpNode extends ExpNode{
             res.add(new SemanticError("variable "+id+" is not defined"));
         else {
             nestingLevel = env.getNestinglevel();
-            entry.setUsedd();
+            entry.setUsed();
         }
 
         return res;
@@ -89,6 +87,8 @@ public class DerExpNode extends ExpNode{
         }
         return errors;
     }
+
+
 
     public boolean isVar(){
         return ((TypeNode)entry.getType()).getisVar();

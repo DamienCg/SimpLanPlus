@@ -159,10 +159,10 @@ public class BlockNode implements Node {
 
         if(!isFunction) {
             env.addNewTable();
-            env.blockOffset(); // setto l'offset del blocco a 1
+            env.blockOffset(); // setto l'offset del blocco a 1 (sono  nel Main)
 
             if (!isMain) {
-                env.decOffset(); // setto a 2
+                env.plusOffset(); // aumento offset di 1 (ramo if else)
             }
 
             if(this.declarations != null) {

@@ -60,7 +60,7 @@ public class ArgNode implements Node{
     public ArrayList<SemanticError> checkSemantics(Environment env) {
 
         ArrayList<SemanticError> errors = new ArrayList<SemanticError>();
-        STentry entry = new STentry(env.getNestinglevel(),type,env.decOffset());
+        STentry entry = new STentry(env.getNestinglevel(),type,env.plusOffset());
         SemanticError error = env.addDecl(id, entry);
         if (error != null) {
             errors.add(error);

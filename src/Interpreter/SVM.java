@@ -101,7 +101,7 @@ public class SVM {
                             regStore(arg1, value);
                             break;
                         case SVMParser.LOADW:
-
+                            //printStack();
                             offset = Integer.parseInt(arg2);
                             address = offset + regRead(arg3);
                             regStore(arg1, memory.read(address));
@@ -274,4 +274,21 @@ public class SVM {
         }
 
     }
+    private void printStack(){
+        System.out.println("\n\nFP: "+fp);
+        System.out.println("STACK:");
+        for(int i = MEMORY_SIZE-1; i > sp ; i--){
+            int cellValue;
+
+            try {
+                cellValue = memory.read(i);
+            } catch (Exception e) {
+                cellValue = -0;
+            }
+            System.out.println("Cell " + i + " : "+ cellValue);
+        }
+        System.out.println("ENDSTACK\n");
+    }
+
 }
+

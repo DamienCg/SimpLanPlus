@@ -86,7 +86,7 @@ public class DecVarNode implements Node {
             errors.addAll(this.exp.checkSemantics(env));
 
 
-        int new_offset = env.decOffset(); // return offset decremented by 1
+        int new_offset = env.plusOffset(); // return offset ++
         STentry newEntry = new STentry(env.getNestinglevel(), type, new_offset);
         SemanticError error = env.addDecl(id, newEntry);
 
@@ -109,7 +109,7 @@ public class DecVarNode implements Node {
         codeGenerated.append(exp.codeGeneration()).append("\n");
         codeGenerated.append("mv $fp $al\n");
         codeGenerated.append("lw $al 0($al) \n".repeat(Math.max(0,this.currentNL-this.entry.getNestingLevel())));
-        codeGenerated.append("addi $al $al" + this.entry.getOffset() + "\n");
+        codeGenerated.append("addi $al $al").append(this.entry.getOffset()).append("\n");
         codeGenerated.append("sw $a0 0($al) // 0($al) = $a0 ").append(id).append("=exp\n");
         return codeGenerated.toString();
     }
